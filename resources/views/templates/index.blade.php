@@ -24,11 +24,11 @@
 
             @if($templates->isNotEmpty())
                 <!-- Filter/Sort Section (Optional Enhancement) -->
-                <div class="mb-8 flex justify-center">
+                <!-- <div class="mb-8 flex justify-center">
                     <div class="bg-white rounded-full px-6 py-3 shadow-md border border-gray-200">
                         <span class="text-gray-600 font-medium">{{ $templates->count() }} Professional Templates Available</span>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Templates Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -44,12 +44,6 @@
                                          class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-110"
                                          loading="lazy">
                                     
-                                    <!-- Premium Badge (if needed) -->
-                                    <div class="absolute top-3 right-3">
-                                        <span class="bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow-md">
-                                            PRO
-                                        </span>
-                                    </div>
                                 </div>
                                 
                                 <!-- Hover Overlay with Actions -->
@@ -89,7 +83,7 @@
                                 <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors duration-300">
                                     {{ $template->name }}
                                 </h3>
-                                <div class="flex items-center justify-between">
+                                <!-- <div class="flex items-center justify-between">
                                     <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
                                         Professional
                                     </span>
@@ -97,9 +91,9 @@
                                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                                             <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
                                         </svg>
-                                        <span class="text-xs text-gray-600 ml-1">Popular</span>
+                                       
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     @endforeach

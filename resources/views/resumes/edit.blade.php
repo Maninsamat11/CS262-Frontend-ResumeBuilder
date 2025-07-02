@@ -114,9 +114,11 @@
                                                 <input type="text" x-model="contact.phone" placeholder="Enter your phone number" class="w-full p-3 border border-gray-300 rounded-lg ...">
                                             </div>
                                         </div>
+                                    
                                         <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
-                                            <input type="text" x-model="contact.address" placeholder="Enter your address" class="w-full p-3 border border-gray-300 rounded-lg ...">
+                                            <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                                            <input type="text" id="address" x-model="contact.address" placeholder="your email address" 
+                                                class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 ...">
                                         </div>
                                         <div>
                                             <label class="block text-sm font-medium text-gray-700 mb-2">Professional Summary</label>

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Storage;
 
 class ResumeController extends Controller
 {
+
+    
     public function store(Request $request)
 {
     $request->validate([
