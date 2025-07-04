@@ -1,52 +1,69 @@
 <x-app-layout>
     <div x-data="resumeEditor()" x-init="initializeData()">
         
-        <!-- Main Container -->
-        <div class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
-            <!-- Header Section -->
-            <div class="bg-gradient-to-r from-red-600 to-red-700 shadow-lg">
-                <div class="max-w-6xl mx-auto px-4 py-6">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                                </svg>
+            <!-- Main Container -->
+            <div class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+                                           
+                                            <!-- Header Section -->
+                            <div class="bg-gradient-to-r from-red-600 to-red-700 shadow-lg">
+                                <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                                    <div class="flex justify-between items-center">
+                                        <!-- Left Side: Title -->
+                                        <div class="flex items-center space-x-4">
+                                            <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <div class="text-red-100 text-sm font-medium uppercase tracking-wider">Editor</div>
+                                                <h1 class="text-2xl font-bold text-white">Resume Editor</h1>
+                                            </div>
+                                        </div>
+
+                                        <!-- Right Side: Action Buttons -->
+                                        <div class="flex items-center space-x-3">
+
+                                            <!-- Import Data Button -->
+                                            <button @click="openImportModal = true" type="button" class="bg-white/10 hover:bg-white/20 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 border border-white/20 flex items-center space-x-2">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                                                </svg>
+                                                <span>Import Data</span>
+                                            </button>
+
+                                            <!-- Change Template Button -->
+                                            <button @click="openTemplateModal = true" type="button" class="bg-white/10 hover:bg-white/20 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2">
+                                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c.251.023.501.05.75.082m.75.082a24.301 24.301 0 004.5 0m0 0a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-6a2.25 2.25 0 01-2.25-2.25v-7.5a2.25 2.25 0 012.25-2.25z" />
+                                                </svg>
+                                                <span>Change Template</span>
+                                            </button>
+
+                                            <!-- Preview Button (inside a form) -->
+                                            <form x-ref="previewForm" action="{{ route('resumes.preview', $resume) }}" method="POST" target="_blank">
+                                                @csrf
+                                                <input type="hidden" name="payload" :value="JSON.stringify({
+                                                    name: resumeName,
+                                                    template_id: contact.template_id,
+                                                    contact: contact,
+                                                    experiences: experiences,
+                                                    education: education,
+                                                    skills: skills
+                                                })">
+                                                <button @click="$refs.previewForm.submit()" type="button" class="bg-gray-900 hover:bg-black text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                                    </svg>
+                                                    <span>Preview</span>
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <div class="text-red-100 text-sm font-medium uppercase tracking-wider">Editor</div>
-                                <h1 class="text-2xl font-bold text-white">Resume Editor</h1>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <button @click="openImportModal = true" type="button" class="bg-white/10 hover:bg-white/20 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 border border-white/20 flex items-center space-x-2">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
-                                </svg>
-                                <span>Import Data</span>
-                            </button>
-                            <!-- NEW PREVIEW FORM -->
-                                    <form x-ref="previewForm" action="{{ route('resumes.preview', $resume) }}" method="POST" target="_blank">
-                                        @csrf
-                                        <input type="hidden" name="payload" :value="JSON.stringify({
-                                            name: resumeName,
-                                            contact: contact,
-                                            experiences: experiences,
-                                            education: education,
-                                            skills: skills
-                                        })">
-                                        <button @click="$refs.previewForm.submit()" type="button" class="bg-gray-900 hover:bg-black text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                            </svg>
-                                            <span>Preview</span>
-                                        </button>
-                                    </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Main Content -->
             <div class="max-w-6xl mx-auto px-4 py-8">
@@ -308,7 +325,7 @@
 
                         <!-- Action Buttons -->
                         <div class="border-t border-gray-200 pt-8">
-    <div class="flex flex-col sm:flex-row justify-end items-center space-y-3 sm:space-y-0 sm:space-x-4">
+     <div class="flex flex-col sm:flex-row justify-end items-center space-y-3 sm:space-y-0 sm:space-x-4">
         
         <!-- ============================================= -->
         <!-- DOWNLOAD BUTTON (AS A FORM)                   -->
@@ -347,13 +364,44 @@
             <span x-text="isSaving ? 'Saving...' : 'Save Changes'"></span>
         </button>
 
+        <!-- Template Selection Modal -->
+<div x-show="openTemplateModal" @click.away="openTemplateModal = false" x-cloak class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4" style="display: none;">
+    <div
+        class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-4xl transform transition-all"
+        x-show="openTemplateModal"
+        x-transition:enter="ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+    >
+        <!-- Modal Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-900">Select a New Template</h3>
+            <button @click="openTemplateModal = false" class="text-gray-400 hover:text-gray-600">×</button>
+        </div>
+
+        <!-- Templates Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-h-[70vh] overflow-y-auto p-2">
+            <template x-for="template in templates" :key="template.id">
+                <div @click="selectTemplate(template.id)"
+                    class="cursor-pointer border-4 rounded-lg overflow-hidden transition-all duration-200"
+                    :class="template.id === contact.template_id ? 'border-red-500' : 'border-transparent hover:border-red-300'">
+                    <img :src="template.preview_image_url" :alt="template.name" class="w-full h-auto object-cover">
+                    <div class="p-3 bg-gray-50 text-center">
+                        <p class="font-semibold text-gray-800" x-text="template.name"></p>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+
     </div>
 </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        
         <!-- Import Modal -->
         <div x-show="openImportModal" @click.away="openImportModal = false" x-cloak class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" style="display: none;">
             <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg text-black transform transition-all duration-300" x-show="openImportModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
@@ -430,11 +478,60 @@
             </div>
         </div>
     </div>
-
-    <!-- In resources/views/resumes/edit.blade.php -->
+    
 
 <!-- JavaScript -->
 <script>
+ // In <script> tag
+
+// Our standard placeholder data for taking screenshots.
+const dummyData = {
+    name: 'Classic Professional Template',
+    contact: {
+        full_name: 'Alexandria Doe',
+        phone: '(555) 123-4567',
+        address: '123 Innovation Drive, Tech City, 12345',
+        summary: 'A highly motivated and detail-oriented Full-Stack Developer with over 5 years of experience in building and maintaining scalable web applications. Proficient in modern frameworks and passionate about creating clean code and exceptional user experiences.'
+        // No email here, as it's pulled from the user account.
+        // No photo_path, as we don't need one for template previews.
+    },
+    experiences: [
+        {
+            company_name: 'Innovatech Solutions',
+            job_title: 'Senior Software Engineer',
+            start_date: '2020-01-01',
+            end_date: '2024-01-01',
+            description: '• Led the development of new features for a flagship SaaS product.\n• Mentored junior developers and conducted code reviews.\n• Optimized application performance, reducing page load times by 30%.'
+        },
+        {
+            company_name: 'Digital Creations Agency',
+            job_title: 'Web Developer',
+            start_date: '2018-06-01',
+            end_date: '2019-12-31',
+            description: '• Developed custom WordPress themes and plugins for various clients.\n• Translated Figma mockups into responsive, functional websites.'
+        }
+    ],
+    education: [
+        {
+            school_name: 'State University',
+            degree: 'B.S. in Computer Science',
+            field: 'Software Engineering',
+            start_date: '2014-08-01',
+            end_date: '2018-05-01',
+            description: '• Graduated Magna Cum Laude (3.9 GPA)\n• President of the University Coding Club'
+        }
+    ],
+    skills: [
+        { skill_name: 'PHP & Laravel' },
+        { skill_name: 'JavaScript & Vue.js' },
+        { skill_name: 'MySQL & PostgreSQL' },
+        { skill_name: 'Docker & CI/CD' },
+        { skill_name: 'API Design (RESTful)' },
+        { skill_name: 'Agile Methodologies' }
+    ]
+};
+
+
     function resumeEditor() {
         return {
             // STEP 1: All state variables are initialized as empty/default first.
@@ -449,15 +546,23 @@
             openImportModal: false,
             selectedResumeId: '',
             sectionsToImport: { contact: true, experiences: true, education: true, skills: true },
+            // NEW: This variable controls the template selection modal
+            openTemplateModal: false, // <<-- THIS LINE IS ESSENTIAL. Make sure it's here.
+            templates: [], 
 
             // STEP 2: This function runs on page load because of `x-init="initializeData()"`.
             // It populates the empty variables above with data from your Laravel controller.
             initializeData() {
-                this.resumeName = '{{ addslashes($resume->name) }}';
-                this.contact = {!! json_encode($contactInfo) !!} || { full_name: '', phone: '', address: '', summary: '' };
-                this.experiences = {!! json_encode($experiences) !!} || [];
-                this.education = {!! json_encode($education) !!} || [];
-                this.skills = {!! json_encode($skills) !!} || [];
+                // this.resumeName = '{{ addslashes($resume->name) }}';
+                // this.contact = {!! json_encode($contactInfo) !!} || { full_name: '', phone: '', address: '', summary: '' };
+                // this.experiences = {!! json_encode($experiences) !!} || [];
+                // this.education = {!! json_encode($education) !!} || [];
+                // this.skills = {!! json_encode($skills) !!} || [];
+                    this.resumeName    = dummyData.name;
+                    this.contact       = dummyData.contact;
+                    this.experiences   = dummyData.experiences;
+                    this.education     = dummyData.education;
+                    this.skills        = dummyData.skills;
             },
               // --- ADD THIS ENTIRE NEW METHOD ---
 
@@ -573,45 +678,61 @@
             },
 
             // Method to import data from another resume
-            async importData() {
-                if (!this.selectedResumeId) return;
-                
-                try {
-                    const response = await fetch(`/resumes/${this.selectedResumeId}/data`);
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch resume data.');
-                    }
-                    const sourceData = await response.json();
-                    
-                    const cleanItems = (items) => {
-                        if (!Array.isArray(items)) return [];
-                        return items.map(item => {
-                            const { id, user_id, resume_id, exp_id, edu_id, skill_id, created_at, updated_at, ...rest } = item;
-                            return rest;
-                        });
-                    };
-                    
-                    if (this.sectionsToImport.contact && sourceData.contactInfo) {
-                        this.contact = sourceData.contactInfo;
-                    }
-                    if (this.sectionsToImport.experiences && sourceData.experiences) {
-                        this.experiences = cleanItems(sourceData.experiences);
-                    }
-                    if (this.sectionsToImport.education && sourceData.education) {
-                        this.education = cleanItems(sourceData.education);
-                    }
-                    if (this.sectionsToImport.skills && sourceData.skills) {
-                        this.skills = cleanItems(sourceData.skills);
-                    }
-                    
-                    this.openImportModal = false;
-                    this.showSuccessMessage('Data imported successfully!');
-                } catch (error) {
-                    alert('Could not import data: ' + error.message);
-                }
-            },
+          
 
-            // Helper method for showing a success notification
+                async importData() {
+                    if (!this.selectedResumeId) {
+                        alert('Please select a resume to import from.');
+                        return;
+                    }
+
+                    try {
+                        // CORRECTED: Use the new route name to build the URL
+                        const response = await fetch(`/resumes/${this.selectedResumeId}/data`); // Corrected URL
+
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch resume data. Please try again.');
+                        }
+
+                        const sourceData = await response.json();
+
+                        // Helper function to strip out Laravel's timestamps and IDs
+                        const cleanItems = (items) => {
+                            if (!Array.isArray(items)) return [];
+                            return items.map(item => {
+                                const { id, user_id, resume_id, created_at, updated_at, ...rest } = item;
+                                // For skills and experiences, you might have different IDs
+                                const { exp_id, edu_id, skill_id, ...finalRest } = rest;
+                                return finalRest;
+                            });
+                        };
+
+                        // Now, update the current form's state based on user's checkbox selections
+                        if (this.sectionsToImport.contact && sourceData.contactInfo) {
+                            // We only update the fields, we don't want to overwrite the photo path logic
+                            const { photo_path, ...contactDetails } = sourceData.contactInfo;
+                            this.contact = { ...this.contact, ...contactDetails };
+                        }
+                        if (this.sectionsToImport.experiences && sourceData.experiences) {
+                            this.experiences = cleanItems(sourceData.experiences);
+                        }
+                        if (this.sectionsToImport.education && sourceData.educations) {
+                            this.education = cleanItems(sourceData.educations);
+                        }
+                        if (this.sectionsToImport.skills && sourceData.skills) {
+                            this.skills = cleanItems(sourceData.skills);
+                        }
+
+                        // Close the modal and show a success message
+                        this.openImportModal = false;
+                        this.showSuccessMessage('Data imported successfully!');
+
+                    } catch (error) {
+                        console.error('Import Error:', error);
+                        alert(error.message);
+                    }
+                },
+                            // Helper method for showing a success notification
             showSuccessMessage(message) {
                 const successDiv = document.createElement('div');
                 successDiv.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center space-x-2';

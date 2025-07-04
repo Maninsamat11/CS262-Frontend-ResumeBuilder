@@ -7,19 +7,6 @@ use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\HomeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Grouping routes logically makes your application much easier to maintain.
-|
-*/
-
-//======================================================================
-// PUBLIC ROUTES (Accessible to Everyone)
-//======================================================================
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Handles the form on the homepage for pasting a share link
@@ -27,11 +14,6 @@ Route::post('/view-resume-from-link', [ResumeController::class, 'redirectFromLin
 
 // This is the public, shareable link for a resume. It uses the `share_url` column.
 Route::get('/r/{resume:share_url}', [ResumeController::class, 'showPublic'])->name('resumes.public.show');
-
-
-//======================================================================
-// AUTHENTICATED ROUTES (User Must Be Logged In)
-//======================================================================
 
 Route::middleware(['auth', 'verified'])->group(function () {
     
@@ -59,6 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/resumes/{resume}/toggle-status', [ResumeController::class, 'toggleStatus'])->name('resumes.toggleStatus');
     Route::post('/resumes/{resume}/photo', [ResumeController::class, 'updatePhoto'])->name('resumes.photo.update');
     Route::get('/resumes/{resume}/data', [ResumeController::class, 'getResumeDataAsJson'])->name('resumes.data');
+    
     
     // Sharing Routes
     Route::get('/resumes/{resume}/share', [ResumeController::class, 'showSharePage'])->name('resumes.share');

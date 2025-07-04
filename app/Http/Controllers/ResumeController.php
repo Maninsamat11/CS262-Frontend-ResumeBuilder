@@ -105,23 +105,25 @@ public function edit(Resume $resume)
 
  public function preview(Request $request, Resume $resume)
     {
+        // 1. Authorization: Ensure the user owns this resume.
         if ($resume->user_id !== Auth::id()) {
-            abort(403);
+            abort(403, 'Unauthorized Access.');
         }
 
+        // 2. Load the base HTML from the selected template.
         $resume->load('template');
         $html = $resume->template->template_html;
         
+        // 3. Determine the data source: real-time 'payload' or saved database data.
         if ($request->has('payload')) {
+            // Data is coming from the live editor form.
             $payload = json_decode($request->input('payload'), true);
             $contact = (object) ($payload['contact'] ?? []);
             $experiences = collect($payload['experiences'] ?? []);
             $education = collect($payload['education'] ?? []);
             $skills = collect($payload['skills'] ?? []);
         } else {
-            // =============================================================
-            // CORRECTED LOGIC: Load data from the RESUME, not the user.
-            // =============================================================
+            // No payload, so load the saved data from the database relationships.
             $resume->load(['contactInfo', 'experiences', 'educations', 'skills']);
             $contact = $resume->contactInfo;
             $experiences = $resume->experiences;
@@ -129,27 +131,27 @@ public function edit(Resume $resume)
             $skills = $resume->skills;
         }
 
+        // 4. Replace simple, non-looping placeholders.
         $replacements = [
             '{{ contact.full_name }}' => e($contact->full_name ?? ''),
-            '{{ contact.email }}'     => e($resume->user->email ?? ''), // Email comes from the user
+            '{{ contact.email }}'     => e($resume->user->email ?? ''), // Email is linked to the user account
             '{{ contact.phone }}'     => e($contact->phone ?? ''),
             '{{ contact.address }}'   => e($contact->address ?? ''),
-            '{{ contact.summary }}'   => nl2br(e($contact->summary ?? '')),
+            '{{ contact.summary }}'   => nl2br(e($contact->summary ?? '')), // nl2br converts newlines to <br> tags
             '{{ contact.photo_path }}'=> (isset($contact->photo_path) && $contact->photo_path) ? e(asset('storage/' . $contact->photo_path)) : '',
         ];
         $html = str_replace(array_keys($replacements), array_values($replacements), $html);
         
-        // CORRECTED: Pass the correct plural variables to the helper
+        // 5. Process repeating sections (loops) using the helper function.
         $html = $this->processLoop($html, 'experience', $experiences);
         $html = $this->processLoop($html, 'education', $education);
         $html = $this->processLoop($html, 'skill', $skills);
 
-        return response($html)
-            ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-            ->header('Pragma', 'no-cache')
-            ->header('Expires', '0');
+        // 6. Return the Blade view for the A4 layout, passing the final HTML as 'content'.
+        return view('resumes.preview_layout', [
+            'content' => $html
+        ]);
     }
-
 
 private function processLoop($html, $loopName, $items)
 {
@@ -197,25 +199,25 @@ private function processLoop($html, $loopName, $items)
         return back()->with('status', 'Resume visibility updated!');
     }
 
-    public function getResumeDataAsJson(Resume $resume)
-{
-    // Security check
-    if ($resume->user_id !== Auth::id()) {
-        return response()->json(['error' => 'Unauthorized'], 403);
+     public function getDataForImport(Resume $resume)
+    {
+        // 1. Authorization: Ensure the user owns the resume they are trying to import from.
+        if ($resume->user_id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        // 2. Eager load all the relationships to get all the data in one query.
+        $resume->load(['contactInfo', 'experiences', 'educations', 'skills']);
+
+        // 3. Return the data in a structured JSON format.
+        return response()->json([
+            'contactInfo' => $resume->contactInfo,
+            'experiences' => $resume->experiences,
+            'educations'  => $resume->educations,
+            'skills'      => $resume->skills,
+        ]);
     }
 
-    // Get the user and load their data
-    $user = $resume->user;
-    $user->load(['contactInfo', 'experiences', 'educations', 'skills']);
-
-    // Return the data in the exact structure the JavaScript expects
-    return response()->json([
-        'contactInfo' => $user->contactInfo,
-        'experiences' => $user->experiences,
-        'education'   => $user->educations,
-        'skills'      => $user->skills,
-    ]);
-}
 
     public function showSharePage(Resume $resume)
     {

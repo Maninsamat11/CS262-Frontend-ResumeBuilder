@@ -12,218 +12,13 @@ class TemplateSeeder extends Seeder
      */
     public function run(): void
     {
-        // --- Template 1: Classic Professional ---
-        Template::create([
-            'name' => 'Classic Professional',
-            'status' => true,
-            'template_url' => '/images/templates/classic.png',
-            'template_html' => <<<'HTML'
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style> body { font-family: 'Times New Roman', serif; } </style>
-</head>
-<body class="bg-white text-gray-800">
-    <div class="max-w-4xl mx-auto p-8">
-        <header class="text-center border-b-2 border-gray-800 pb-4 mb-6">
-            <h1 class="text-4xl font-bold tracking-widest">{{ contact.full_name }}</h1>
-            <div class="flex justify-center space-x-4 mt-2 text-sm">
-                <span>{{ contact.phone }}</span>
-                <span>•</span>
-                <!-- FIXED: Using 'address' field for the email -->
-                <span>{{ contact.address }}</span>
-            </div>
-        </header>
-        <section class="mb-6">
-            <h2 class="text-xl font-bold border-b border-gray-400 pb-1 mb-3">PROFESSIONAL SUMMARY</h2>
-            <p class="text-sm leading-relaxed">{{ contact.summary }}</p>
-        </section>
-        <section class="mb-6">
-            <h2 class="text-xl font-bold border-b border-gray-400 pb-1 mb-3">WORK EXPERIENCE</h2>
-            {{--experience-loop-start--}}
-            <div class="mb-4">
-                <div class="flex justify-between items-baseline">
-                    <h3 class="text-lg font-semibold">{{ experience.job_title }}</h3>
-                    <p class="text-sm font-light">{{ experience.start_date }} - {{ experience.end_date }}</p>
-                </div>
-                <h4 class="text-md font-medium italic">{{ experience.company_name }}</h4>
-                <p class="text-sm mt-1">{{ experience.description }}</p>
-            </div>
-            {{--experience-loop-end--}}
-        </section>
-        <section class="mb-6">
-            <h2 class="text-xl font-bold border-b border-gray-400 pb-1 mb-3">EDUCATION</h2>
-            {{--education-loop-start--}}
-            <div class="mb-4">
-                <div class="flex justify-between items-baseline">
-                    <h3 class="text-lg font-semibold">{{ education.degree }} in {{ education.field }}</h3>
-                    <p class="text-sm font-light">{{ education.start_date }} - {{ education.end_date }}</p>
-                </div>
-                <h4 class="text-md font-medium italic">{{ education.school_name }}</h4>
-                <p class="text-sm mt-1">{{ education.description }}</p>
-            </div>
-            {{--education-loop-end--}}
-        </section>
-        <section>
-            <h2 class="text-xl font-bold border-b border-gray-400 pb-1 mb-3">SKILLS</h2>
-            <div class="flex flex-wrap -mx-2">
-            {{--skill-loop-start--}}
-                <span class="text-sm bg-gray-200 rounded-full px-3 py-1 m-2">{{ skill.skill_name }}</span>
-            {{--skill-loop-end--}}
-            </div>
-        </section>
-    </div>
-</body>
-</html>
-HTML
-        ]);
+  
 
-        // --- Template 2: Modern Minimalist ---
-       Template::create([
-            'name' => 'Modern Minimalist',
-            'status' => true,
-            'template_url' => '/images/templates/modern.png',
-            'template_html' => <<<'HTML'
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style> body { font-family: 'Helvetica', 'Arial', sans-serif; } </style>
-</head>
-<body class="bg-gray-50 text-gray-700">
-    <div class="max-w-4xl mx-auto p-10">
-        <div class="grid grid-cols-12 gap-10">
-            <div class="col-span-4 text-center">
-                <div class="w-32 h-32 mx-auto rounded-full bg-gray-300 mb-4 bg-cover bg-center" style="background-image: url('{{ contact.photo_path }}')"></div>
-                <h1 class="text-3xl font-bold text-gray-900">{{ contact.full_name }}</h1>
-                <div class="mt-6 text-left space-y-6">
-                    <div>
-                        <h3 class="font-bold text-gray-900 text-sm uppercase tracking-wider mb-2">Contact</h3>
-                        <p class="text-sm">{{ contact.phone }}</p>
-                        <p class="text-sm">{{ contact.address }}</p>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-gray-900 text-sm uppercase tracking-wider mb-2">Skills</h3>
-                        {{--skill-loop-start--}}
-                        <p class="text-sm">{{ skill.skill_name }}</p>
-                        {{--skill-loop-end--}}
-                    </div>
-                </div>
-            </div>
-            <div class="col-span-8">
-                <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900 pb-2 mb-4 border-b-2 border-red-500">Summary</h2>
-                    <p class="text-sm leading-relaxed">{{ contact.summary }}</p>
-                </section>
-                <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900 pb-2 mb-4 border-b-2 border-red-500">Experience</h2>
-                    {{--experience-loop-start--}}
-                    <div class="mb-6">
-                        <p class="text-sm font-semibold text-gray-600">{{ experience.start_date }} - {{ experience.end_date }}</p>
-                        <h3 class="text-lg font-bold text-gray-800">{{ experience.job_title }}</h3>
-                        <p class="text-md font-semibold text-gray-700">{{ experience.company_name }}</p>
-                        <p class="text-sm mt-1">{{ experience.description }}</p>
-                    </div>
-                    {{--experience-loop-end--}}
-                </section>
-                <section>
-                    <h2 class="text-2xl font-bold text-gray-900 pb-2 mb-4 border-b-2 border-red-500">Education</h2>
-                    {{--education-loop-start--}}
-                    <div class="mb-6">
-                        <p class="text-sm font-semibold text-gray-600">{{ education.start_date }} - {{ education.end_date }}</p>
-                        <h3 class="text-lg font-bold text-gray-800">{{ education.degree }}</h3>
-                        <p class="text-md font-semibold text-gray-700">{{ education.school_name }} - {{ education.field }}</p>
-                        <p class="text-sm mt-1">{{ education.description }}</p>
-                    </div>
-                    {{--education-loop-end--}}
-                </section>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-HTML
-        ]);
-
-        // --- Template 3: Creative Column ---
-        Template::create([
-            'name' => 'Creative Column',
-            'status' => true,
-            'template_url' => '/images/templates/creative.png',
-            'template_html' => <<<'HTML'
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style> body { font-family: 'Montserrat', sans-serif; } </style>
-</head>
-<body class="bg-white">
-    <div class="flex min-h-screen">
-        <div class="w-1/3 bg-gray-800 text-white p-8">
-            <div class="text-center">
-                <div class="w-36 h-36 mx-auto rounded-full border-4 border-white bg-gray-700 mb-4 bg-cover bg-center" style="background-image: url('{{ contact.photo_path }}')"></div>
-                <h1 class="text-3xl font-bold">{{ contact.full_name }}</h1>
-            </div>
-            <div class="mt-10">
-                <h3 class="text-lg font-semibold border-b-2 border-red-400 pb-1 mb-3">CONTACT</h3>
-                <p class="text-sm mb-1">{{ contact.phone }}</p>
-                <p class="text-sm mb-1">{{ contact.address }}</p>
-            </div>
-            <div class="mt-8">
-                <h3 class="text-lg font-semibold border-b-2 border-red-400 pb-1 mb-3">SKILLS</h3>
-                {{--skill-loop-start--}}
-                <p class="text-sm mb-1">{{ skill.skill_name }}</p>
-                {{--skill-loop-end--}}
-            </div>
-        </div>
-        <div class="w-2/3 p-10 text-gray-700">
-            <section class="mb-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Summary</h2>
-                <p class="leading-relaxed">{{ contact.summary }}</p>
-            </section>
-            <section class="mb-8">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Experience</h2>
-                {{--experience-loop-start--}}
-                <div class="mb-6">
-                    <p class="text-sm font-medium text-gray-500">{{ experience.start_date }} to {{ experience.end_date }}</p>
-                    <h3 class="text-xl font-semibold text-gray-900">{{ experience.job_title }}</h3>
-                    <p class="italic text-gray-600">{{ experience.company_name }}</p>
-                    <p class="mt-2 leading-relaxed">{{ experience.description }}</p>
-                </div>
-                {{--experience-loop-end--}}
-            </section>
-            <section>
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Education</h2>
-                {{--education-loop-start--}}
-                <div class="mb-6">
-                    <p class="text-sm font-medium text-gray-500">{{ education.start_date }} to {{ education.end_date }}</p>
-                    <h3 class="text-xl font-semibold text-gray-900">{{ education.degree }} - {{ education.field }}</h3>
-                    <p class="italic text-gray-600">{{ education.school_name }}</p>
-                    <p class="mt-2 leading-relaxed">{{ education.description }}</p>
-                </div>
-                {{--education-loop-end--}}
-            </section>
-        </div>
-    </div>
-</body>
-</html>
-HTML
-        ]);
-    }
-}
-
-        // --- Template 4: Professional Blue ---
+        // --- Template 1: Professional Blue ---
 Template::create([
     'name' => 'Professional Blue',
     'status' => true,
-    'template_url' => '/images/templates/professional-blue.png',
+    'template_url' => '/images/template/professional-blue.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -314,11 +109,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 5: Creative Green ---
+// --- Template 2: Creative Green ---
 Template::create([
     'name' => 'Creative Green',
     'status' => true,
-    'template_url' => '/images/templates/creative-green.png',
+    'template_url' => '/images/template/creative-green.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -413,11 +208,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 6: Executive Black ---
+// --- Template 3: Executive Black ---
 Template::create([
     'name' => 'Executive Black',
     'status' => true,
-    'template_url' => '/images/templates/executive-black.png',
+    'template_url' => '/images/template/executive-black.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -522,11 +317,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 7: Modern Purple ---
+// --- Template 4: Modern Purple ---
 Template::create([
     'name' => 'Modern Purple',
     'status' => true,
-    'template_url' => '/images/templates/modern-purple.png',
+    'template_url' => '/images/template/modern-purple.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -639,11 +434,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 8: Clean Orange ---
+// --- Template 5: Clean Orange ---
 Template::create([
     'name' => 'Clean Orange',
     'status' => true,
-    'template_url' => '/images/templates/clean-orange.png',
+    'template_url' => '/images/template/clean-orange.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -773,11 +568,11 @@ Template::create([
 HTML
 ]);
     
-// --- Template 9: Tech Slate ---
+// --- Template 6: Tech Slate ---
 Template::create([
     'name' => 'Tech Slate',
     'status' => true,
-    'template_url' => '/images/templates/tech-slate.png',
+    'template_url' => '/images/template/tech-slate.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -851,11 +646,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 10: Elegant Ink ---
+// --- Template 7: Elegant Ink ---
 Template::create([
     'name' => 'Elegant Ink',
     'status' => true,
-    'template_url' => '/images/templates/elegant-ink.png',
+    'template_url' => '/images/template/elegant-ink.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -924,11 +719,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 10: Corporate Blue ---
+// --- Template 8: Corporate Blue ---
 Template::create([
     'name' => 'Corporate Blue',
     'status' => true,
-    'template_url' => '/images/templates/corporate-blue.png',
+    'template_url' => '/images/template/corporate-blue.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -998,7 +793,7 @@ Template::create([
 HTML
 ]);
 
-// --- Template 11: Creative Spotlight ---
+// --- Template 9: Creative Spotlight ---
 Template::create([
     'name' => 'Creative Spotlight',
     'status' => true,
@@ -1084,11 +879,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 12: Academic CV ---
+// --- Template 10: Academic CV ---
 Template::create([
     'name' => 'Academic CV',
     'status' => true,
-    'template_url' => '/images/templates/academic-cv.png',
+    'template_url' => '/images/template/academic-cv.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -1148,11 +943,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 13: Infographic Style ---
+// --- Template 11: Infographic Style ---
 Template::create([
     'name' => 'Infographic Style',
     'status' => true,
-    'template_url' => '/images/templates/infographic-style.png',
+    'template_url' => '/images/template/infographic-style.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -1226,11 +1021,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 14: Simple Sidebar ---
+// --- Template 12: Simple Sidebar ---
 Template::create([
     'name' => 'Simple Sidebar',
     'status' => true,
-    'template_url' => '/images/templates/simple-sidebar.png',
+    'template_url' => '/images/template/simple-sidebar.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -1304,11 +1099,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 15: Bold Headlines ---
+// --- Template 13: Bold Headlines ---
 Template::create([
     'name' => 'Bold Headlines',
     'status' => true,
-    'template_url' => '/images/templates/bold-headlines.png',
+    'template_url' => '/images/template/bold-headlines.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -1367,11 +1162,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 16: The Minimalist Grid ---
+// --- Template 14: The Minimalist Grid ---
 Template::create([
     'name' => 'The Minimalist Grid',
     'status' => true,
-    'template_url' => '/images/templates/minimalist-grid.png',
+    'template_url' => '/images/template/minimalist-grid.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -1446,11 +1241,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 17: The Timeline ---
+// --- Template 15: The Timeline ---
 Template::create([
     'name' => 'The Timeline',
     'status' => true,
-    'template_url' => '/images/templates/the-timeline.png',
+    'template_url' => '/images/template/the-timeline.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -1513,11 +1308,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 18: The Journalist ---
+// --- Template 16: The Journalist ---
 Template::create([
     'name' => 'The Journalist',
     'status' => true,
-    'template_url' => '/images/templates/the-journalist.png',
+    'template_url' => '/images/template/the-journalist.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -1587,11 +1382,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 19: Gradient Splash ---
+// --- Template 17: Gradient Splash ---
 Template::create([
     'name' => 'Gradient Splash',
     'status' => true,
-    'template_url' => '/images/templates/gradient-splash.png',
+    'template_url' => '/images/template/gradient-splash.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -1666,11 +1461,11 @@ Template::create([
 HTML
 ]);
 
-// --- Template 20: The Centered Classic ---
+// --- Template 18: The Centered Classic ---
 Template::create([
     'name' => 'The Centered Classic',
     'status' => true,
-    'template_url' => '/images/templates/centered-classic.png',
+    'template_url' => '/images/template/centered-classic.png',
     'template_html' => <<<'HTML'
 <!DOCTYPE html>
 <html>
@@ -1732,3 +1527,212 @@ Template::create([
 </html>
 HTML
 ]);
+
+// --- Template 19: Classic Professional ---
+        Template::create([
+            'name' => 'Classic Professional',
+            'status' => true,
+            'template_url' => '/images/template/classic.png',
+            'template_html' => <<<'HTML'
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style> body { font-family: 'Times New Roman', serif; } </style>
+</head>
+<body class="bg-white text-gray-800">
+    <div class="max-w-4xl mx-auto p-8">
+        <header class="text-center border-b-2 border-gray-800 pb-4 mb-6">
+            <h1 class="text-4xl font-bold tracking-widest">{{ contact.full_name }}</h1>
+            <div class="flex justify-center space-x-4 mt-2 text-sm">
+                <span>{{ contact.phone }}</span>
+                <span>•</span>
+                <!-- FIXED: Using 'address' field for the email -->
+                <span>{{ contact.address }}</span>
+            </div>
+        </header>
+        <section class="mb-6">
+            <h2 class="text-xl font-bold border-b border-gray-400 pb-1 mb-3">PROFESSIONAL SUMMARY</h2>
+            <p class="text-sm leading-relaxed">{{ contact.summary }}</p>
+        </section>
+        <section class="mb-6">
+            <h2 class="text-xl font-bold border-b border-gray-400 pb-1 mb-3">WORK EXPERIENCE</h2>
+            {{--experience-loop-start--}}
+            <div class="mb-4">
+                <div class="flex justify-between items-baseline">
+                    <h3 class="text-lg font-semibold">{{ experience.job_title }}</h3>
+                    <p class="text-sm font-light">{{ experience.start_date }} - {{ experience.end_date }}</p>
+                </div>
+                <h4 class="text-md font-medium italic">{{ experience.company_name }}</h4>
+                <p class="text-sm mt-1">{{ experience.description }}</p>
+            </div>
+            {{--experience-loop-end--}}
+        </section>
+        <section class="mb-6">
+            <h2 class="text-xl font-bold border-b border-gray-400 pb-1 mb-3">EDUCATION</h2>
+            {{--education-loop-start--}}
+            <div class="mb-4">
+                <div class="flex justify-between items-baseline">
+                    <h3 class="text-lg font-semibold">{{ education.degree }} in {{ education.field }}</h3>
+                    <p class="text-sm font-light">{{ education.start_date }} - {{ education.end_date }}</p>
+                </div>
+                <h4 class="text-md font-medium italic">{{ education.school_name }}</h4>
+                <p class="text-sm mt-1">{{ education.description }}</p>
+            </div>
+            {{--education-loop-end--}}
+        </section>
+        <section>
+            <h2 class="text-xl font-bold border-b border-gray-400 pb-1 mb-3">SKILLS</h2>
+            <div class="flex flex-wrap -mx-2">
+            {{--skill-loop-start--}}
+                <span class="text-sm bg-gray-200 rounded-full px-3 py-1 m-2">{{ skill.skill_name }}</span>
+            {{--skill-loop-end--}}
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+HTML
+        ]);
+
+        // --- Template 20: Modern Minimalist ---
+       Template::create([
+            'name' => 'Modern Minimalist',
+            'status' => true,
+            'template_url' => '/images/template/modern.png',
+            'template_html' => <<<'HTML'
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style> body { font-family: 'Helvetica', 'Arial', sans-serif; } </style>
+</head>
+<body class="bg-gray-50 text-gray-700">
+    <div class="max-w-4xl mx-auto p-10">
+        <div class="grid grid-cols-12 gap-10">
+            <div class="col-span-4 text-center">
+                <div class="w-32 h-32 mx-auto rounded-full bg-gray-300 mb-4 bg-cover bg-center" style="background-image: url('{{ contact.photo_path }}')"></div>
+                <h1 class="text-3xl font-bold text-gray-900">{{ contact.full_name }}</h1>
+                <div class="mt-6 text-left space-y-6">
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-sm uppercase tracking-wider mb-2">Contact</h3>
+                        <p class="text-sm">{{ contact.phone }}</p>
+                        <p class="text-sm">{{ contact.address }}</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-sm uppercase tracking-wider mb-2">Skills</h3>
+                        {{--skill-loop-start--}}
+                        <p class="text-sm">{{ skill.skill_name }}</p>
+                        {{--skill-loop-end--}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-8">
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 pb-2 mb-4 border-b-2 border-red-500">Summary</h2>
+                    <p class="text-sm leading-relaxed">{{ contact.summary }}</p>
+                </section>
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 pb-2 mb-4 border-b-2 border-red-500">Experience</h2>
+                    {{--experience-loop-start--}}
+                    <div class="mb-6">
+                        <p class="text-sm font-semibold text-gray-600">{{ experience.start_date }} - {{ experience.end_date }}</p>
+                        <h3 class="text-lg font-bold text-gray-800">{{ experience.job_title }}</h3>
+                        <p class="text-md font-semibold text-gray-700">{{ experience.company_name }}</p>
+                        <p class="text-sm mt-1">{{ experience.description }}</p>
+                    </div>
+                    {{--experience-loop-end--}}
+                </section>
+                <section>
+                    <h2 class="text-2xl font-bold text-gray-900 pb-2 mb-4 border-b-2 border-red-500">Education</h2>
+                    {{--education-loop-start--}}
+                    <div class="mb-6">
+                        <p class="text-sm font-semibold text-gray-600">{{ education.start_date }} - {{ education.end_date }}</p>
+                        <h3 class="text-lg font-bold text-gray-800">{{ education.degree }}</h3>
+                        <p class="text-md font-semibold text-gray-700">{{ education.school_name }} - {{ education.field }}</p>
+                        <p class="text-sm mt-1">{{ education.description }}</p>
+                    </div>
+                    {{--education-loop-end--}}
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+HTML
+        ]);
+
+        // --- Template 21: Creative Column ---
+        Template::create([
+            'name' => 'Creative Column',
+            'status' => true,
+            'template_url' => '/images/template/creative.png',
+            'template_html' => <<<'HTML'
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style> body { font-family: 'Montserrat', sans-serif; } </style>
+</head>
+<body class="bg-white">
+    <div class="flex min-h-screen">
+        <div class="w-1/3 bg-gray-800 text-white p-8">
+            <div class="text-center">
+                <div class="w-36 h-36 mx-auto rounded-full border-4 border-white bg-gray-700 mb-4 bg-cover bg-center" style="background-image: url('{{ contact.photo_path }}')"></div>
+                <h1 class="text-3xl font-bold">{{ contact.full_name }}</h1>
+            </div>
+            <div class="mt-10">
+                <h3 class="text-lg font-semibold border-b-2 border-red-400 pb-1 mb-3">CONTACT</h3>
+                <p class="text-sm mb-1">{{ contact.phone }}</p>
+                <p class="text-sm mb-1">{{ contact.address }}</p>
+            </div>
+            <div class="mt-8">
+                <h3 class="text-lg font-semibold border-b-2 border-red-400 pb-1 mb-3">SKILLS</h3>
+                {{--skill-loop-start--}}
+                <p class="text-sm mb-1">{{ skill.skill_name }}</p>
+                {{--skill-loop-end--}}
+            </div>
+        </div>
+        <div class="w-2/3 p-10 text-gray-700">
+            <section class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Summary</h2>
+                <p class="leading-relaxed">{{ contact.summary }}</p>
+            </section>
+            <section class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Experience</h2>
+                {{--experience-loop-start--}}
+                <div class="mb-6">
+                    <p class="text-sm font-medium text-gray-500">{{ experience.start_date }} to {{ experience.end_date }}</p>
+                    <h3 class="text-xl font-semibold text-gray-900">{{ experience.job_title }}</h3>
+                    <p class="italic text-gray-600">{{ experience.company_name }}</p>
+                    <p class="mt-2 leading-relaxed">{{ experience.description }}</p>
+                </div>
+                {{--experience-loop-end--}}
+            </section>
+            <section>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Education</h2>
+                {{--education-loop-start--}}
+                <div class="mb-6">
+                    <p class="text-sm font-medium text-gray-500">{{ education.start_date }} to {{ education.end_date }}</p>
+                    <h3 class="text-xl font-semibold text-gray-900">{{ education.degree }} - {{ education.field }}</h3>
+                    <p class="italic text-gray-600">{{ education.school_name }}</p>
+                    <p class="mt-2 leading-relaxed">{{ education.description }}</p>
+                </div>
+                {{--education-loop-end--}}
+            </section>
+        </div>
+    </div>
+</body>
+</html>
+HTML
+        ]);
+    
+
+    }
+}
