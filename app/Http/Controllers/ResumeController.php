@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse; 
 use Illuminate\Support\Facades\Storage;
 
+
 class ResumeController extends Controller
 {
 
@@ -219,40 +220,46 @@ private function processLoop($html, $loopName, $items)
     }
 
 
-    public function showSharePage(Resume $resume)
-    {
-        // Security check
-        if ($resume->user_id !== Auth::id()) {
-            abort(403);
-        }
-        return view('resumes.share', ['resume' => $resume]);
-    }
+            public function showSharePage(Resume $resume)
+            {
+                // Security check
+                if ($resume->user_id !== Auth::id()) {
+                    abort(403);
+                }
+                return view('resumes.share', ['resume' => $resume]);
+            }
 
-    public function updateShareSettings(Request $request, Resume $resume)
-    {
-        // Security check
-        if ($resume->user_id !== Auth::id()) {
-            abort(403);
-        }
+            public function updateShareSettings(Request $request, Resume $resume)
+            {
+                // Authorize that the current user owns this resume
+                if ($request->user()->id !== $resume->user_id) {
+                    abort(403);
+                }
 
-        $request->validate([
-            'status' => 'required|in:public,private',
-            // Add validation for 'expires' if you implement that feature
-        ]);
+                $action = $request->input('action');
 
-        // The 'status' field already exists from our dashboard toggle feature
-        $resume->status = $request->input('status');
-        
-        // Logic for generating a unique share_url if it doesn't exist
-        if (is_null($resume->share_url)) {
-            $resume->share_url = 'r/' . uniqid(); // Example: resumeforge.com/r/60b8e2...
-        }
-        
-        $resume->save();
+                if ($action === 'enable') {
+                    // Generate a unique UUID if one doesn't exist
+                    $resume->share_uuid = $resume->share_uuid ?? Str::uuid();
+                    
+                    // Create the full shareable URL using the route helper
+                    $resume->share_url = route('resumes.public.show', ['share_uuid' => $resume->share_uuid]);
+                    
+                    $message = 'Share link has been generated successfully!';
 
-        return redirect()->route('resumes.share', $resume)->with('status', 'Settings saved!');
-    }
+                } elseif ($action === 'disable') {
+                    // Clear the sharing information
+                    $resume->share_uuid = null;
+                    $resume->share_url = null;
+                    
+                    $message = 'Share link has been disabled.';
+                }
 
+                $resume->save();
+
+                // Redirect back to the share page with a success message
+                return back()->with('status', $message);
+            }
     public function showDownloadPage(Resume $resume)
     {
         // Security check
@@ -276,9 +283,6 @@ private function processLoop($html, $loopName, $items)
     
     $format = $request->input('format');
 
-    // ===================================================================
-    // 3. CRITICAL STEP: Build the full HTML string for the resume.
-    // ===================================================================
 
     // A. Load ALL necessary data. This includes the template, user info, and all resume sections.
     $resume->load(['template', 'user', 'contactInfo', 'experiences', 'educations', 'skills']);
@@ -336,8 +340,7 @@ private function processLoop($html, $loopName, $items)
 }
     public function showPublic(Resume $resume)
 {
-    // 1. Security Check: If resume is private, deny access.
-    //    (The owner can still see it because they are not a guest and their ID will match)
+    // 1. SECURITY CHECK: Allow if public or if the user is the owner.
     if ($resume->status !== 'public' && (auth()->guest() || auth()->id() !== $resume->user_id)) {
         abort(404, 'Resume not found.');
     }
@@ -351,7 +354,6 @@ private function processLoop($html, $loopName, $items)
     $resume->load(['template', 'user', 'contactInfo', 'experiences', 'educations', 'skills']);
     $templateHtml = $resume->template->template_html;
 
-    // ... (Your replacement and processLoop logic) ...
     if ($resume->contactInfo) {
         foreach ($resume->contactInfo->toArray() as $key => $value) {
             $templateHtml = str_replace("{{ contact.{$key} }}", e($value ?? ''), $templateHtml);
@@ -405,11 +407,6 @@ private function processLoop($html, $loopName, $items)
         return redirect()->route('resumes.public.show', ['resume' => $resume]);
     }
 
-    // In app/Http/Controllers/ResumeController.php
-
-// In app/Http/Controllers/ResumeController.php
-
-// In app/Http/Controllers/ResumeController.php
 
 public function updatePhoto(Request $request, Resume $resume): JsonResponse
 {
@@ -423,9 +420,7 @@ public function updatePhoto(Request $request, Resume $resume): JsonResponse
         'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    // =========================================================================
-    // 3. CORRECTED LOGIC: Provide default values for creation.
-    // =========================================================================
+    // 3. Ensure the resume has a contactInfo record.
     $contactInfo = $resume->contactInfo()->firstOrCreate(
         // First array: The condition to FIND the record.
         ['resume_id' => $resume->resume_id],

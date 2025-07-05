@@ -7,9 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display the user's resume dashboard.
-     */
+  
     public function index()
     {
         // Use the 'resumes' relationship we defined on the User model
