@@ -482,54 +482,53 @@
 
 <!-- JavaScript -->
 <script>
- // In <script> tag
 
 // Our standard placeholder data for taking screenshots.
-const dummyData = {
-    name: 'Classic Professional Template',
-    contact: {
-        full_name: 'Alexandria Doe',
-        phone: '(555) 123-4567',
-        address: '123 Innovation Drive, Tech City, 12345',
-        summary: 'A highly motivated and detail-oriented Full-Stack Developer with over 5 years of experience in building and maintaining scalable web applications. Proficient in modern frameworks and passionate about creating clean code and exceptional user experiences.'
-        // No email here, as it's pulled from the user account.
-        // No photo_path, as we don't need one for template previews.
-    },
-    experiences: [
-        {
-            company_name: 'Innovatech Solutions',
-            job_title: 'Senior Software Engineer',
-            start_date: '2020-01-01',
-            end_date: '2024-01-01',
-            description: '• Led the development of new features for a flagship SaaS product.\n• Mentored junior developers and conducted code reviews.\n• Optimized application performance, reducing page load times by 30%.'
-        },
-        {
-            company_name: 'Digital Creations Agency',
-            job_title: 'Web Developer',
-            start_date: '2018-06-01',
-            end_date: '2019-12-31',
-            description: '• Developed custom WordPress themes and plugins for various clients.\n• Translated Figma mockups into responsive, functional websites.'
-        }
-    ],
-    education: [
-        {
-            school_name: 'State University',
-            degree: 'B.S. in Computer Science',
-            field: 'Software Engineering',
-            start_date: '2014-08-01',
-            end_date: '2018-05-01',
-            description: '• Graduated Magna Cum Laude (3.9 GPA)\n• President of the University Coding Club'
-        }
-    ],
-    skills: [
-        { skill_name: 'PHP & Laravel' },
-        { skill_name: 'JavaScript & Vue.js' },
-        { skill_name: 'MySQL & PostgreSQL' },
-        { skill_name: 'Docker & CI/CD' },
-        { skill_name: 'API Design (RESTful)' },
-        { skill_name: 'Agile Methodologies' }
-    ]
-};
+// const dummyData = {
+//     name: 'Classic Professional Template',
+//     contact: {
+//         full_name: 'Alexandria Doe',
+//         phone: '(555) 123-4567',
+//         address: '123 Innovation Drive, Tech City, 12345',
+//         summary: 'A highly motivated and detail-oriented Full-Stack Developer with over 5 years of experience in building and maintaining scalable web applications. Proficient in modern frameworks and passionate about creating clean code and exceptional user experiences.'
+//         // No email here, as it's pulled from the user account.
+//         // No photo_path, as we don't need one for template previews.
+//     },
+//     experiences: [
+//         {
+//             company_name: 'Innovatech Solutions',
+//             job_title: 'Senior Software Engineer',
+//             start_date: '2020-01-01',
+//             end_date: '2024-01-01',
+//             description: '• Led the development of new features for a flagship SaaS product.\n• Mentored junior developers and conducted code reviews.\n• Optimized application performance, reducing page load times by 30%.'
+//         },
+//         {
+//             company_name: 'Digital Creations Agency',
+//             job_title: 'Web Developer',
+//             start_date: '2018-06-01',
+//             end_date: '2019-12-31',
+//             description: '• Developed custom WordPress themes and plugins for various clients.\n• Translated Figma mockups into responsive, functional websites.'
+//         }
+//     ],
+//     education: [
+//         {
+//             school_name: 'State University',
+//             degree: 'B.S. in Computer Science',
+//             field: 'Software Engineering',
+//             start_date: '2014-08-01',
+//             end_date: '2018-05-01',
+//             description: '• Graduated Magna Cum Laude (3.9 GPA)\n• President of the University Coding Club'
+//         }
+//     ],
+//     skills: [
+//         { skill_name: 'PHP & Laravel' },
+//         { skill_name: 'JavaScript & Vue.js' },
+//         { skill_name: 'MySQL & PostgreSQL' },
+//         { skill_name: 'Docker & CI/CD' },
+//         { skill_name: 'API Design (RESTful)' },
+//         { skill_name: 'Agile Methodologies' }
+//     ]
+// };
 
 
     function resumeEditor() {
@@ -553,16 +552,16 @@ const dummyData = {
             // STEP 2: This function runs on page load because of `x-init="initializeData()"`.
             // It populates the empty variables above with data from your Laravel controller.
             initializeData() {
-                // this.resumeName = '{{ addslashes($resume->name) }}';
-                // this.contact = {!! json_encode($contactInfo) !!} || { full_name: '', phone: '', address: '', summary: '' };
-                // this.experiences = {!! json_encode($experiences) !!} || [];
-                // this.education = {!! json_encode($education) !!} || [];
-                // this.skills = {!! json_encode($skills) !!} || [];
-                    this.resumeName    = dummyData.name;
-                    this.contact       = dummyData.contact;
-                    this.experiences   = dummyData.experiences;
-                    this.education     = dummyData.education;
-                    this.skills        = dummyData.skills;
+                this.resumeName = '{{ addslashes($resume->name) }}';
+                this.contact = {!! json_encode($contactInfo) !!} || { full_name: '', phone: '', address: '', summary: '' };
+                this.experiences = {!! json_encode($experiences) !!} || [];
+                this.education = {!! json_encode($education) !!} || [];
+                this.skills = {!! json_encode($skills) !!} || [];
+                    // this.resumeName    = dummyData.name;
+                    // this.contact       = dummyData.contact;
+                    // this.experiences   = dummyData.experiences;
+                    // this.education     = dummyData.education;
+                    // this.skills        = dummyData.skills;
             },
               // --- ADD THIS ENTIRE NEW METHOD ---
 
