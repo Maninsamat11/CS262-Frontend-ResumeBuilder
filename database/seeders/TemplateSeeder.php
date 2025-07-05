@@ -109,6 +109,111 @@ Template::create([
 HTML
 ]);
 
+
+// --- Template 2: Creative Sunset ---
+Template::create([
+    'name' => 'Creative Sunset',
+    'status' => true,
+    'template_url' => '/images/template/creative-sunset.png',
+    'template_html' => <<<'HTML'
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-700">
+    <div class="max-w-4xl mx-auto my-8 shadow-2xl rounded-lg overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-white p-10 text-center">
+            <div class="inline-block mb-4">
+                <div class="w-32 h-32 rounded-full bg-white bg-cover bg-center border-4 border-white shadow-lg"
+                     style="background-image: url('{{ contact.photo_path }}')">
+                </div>
+            </div>
+            <h1 class="text-5xl font-bold tracking-tight">{{ contact.full_name }}</h1>
+            <p class="text-xl mt-2">{{ contact.job_title_or_tagline }}</p>
+        </div>
+
+        <div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Left Column -->
+            <div class="col-span-1 border-r pr-8 border-gray-200">
+                <!-- Contact Section -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-purple-700 mb-4 uppercase tracking-wider">Contact</h3>
+                    <div class="space-y-2 text-sm">
+                        <p>{{ contact.phone }}</p>
+                        <p>{{ contact.email }}</p>
+                        <p>{{ contact.address }}</p>
+                    </div>
+                </div>
+                <!-- Skills Section -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-purple-700 mb-4 uppercase tracking-wider">Skills</h3>
+                    <div class="flex flex-wrap gap-2">
+                        {{--skill-loop-start--}}
+                        <span class="bg-pink-100 text-pink-800 text-xs font-semibold px-3 py-1 rounded-full">{{ skill.skill_name }}</span>
+                        {{--skill-loop-end--}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-span-2">
+                <!-- Summary Section -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-orange-600 mb-3">Profile</h2>
+                    <p class="text-sm leading-relaxed">{{ contact.summary }}</p>
+                </section>
+
+                <!-- Experience Section -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-orange-600 mb-4">Experience</h2>
+                    {{--experience-loop-start--}}
+                    <div class="mb-6 relative pl-6">
+                         <div class="absolute left-0 top-1.5 w-3 h-3 bg-pink-500 rounded-full"></div>
+                        <div class="flex justify-between items-baseline mb-1">
+                            <h3 class="text-lg font-bold text-gray-800">{{ experience.job_title }}</h3>
+                            <span class="text-xs text-gray-500 font-mono">{{ experience.start_date }} - {{ experience.end_date }}</span>
+                        </div>
+                        <p class="text-md font-semibold text-purple-700 mb-2">{{ experience.company_name }}</p>
+                        <p class="text-sm text-gray-600">{{ experience.description }}</p>
+                    </div>
+                    {{--experience-loop-end--}}
+                </section>
+
+                <!-- Education Section -->
+                <section>
+                    <h2 class="text-2xl font-bold text-orange-600 mb-4">Education</h2>
+                    {{--education-loop-start--}}
+                    <div class="mb-6 relative pl-6">
+                         <div class="absolute left-0 top-1.5 w-3 h-3 bg-pink-500 rounded-full"></div>
+                        <div class="flex justify-between items-baseline mb-1">
+                            <h3 class="text-lg font-bold text-gray-800">{{ education.degree }}</h3>
+                            <span class="text-xs text-gray-500 font-mono">{{ education.start_date }} - {{ education.end_date }}</span>
+                        </div>
+                        <p class="text-md font-semibold text-purple-700 mb-2">{{ education.school_name }} - {{ education.field }}</p>
+                    </div>
+                    {{--education-loop-end--}}
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+HTML
+]);
+
+
+
+
 // --- Template 2: Creative Green ---
 Template::create([
     'name' => 'Creative Green',
