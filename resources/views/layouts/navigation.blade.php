@@ -1,14 +1,12 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
-    <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <!-- Updated Code for navigation.blade.php -->
 <div class="flex">
     <!-- Logo -->
     <div class="shrink-0 flex items-center">
-        <!-- 1. The link now points to your 'home' route -->
+        <!-- 1. The link now points to 'home' route -->
         <a href="{{ route('home') }}">
-            <!-- 2. Replaced the SVG component with your own logo image -->
+            <!-- 2. logo image -->
             <img src="{{ asset('images/logo.png') }}" alt="Your Company Logo" class="block h-9 w-auto">
         </a>
     </div>
@@ -26,6 +24,10 @@
         <x-nav-link :href="route('templates.index')" :active="request()->routeIs('templates.index')">
             {{ __('Create New') }}
         </x-nav-link>
+
+         <x-nav-link :href="route('tutorial')" :active="request()->routeIs('tutorial')">
+            {{ __('Tutorial') }}
+         </x-nav-link>
     </div>
 </div>
 

@@ -6,14 +6,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TutorialController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Handles the form on the homepage for pasting a share link
 Route::post('/view-resume-from-link', [ResumeController::class, 'redirectFromLink'])->name('resumes.viewFromLink');
 
-// This is the public, shareable link for a resume. It uses the `share_url` column.
-Route::get('/r/{resume:share_url}', [ResumeController::class, 'showPublic'])->name('resumes.public.show');
+Route::get('/tutorial', [TutorialController::class, 'howToCreateResume'])->name('tutorial');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     
@@ -53,7 +53,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 
-//======================================================================
-// AUTHENTICATION ROUTES (Provided by Laravel Breeze)
-//======================================================================
+
 require __DIR__.'/auth.php';

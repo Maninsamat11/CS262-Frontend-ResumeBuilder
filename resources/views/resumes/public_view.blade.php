@@ -11,10 +11,7 @@
 
     <div class="container mx-auto p-4 sm:p-8">
         
-        <!-- Header with Download Button -->
-        {{-- In resources/views/resumes/public_view.blade.php --}}
-
-{{-- Find this download form in the header --}}
+    {{-- Header Section --}}
 <div class="max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-md mb-6 flex justify-between items-center">
     <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Viewing Resume: <span class="text-red-800">{{ $resume->name }}</span></h1>
     
@@ -23,7 +20,7 @@
         @csrf
         <select name="format" class="p-2 border border-gray-300 rounded-md text-sm">
             <option value="pdf">Download as PDF</option>
-            <option value="png">Download as Image (PNG)</option> {{-- <-- ADD THIS OPTION --}}
+            <option value="png">Download as Image (PNG)</option> 
         </select>
         <button type="submit" class="bg-red-800 text-white font-semibold px-4 py-2 rounded-md hover:bg-red-900 transition-colors">
             Download
@@ -33,7 +30,6 @@
 
         <!-- The Rendered Resume Content -->
         <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
-            {{-- The {!! !!} syntax is CRITICAL here to render the HTML --}}
             {!! $previewHtml !!}
         </div>
         
