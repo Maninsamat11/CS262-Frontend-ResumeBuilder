@@ -1,4 +1,4 @@
-{{-- resources/views/resumes/public_view.blade.php --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>

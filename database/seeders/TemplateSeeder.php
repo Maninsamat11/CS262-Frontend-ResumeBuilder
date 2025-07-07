@@ -15,259 +15,6 @@ class TemplateSeeder extends Seeder
   
 
         // --- Template 1: Professional Blue ---
-<<<<<<< HEAD
-Template::create([
-    'name' => 'Professional Blue',
-    'status' => true,
-    'template_url' => '/images/template/professional-blue.png',
-    'template_html' => <<<'HTML'
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { font-family: 'Georgia', 'Times New Roman', serif; }
-    </style>
-</head>
-<body class="bg-white text-gray-800">
-    <div class="max-w-4xl mx-auto">
-        <!-- Header -->
-        <div class="bg-blue-900 text-white p-8">
-            <div class="flex items-center space-x-6">
-                <div class="w-24 h-24 rounded-full bg-white bg-cover bg-center border-4 border-blue-300" 
-                     style="background-image: url('{{ contact.photo_path }}')">
-                </div>
-                <div>
-                    <h1 class="text-4xl font-bold">{{ contact.full_name }}</h1>
-                    <div class="mt-2 space-y-1">
-                        <p class="text-blue-200">{{ contact.phone }}</p>
-                        <p class="text-blue-200">{{ contact.address }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="p-8 grid grid-cols-12 gap-8">
-            <!-- Left Column -->
-            <div class="col-span-4">
-                <!-- Skills Section -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-blue-900 mb-4 pb-2 border-b border-blue-200">Skills</h3>
-                    <div class="space-y-2">
-                        {{--skill-loop-start--}}
-                        <div class="bg-blue-50 px-3 py-2 rounded">
-                            <p class="text-sm font-medium text-blue-800">{{ skill.skill_name }}</p>
-                        </div>
-                        {{--skill-loop-end--}}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column -->
-            <div class="col-span-8">
-                <!-- Summary Section -->
-                <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-blue-900 mb-4">Summary</h2>
-                    <p class="text-sm leading-relaxed text-gray-700">{{ contact.summary }}</p>
-                </section>
-
-                <!-- Experience Section -->
-                <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-blue-900 mb-4">Experience</h2>
-                    {{--experience-loop-start--}}
-                    <div class="mb-6 pl-4 border-l-4 border-blue-200">
-                        <div class="flex justify-between items-start mb-1">
-                            <h3 class="text-lg font-bold text-gray-800">{{ experience.job_title }}</h3>
-                            <span class="text-sm text-gray-600">{{ experience.start_date }} - {{ experience.end_date }}</span>
-                        </div>
-                        <p class="text-md font-semibold text-blue-700 mb-2">{{ experience.company_name }}</p>
-                        <p class="text-sm text-gray-700">{{ experience.description }}</p>
-                    </div>
-                    {{--experience-loop-end--}}
-                </section>
-
-                <!-- Education Section -->
-                <section>
-                    <h2 class="text-2xl font-bold text-blue-900 mb-4">Education</h2>
-                    {{--education-loop-start--}}
-                    <div class="mb-6 pl-4 border-l-4 border-blue-200">
-                        <div class="flex justify-between items-start mb-1">
-                            <h3 class="text-lg font-bold text-gray-800">{{ education.degree }}</h3>
-                            <span class="text-sm text-gray-600">{{ education.start_date }} - {{ education.end_date }}</span>
-                        </div>
-                        <p class="text-md font-semibold text-blue-700 mb-2">{{ education.school_name }} - {{ education.field }}</p>
-                        <p class="text-sm text-gray-700">{{ education.description }}</p>
-                    </div>
-                    {{--education-loop-end--}}
-                </section>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-HTML
-]);
-
-
-// --- Template 2: Creative Sunset ---
-Template::create([
-    'name' => 'Creative Sunset',
-    'status' => true,
-    'template_url' => '/images/template/creative-sunset.png',
-    'template_html' => <<<'HTML'
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Montserrat', sans-serif; }
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-700">
-    <div class="max-w-4xl mx-auto my-8 shadow-2xl rounded-lg overflow-hidden">
-        <!-- Header -->
-        <div class="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-white p-10 text-center">
-            <div class="inline-block mb-4">
-                <div class="w-32 h-32 rounded-full bg-white bg-cover bg-center border-4 border-white shadow-lg"
-                     style="background-image: url('{{ contact.photo_path }}')">
-                </div>
-            </div>
-            <h1 class="text-5xl font-bold tracking-tight">{{ contact.full_name }}</h1>
-            <p class="text-xl mt-2">{{ contact.job_title_or_tagline }}</p>
-        </div>
-
-        <div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Left Column -->
-            <div class="col-span-1 border-r pr-8 border-gray-200">
-                <!-- Contact Section -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-purple-700 mb-4 uppercase tracking-wider">Contact</h3>
-                    <div class="space-y-2 text-sm">
-                        <p>{{ contact.phone }}</p>
-                        <p>{{ contact.email }}</p>
-                        <p>{{ contact.address }}</p>
-                    </div>
-                </div>
-                <!-- Skills Section -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold text-purple-700 mb-4 uppercase tracking-wider">Skills</h3>
-                    <div class="flex flex-wrap gap-2">
-                        {{--skill-loop-start--}}
-                        <span class="bg-pink-100 text-pink-800 text-xs font-semibold px-3 py-1 rounded-full">{{ skill.skill_name }}</span>
-                        {{--skill-loop-end--}}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column -->
-            <div class="col-span-2">
-                <!-- Summary Section -->
-                <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-orange-600 mb-3">Profile</h2>
-                    <p class="text-sm leading-relaxed">{{ contact.summary }}</p>
-                </section>
-
-                <!-- Experience Section -->
-                <section class="mb-8">
-                    <h2 class="text-2xl font-bold text-orange-600 mb-4">Experience</h2>
-                    {{--experience-loop-start--}}
-                    <div class="mb-6 relative pl-6">
-                         <div class="absolute left-0 top-1.5 w-3 h-3 bg-pink-500 rounded-full"></div>
-                        <div class="flex justify-between items-baseline mb-1">
-                            <h3 class="text-lg font-bold text-gray-800">{{ experience.job_title }}</h3>
-                            <span class="text-xs text-gray-500 font-mono">{{ experience.start_date }} - {{ experience.end_date }}</span>
-                        </div>
-                        <p class="text-md font-semibold text-purple-700 mb-2">{{ experience.company_name }}</p>
-                        <p class="text-sm text-gray-600">{{ experience.description }}</p>
-                    </div>
-                    {{--experience-loop-end--}}
-                </section>
-
-                <!-- Education Section -->
-                <section>
-                    <h2 class="text-2xl font-bold text-orange-600 mb-4">Education</h2>
-                    {{--education-loop-start--}}
-                    <div class="mb-6 relative pl-6">
-                         <div class="absolute left-0 top-1.5 w-3 h-3 bg-pink-500 rounded-full"></div>
-                        <div class="flex justify-between items-baseline mb-1">
-                            <h3 class="text-lg font-bold text-gray-800">{{ education.degree }}</h3>
-                            <span class="text-xs text-gray-500 font-mono">{{ education.start_date }} - {{ education.end_date }}</span>
-                        </div>
-                        <p class="text-md font-semibold text-purple-700 mb-2">{{ education.school_name }} - {{ education.field }}</p>
-                    </div>
-                    {{--education-loop-end--}}
-                </section>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-HTML
-]);
-
-
-
-
-// --- Template 2: Creative Green ---
-Template::create([
-    'name' => 'Creative Green',
-    'status' => true,
-    'template_url' => '/images/template/creative-green.png',
-    'template_html' => <<<'HTML'
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { font-family: 'Trebuchet MS', 'Arial', sans-serif; }
-    </style>
-</head>
-<body class="bg-gradient-to-br from-green-50 to-emerald-100 text-gray-800">
-    <div class="max-w-4xl mx-auto p-6">
-        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
-            <!-- Header -->
-            <div class="bg-gradient-to-r from-green-600 to-emerald-600 p-8 text-white">
-                <div class="text-center">
-                    <div class="w-32 h-32 mx-auto rounded-full bg-white bg-cover bg-center border-4 border-green-200 shadow-lg" 
-                         style="background-image: url('{{ contact.photo_path }}')">
-                    </div>
-                    <h1 class="text-4xl font-bold mt-4">{{ contact.full_name }}</h1>
-                    <div class="mt-4 flex justify-center space-x-6">
-                        <p class="bg-green-700 px-4 py-2 rounded-full text-sm">{{ contact.phone }}</p>
-                        <p class="bg-green-700 px-4 py-2 rounded-full text-sm">{{ contact.address }}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-8">
-                <!-- Summary Section -->
-                <section class="mb-8 text-center">
-                    <h2 class="text-3xl font-bold text-green-700 mb-4">About Me</h2>
-                    <div class="bg-green-50 p-6 rounded-xl">
-                        <p class="text-sm leading-relaxed text-gray-700">{{ contact.summary }}</p>
-                    </div>
-                </section>
-
-                <div class="grid grid-cols-12 gap-8">
-                    <!-- Left Column -->
-                    <div class="col-span-4">
-                        <!-- Skills Section -->
-                        <div class="bg-gradient-to-b from-green-100 to-emerald-100 p-6 rounded-xl">
-                            <h3 class="text-xl font-bold text-green-800 mb-4 text-center">Skills</h3>
-                            <div class="space-y-3">
-                                {{--skill-loop-start--}}
-                                <div class="bg-white px-4 py-3 rounded-lg shadow-sm border-l-4 border-green-500">
-                                    <p class="text-sm font-medium text-gray-800">{{ skill.skill_name }}</p>
-=======
                 Template::create([
                     'name' => 'Professional Blue',
                     'status' => true,
@@ -290,7 +37,6 @@ Template::create([
                             <div class="flex items-center space-x-6">
                                 <div class="w-24 h-24 rounded-full bg-white bg-cover bg-center border-4 border-blue-300" 
                                     style="background-image: url('{{ contact.photo_path }}')">
->>>>>>> 2aa20e5272813960fc1255ae18f4d7dc6c0e8053
                                 </div>
                                 <div>
                                     <h1 class="text-4xl font-bold">{{ contact.full_name }}</h1>
@@ -364,7 +110,7 @@ Template::create([
                 ]);
 
 
-                        // --- Template 3: Sunny Gradient ---.
+                        // --- Template 2: Sunny Gradient ---.
                         Template::create([
                             'name' => 'Sunny Gradient',
                             'status' => true,
@@ -399,7 +145,6 @@ Template::create([
                                 <section>
                                     <h2 class="text-xl font-bold text-orange-600 border-b-2 border-yellow-400 pb-2 mb-3">Contact</h2>
                                     <p>{{ contact.phone }}</p>
-                                    <p>{{ contact.email }}</p>
                                     <p>{{ contact.address }}</p>
                                 </section>
                                 <section>
@@ -447,7 +192,7 @@ Template::create([
                 HTML
                         ]);
 
-                        // --- Template 4: Minty Fresh ---
+                        // --- Template 3: Minty Fresh ---
                     
                         Template::create([
                             'name' => 'Minty Fresh',
@@ -483,7 +228,6 @@ Template::create([
                             <section class="mb-6">
                                 <h2 class="text-lg font-bold uppercase tracking-wider mb-3">Contact</h2>
                                 <p class="text-sm">{{ contact.phone }}</p>
-                                <p class="text-sm">{{ contact.email }}</p>
                                 <p class="text-sm">{{ contact.address }}</p>
                             </section>
                         </div>
@@ -530,7 +274,7 @@ Template::create([
                 HTML
                         ]);
 
-                        // --- Template 5: Comic Book Blast ---
+                        // --- Template 4: Comic Book Blast ---
                         // A high-energy, pop-art style template using bold colors and angled elements.
                         Template::create([
                             'name' => 'Comic Book Blast',
@@ -570,7 +314,7 @@ Template::create([
                                 <section>
                                     <h2 class="comic-font text-3xl text-blue-600">Contact!</h2>
                                     <div class="bg-gray-200 p-3 border-4 border-dashed border-black">
-                                        <p class="font-bold">{{ contact.email }}</p>
+                                        <p class="font-bold">{{ contact.address }}</p>
                                         <p class="font-bold">{{ contact.phone }}</p>
                                     </div>
                                 </section>
@@ -611,7 +355,7 @@ Template::create([
                 HTML
                         ]);
 
-                        // --- Template 6: Midnight Bloom ---
+                        // --- Template 5: Midnight Bloom ---
                         // A sophisticated, dark-mode theme with floral accents and elegant typography.
                         Template::create([
                             'name' => 'Midnight Bloom',
@@ -642,7 +386,7 @@ Template::create([
                                 style="background-image: url('{{ contact.photo_path }}'); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);">
                             </div>
                             <h1 class="title-font text-5xl text-white">{{ contact.full_name }}</h1>
-                            <p class="text-lg text-rose-300 mt-2">{{ contact.email }} | {{ contact.phone }}</p>
+                            <p class="text-lg text-rose-300 mt-2">{{ contact.adress }} | {{ contact.phone }}</p>
                         </header>
 
                         <main class="grid grid-cols-12 gap-12">
@@ -695,7 +439,7 @@ Template::create([
 
 
 
-                // --- Template 7: Emerald Executive ---
+                // --- Template 6: Emerald Executive ---
 
                 Template::create([
                     'name' => 'Emerald Executive',
@@ -727,7 +471,6 @@ Template::create([
                                 <h2 class="text-lg font-bold uppercase text-emerald-200 tracking-widest mb-3">Contact</h2>
                                 <div class="space-y-2 text-sm">
                                     <p>{{ contact.phone }}</p>
-                                    <p>{{ contact.email }}</p>
                                     <p>{{ contact.address }}</p>
                                 </div>
                             </section>
@@ -783,7 +526,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 8: Indigo Infographic ---
+                // --- Template 7: Indigo Infographic ---
                 Template::create([
                     'name' => 'Indigo Infographic',
                     'status' => true,
@@ -823,7 +566,6 @@ Template::create([
                                 <section>
                                     <h3 class="font-bold text-lg uppercase text-indigo-700 tracking-wider mb-2">Contact</h3>
                                     <p class="text-sm text-gray-700">{{ contact.phone }}</p>
-                                    <p class="text-sm text-gray-700">{{ contact.email }}</p>
                                     <p class="text-sm text-gray-700">{{ contact.address }}</p>
                                 </section>
                                 <section>
@@ -882,7 +624,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 9: Crimson Creative ---
+                // --- Template 8: Crimson Creative ---
                 Template::create([
                     'name' => 'Crimson Creative',
                     'status' => true,
@@ -931,7 +673,7 @@ Template::create([
                                     <section>
                                         <h2 class="text-2xl font-black text-red-700 tracking-widest uppercase mb-4">Contact</h2>
                                         <p class="font-semibold">{{ contact.phone }}</p>
-                                        <p class="font-semibold">{{ contact.email }}</p>
+                                        <p class="font-semibold">{{ contact.address }}</p>
                                     </section>
                                 </div>
                                 <div class="space-y-8">
@@ -961,7 +703,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 10: Slate & Sky ---
+                // --- Template 9: Slate & Sky ---
                 Template::create([
                     'name' => 'Slate & Sky',
                     'status' => true,
@@ -1011,7 +753,6 @@ Template::create([
                                 <h3 class="font-semibold text-slate-700 mb-2">Contact</h3>
                                 <div class="text-sm space-y-1">
                                     <p>{{ contact.phone }}</p>
-                                    <p>{{ contact.email }}</p>
                                     <p>{{ contact.address }}</p>
                                 </div>
                             </section>
@@ -1039,7 +780,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 11: Golden Touch ---
+                // --- Template 10: Golden Touch ---
                 Template::create([
                     'name' => 'Golden Touch',
                     'status' => true,
@@ -1077,7 +818,6 @@ Template::create([
                                     <h2 class="serif-display text-xl text-amber-300 mb-3">Contact</h2>
                                     <div class="text-sm space-y-1">
                                         <p>{{ contact.phone }}</p>
-                                        <p>{{ contact.email }}</p>
                                         <p>{{ contact.address }}</p>
                                     </div>
                                 </section>
@@ -1124,7 +864,7 @@ Template::create([
                     
                 
 
-                // --- Template 13: Executive Black ---
+                // --- Template 11: Executive Black ---
                 Template::create([
                     'name' => 'Executive Black',
                     'status' => true,
@@ -1235,7 +975,7 @@ Template::create([
 
                
 
-                // --- Template 15: Clean Orange ---
+                // --- Template 12: Clean Orange ---
                 Template::create([
                     'name' => 'Clean Orange',
                     'status' => true,
@@ -1369,7 +1109,7 @@ Template::create([
                 HTML
                 ]);
                     
-                // --- Template 16: Tech Slate ---
+                // --- Template 13: Tech Slate ---
                 Template::create([
                     'name' => 'Tech Slate',
                     'status' => true,
@@ -1447,7 +1187,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 17: Elegant Ink ---
+                // --- Template 14: Elegant Ink ---
                 Template::create([
                     'name' => 'Elegant Ink',
                     'status' => true,
@@ -1520,7 +1260,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 18: Corporate Blue ---
+                // --- Template 15: Corporate Blue ---
                 Template::create([
                     'name' => 'Corporate Blue',
                     'status' => true,
@@ -1594,7 +1334,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 19: Creative Spotlight ---
+                // --- Template 16: Creative Spotlight ---
                 Template::create([
                     'name' => 'Creative Spotlight',
                     'status' => true,
@@ -1689,7 +1429,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 20: Academic CV ---
+                // --- Template 17: Academic CV ---
                 Template::create([
                     'name' => 'Academic CV',
                     'status' => true,
@@ -1753,85 +1493,9 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 21: Infographic Style ---
-                Template::create([
-                    'name' => 'Infographic Style',
-                    'status' => true,
-                    'template_url' => '/images/template/infographic-style.png',
-                    'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Inter', 'system-ui', sans-serif; } </style>
-                </head>
-                <body class="bg-gray-100">
-                    <div class="max-w-4xl mx-auto my-10 bg-white p-8 rounded-2xl shadow-2xl">
-                        <header class="flex items-center space-x-6 pb-6 border-b-2 border-gray-100">
-                            <div class="w-24 h-24 rounded-full bg-blue-100 bg-cover bg-center" style="background-image: url('{{ contact.photo_path }}')"></div>
-                            <div>
-                                <h1 class="text-3xl font-extrabold text-gray-800">{{ contact.full_name }}</h1>
-                                <p class="text-base text-blue-600 font-medium">{{ contact.summary }}</p>
-                            </div>
-                        </header>
+                
 
-                        <main class="grid grid-cols-12 gap-8 mt-6">
-                            <div class="col-span-4">
-                                <div class="space-y-6">
-                                    <div>
-                                        <h3 class="font-bold text-gray-500 text-sm uppercase mb-3">Contact</h3>
-                                        <div class="space-y-2 text-sm">
-                                            <p class="flex items-center"><svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg> {{ contact.phone }}</p>
-                                            <p class="flex items-center"><svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> {{ contact.address }}</p>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-bold text-gray-500 text-sm uppercase mb-3">Skills</h3>
-                                        <div class="flex flex-wrap gap-2">
-                                        {{--skill-loop-start--}}
-                                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full">{{ skill.skill_name }}</span>
-                                        {{--skill-loop-end--}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-span-8">
-                                <section class="mb-8">
-                                    <h2 class="text-xl font-bold text-gray-800 mb-4">Experience</h2>
-                                    <div class="space-y-6 border-l-2 border-blue-200 pl-6">
-                                    {{--experience-loop-start--}}
-                                        <div>
-                                            <p class="text-xs font-semibold text-gray-500">{{ experience.start_date }} / {{ experience.end_date }}</p>
-                                            <h3 class="font-bold text-base">{{ experience.job_title }} at {{ experience.company_name }}</h3>
-                                            <p class="text-sm text-gray-600 mt-1">{{ experience.description }}</p>
-                                        </div>
-                                    {{--experience-loop-end--}}
-                                    </div>
-                                </section>
-                                <section>
-                                    <h2 class="text-xl font-bold text-gray-800 mb-4">Education</h2>
-                                    <div class="space-y-6 border-l-2 border-blue-200 pl-6">
-                                    {{--education-loop-start--}}
-                                        <div>
-                                            <p class="text-xs font-semibold text-gray-500">{{ education.start_date }} / {{ education.end_date }}</p>
-                                            <h3 class="font-bold text-base">{{ education.degree }}</h3>
-                                            <p class="text-sm font-medium text-gray-700">{{ education.school_name }} - {{ education.field }}</p>
-                                            <p class="text-sm text-gray-600 mt-1">{{ education.description }}</p>
-                                        </div>
-                                    {{--education-loop-end--}}
-                                    </div>
-                                </section>
-                            </div>
-                        </main>
-                    </div>
-                </body>
-                </html>
-                HTML
-                ]);
-
-                        // --- Template 2: Retro Pop ---
+                        // --- Template 18: Retro Pop ---
                         // A fun, 80s-inspired theme with neon colors and a circular photo.
                         Template::create([
                             'name' => 'Retro Pop',
@@ -1858,7 +1522,7 @@ Template::create([
                             <div class="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8">
                                 <div class="text-center sm:text-left">
                                     <h1 class="pixel-font text-4xl text-yellow-300 text-shadow">{{ contact.full_name }}</h1>
-                                    <p class="text-lg text-cyan-400 mt-2">{{ contact.email }} | {{ contact.phone }}</p>
+                                    <p class="text-lg text-cyan-400 mt-2">{{ contact.address }} | {{ contact.phone }}</p>
                                 </div>
                                 <!-- Photo Holder: Circle with neon glow -->
                                 <div class="w-32 h-32 rounded-full border-4 border-pink-500 bg-cover bg-center shadow-lg"
@@ -1916,7 +1580,7 @@ Template::create([
                 HTML
                         ]);
 
-                // --- Template 22: Simple Sidebar ---
+                // --- Template 19: Simple Sidebar ---
                 Template::create([
                     'name' => 'Simple Sidebar',
                     'status' => true,
@@ -1994,7 +1658,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 23: Bold Headlines ---
+                // --- Template 20: Bold Headlines ---
                 Template::create([
                     'name' => 'Bold Headlines',
                     'status' => true,
@@ -2057,7 +1721,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 24: The Minimalist Grid ---
+                // --- Template 21: The Minimalist Grid ---
                 Template::create([
                     'name' => 'The Minimalist Grid',
                     'status' => true,
@@ -2136,7 +1800,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 25: The Timeline ---
+                // --- Template 22: The Timeline ---
                 Template::create([
                     'name' => 'The Timeline',
                     'status' => true,
@@ -2203,7 +1867,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 26: The Journalist ---
+                // --- Template 23: The Journalist ---
                 Template::create([
                     'name' => 'The Journalist',
                     'status' => true,
@@ -2277,7 +1941,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 27: Gradient Splash ---
+                // --- Template 24: Gradient Splash ---
                 Template::create([
                     'name' => 'Gradient Splash',
                     'status' => true,
@@ -2356,7 +2020,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 28: The Centered Classic ---
+                // --- Template 25: The Centered Classic ---
                 Template::create([
                     'name' => 'The Centered Classic',
                     'status' => true,
@@ -2423,7 +2087,7 @@ Template::create([
                 HTML
                 ]);
 
-                // --- Template 29: Classic Professional ---
+                // --- Template 26: Classic Professional ---
                         Template::create([
                             'name' => 'Classic Professional',
                             'status' => true,
@@ -2492,7 +2156,7 @@ Template::create([
                 HTML
                         ]);
 
-                        // --- Template 30: Modern Minimalist ---
+                        // --- Template 27: Modern Minimalist ---
                     Template::create([
                             'name' => 'Modern Minimalist',
                             'status' => true,
@@ -2561,7 +2225,8 @@ Template::create([
                 HTML
                         ]);
 
-                        // --- Template 31: Creative Column ---
+                        // --- Template 28
+                        // : Creative Column ---
                         Template::create([
                             'name' => 'Creative Column',
                             'status' => true,
