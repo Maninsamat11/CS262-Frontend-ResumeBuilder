@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse; 
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Vite;
 use App\Services\ResumeRenderingService;
 
 
@@ -262,15 +261,7 @@ private function processLoop($html, $loopName, $items)
         // Redirect back to the share page with a success message
         return back()->with('status', $message);
     }
-    public function showDownloadPage(Resume $resume)
-    {
-        // Security check
-        if ($resume->user_id !== Auth::id()) {
-            abort(403);
-        }
-        return view('resumes.download', ['resume' => $resume]);
-    } 
-
+   
 
 
 public function processDownload(Request $request, Resume $resume, ResumeRenderingService $renderer)
@@ -288,23 +279,38 @@ public function processDownload(Request $request, Resume $resume, ResumeRenderin
         return back()->with('error', 'Could not generate resume: ' . $e->getMessage());
     }
 
-    // --- THIS IS THE CRITICAL SECTION FOR STYLING ---
+    // --- FINAL EMBEDDED CSS SOLUTION ---
 
-    // 1. Get the absolute URL to your BUILT CSS file.
-    //    This only works correctly after you run `npm run build`.
-    $cssUrl = Vite::asset('resources/css/app.css');
+    // 1. Get the path to the Vite manifest file.
+    $manifestPath = public_path('build/manifest.json');
 
-    // 2. Assemble the full HTML document, including the <link> tag to your CSS.
+    // 2. Check if the manifest exists (has `npm run build` been run?).
+    if (!file_exists($manifestPath)) {
+        return back()->with('error', 'Vite manifest not found. Please run "npm run build".');
+    }
+
+    // 3. Read and decode the manifest file.
+    $manifest = json_decode(file_get_contents($manifestPath), true);
+    
+    // 4. Find the path to our specific CSS file from the manifest.
+    $cssAssetPath = $manifest['resources/css/app.css']['file'] ?? null;
+    
+    if (!$cssAssetPath) {
+        return back()->with('error', 'CSS asset not found in Vite manifest.');
+    }
+
+    // 5. Get the full server path and read the CSS content.
+    $cssContent = file_get_contents(public_path('build/' . $cssAssetPath));
+
+    // 6. Assemble the full HTML, embedding the CSS content inside a <style> tag.
     $fullHtml = <<<HTML
     <!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Resume - {$resume->name}</title>
-        <link rel="stylesheet" href="{$cssUrl}">
         <style>
-            /* This helps ensure colors and backgrounds are printed correctly in some PDF viewers */
-            body { -webkit-print-color-adjust: exact; }
+            {$cssContent}
         </style>
     </head>
     <body>
@@ -313,13 +319,11 @@ public function processDownload(Request $request, Resume $resume, ResumeRenderin
     </html>
     HTML;
 
-    // --- END OF CRITICAL SECTION ---
+    // --- END OF FINAL SOLUTION ---
 
     $filename = Str::slug($resume->name);
 
     if ($format === 'pdf') {
-        // 3. The option 'isRemoteEnabled' is VITAL. It gives dompdf permission
-        //    to download the CSS file from the URL we provided in the <link> tag.
         $pdf = Pdf::loadHTML($fullHtml)->setOption(['isRemoteEnabled' => true]);
         return $pdf->stream($filename . '.pdf');
     }
@@ -331,7 +335,6 @@ public function processDownload(Request $request, Resume $resume, ResumeRenderin
     
     return back()->with('error', 'That download format is not yet supported.');
 }
-
     /**
      * Redirects the user to the public view of a resume based on a shareable link.
      *
