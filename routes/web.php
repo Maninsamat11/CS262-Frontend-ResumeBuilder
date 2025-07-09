@@ -42,15 +42,18 @@
         Route::match(['get', 'post'], '/resumes/{resume}/preview', [ResumeController::class, 'preview'])->name('resumes.preview');
         Route::patch('/resumes/{resume}/toggle-status', [ResumeController::class, 'toggleStatus'])->name('resumes.toggleStatus');
         Route::post('/resumes/{resume}/photo', [ResumeController::class, 'updatePhoto'])->name('resumes.photo.update');
-        Route::get('/resumes/{resume}/data', [ResumeController::class, 'getResumeDataAsJson'])->name('resumes.data');
         
-        
+    
         // Sharing Routes
         Route::get('/resumes/{resume}/share', [ResumeController::class, 'showSharePage'])->name('resumes.share');
         Route::put('/resumes/{resume}/share', [ResumeController::class, 'updateShareSettings'])->name('resumes.share.update');
 
         // Downloading Route (The POST action is what matters)
         Route::post('/resumes/{resume}/download', [ResumeController::class, 'processDownload'])->name('resumes.processDownload');
+         Route::get('/resumes/{resume}/import-data', [ResumeController::class, 'getDataForImport'])->name('resumes.import.data');
+
+        // This route will handle the form submission from your "Change Template" modal.
+        Route::put('/resumes/{resume}/change-template', [ResumeController::class, 'changeTemplate'])->name('resumes.template.change');
 
     });
 
