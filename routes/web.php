@@ -12,8 +12,10 @@
 
     // Handles the form on the homepage for pasting a share link
     Route::post('/view-resume-from-link', [ResumeController::class, 'redirectFromLink'])->name('resumes.viewFromLink');
+    Route::get('/resumes/public/{shareUrl}', [App\Http\Controllers\ResumeShareController::class, 'publicShow'])->name('resumes.public.show');
 
     Route::get('/tutorial', [TutorialController::class, 'howToCreateResume'])->name('tutorial');
+
 
     Route::middleware(['auth', 'verified'])->group(function () {
         
@@ -44,8 +46,6 @@
         
         
         // Sharing Routes
-        Route::get('/resumes/public/{shareUrl}', [ResumeShareController::class, 'publicShow'])
-        ->name('resumes.public.show');
         Route::get('/resumes/{resume}/share', [ResumeController::class, 'showSharePage'])->name('resumes.share');
         Route::put('/resumes/{resume}/share', [ResumeController::class, 'updateShareSettings'])->name('resumes.share.update');
 

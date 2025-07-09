@@ -5,5 +5,10 @@
     "lato": {
         "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/lato_normal_51116b245f08d5e5cdb537d25637e400",
         "bold": "lato_bold_39c477866ca5e9b58b0b56a69b4bac5a"
+    },
+    "roboto": {
+        "300": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/roboto_300_67dc12b3f1f113305ec431e641e8a57d",
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/roboto_normal_a5fc1441144adab7ff7fd3a2b9c8ceea",
+        "bold": "roboto_bold_33a1d3e1e3260160834fe00ba212e515"
     }
 }

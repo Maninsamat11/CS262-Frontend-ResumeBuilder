@@ -129,22 +129,38 @@
                 If you've been sent a shareable link, paste it here to view the resume instantly.
             </p>
 
+            {{-- ========================================================= --}}
+            {{-- CHANGE 1: ADDED THIS BLOCK TO DISPLAY ERRORS           --}}
+            {{-- This will show the "invalid link" message from the controller --}}
+            {{-- ========================================================= --}}
+            @if(session('error'))
+                <div class="max-w-xl mx-auto mb-4 p-4 bg-red-100 text-left text-red-800 border-l-4 border-red-500 rounded-lg" role="alert">
+                    <p class="font-bold">Could not view resume</p>
+                    <p>{{ session('error') }}</p>
+                </div>
+            @endif
+            {{-- ========================================================= --}}
+
+
             <!-- The Form to handle the redirection -->
-           <!-- The Form to handle the redirection -->
-                <form action="{{ route('resumes.viewFromLink') }}" method="POST" class="flex flex-col sm:flex-row items-stretch justify-center max-w-xl mx-auto">
-                    @csrf {{-- All POST forms need a CSRF token for security --}}
+            <form action="{{ route('resumes.viewFromLink') }}" method="POST" class="flex flex-col sm:flex-row items-stretch justify-center max-w-xl mx-auto">
+                @csrf
 
-                    <input type="url" 
-                        name="share_link" 
-                        placeholder="Paste the full shareable link here..."
-                        class="flex-grow p-4 border border-gray-300 rounded-lg sm:rounded-none sm:rounded-l-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
-                        required>
+                <input type="url" 
+                    {{-- ========================================================= --}}
+                    {{-- CHANGE 2: FIXED THE NAME ATTRIBUTE                     --}}
+                    {{-- Changed from 'share_link' to 'shareable_link'        --}}
+                    {{-- ========================================================= --}}
+                    name="shareable_link" 
+                    placeholder="Paste the full shareable link here..."
+                    class="flex-grow p-4 border border-gray-300 rounded-lg sm:rounded-none sm:rounded-l-lg focus:ring-2 focus:ring-red-500 focus:outline-none"
+                    required>
 
-                    <button type="submit"
-                            class="bg-red-800 text-white font-semibold px-8 py-4 rounded-lg sm:rounded-none sm:rounded-r-lg hover:bg-red-900 mt-2 sm:mt-0">
-                        View Resume
-                    </button>
-                </form>
+                <button type="submit"
+                        class="bg-red-800 text-white font-semibold px-8 py-4 rounded-lg sm:rounded-none sm:rounded-r-lg hover:bg-red-900 mt-2 sm:mt-0">
+                    View Resume
+                </button>
+            </form>
         </div>
     </div>
 </section>

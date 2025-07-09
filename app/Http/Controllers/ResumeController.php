@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse; 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Vite;
+use App\Services\ResumeRenderingService;
+
+
 
 
 class ResumeController extends Controller
 {
-
     
     public function store(Request $request)
 {
@@ -267,160 +269,102 @@ private function processLoop($html, $loopName, $items)
             abort(403);
         }
         return view('resumes.download', ['resume' => $resume]);
-    }
-
-        public function processDownload(Request $request, Resume $resume)
-    {
-        // SECURITY CHECK: Allow if public or if the user is the owner.
-        if ($resume->status !== 'public' && (Auth::guest() || Auth::id() !== $resume->user_id)) {
-            abort(403);
-        }
-
-        // VALIDATION: Make sure we have a valid format.
-        $request->validate([
-            'format' => 'required|in:pdf,png',
-        ]);
-
-        $format = $request->input('format');
-
-        // --- 1. DATA PREPARATION ---
-        // A. Load ALL necessary data.
-        $resume->load(['template', 'user', 'contactInfo', 'experiences', 'educations', 'skills']);
-
-        // B. Get the base HTML structure from the template.
-        $templateHtml = $resume->template->template_html;
-
-        // C. Replace single-value placeholders.
-        if ($resume->contactInfo) {
-            foreach ($resume->contactInfo->getAttributes() as $key => $value) {
-                $templateHtml = str_replace("{{ contact.{$key} }}", e($value ?? ''), $templateHtml);
-            }
-        }
-        if ($resume->user) {
-            $templateHtml = str_replace("{{ user.name }}", e($resume->user->name ?? ''), $templateHtml);
-            $templateHtml = str_replace("{{ user.email }}", e($resume->user->email ?? ''), $templateHtml);
-        }
-
-        // D. Replace repeating sections (loops).
-        $templateHtml = $this->processLoop($templateHtml, 'experience', $resume->experiences);
-        $templateHtml = $this->processLoop($templateHtml, 'education', $resume->educations);
-        $templateHtml = $this->processLoop($templateHtml, 'skill', $resume->skills);
-
-        // E. Clean up any remaining/unfilled placeholders.
-        $templateHtml = preg_replace('/\{\{.*?\}\}/', '', $templateHtml);
+    } 
 
 
-        // --- 2. HTML & CSS ASSEMBLY (THE FIX) ---
-        // Get the absolute URL to your compiled CSS file.
-        $cssUrl = Vite::asset('resources/css/app.css');
 
-        // Wrap your processed template HTML in a full document structure,
-        // and crucially, link to the stylesheet in the <head>.
-        $fullHtml = <<<HTML
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Resume</title>
-            <link rel="stylesheet" href="{$cssUrl}">
-        </head>
-        <body>
-            {$templateHtml}
-        </body>
-        </html>
-        HTML;
-
-
-        // --- 3. FILE GENERATION ---
-        $filename = Str::slug($resume->name);
-
-        if ($format === 'pdf') {
-            // Pass the complete HTML (with CSS link) to the PDF generator.
-            $pdf = Pdf::loadHTML($fullHtml)->setOption(['isRemoteEnabled' => true]);
-            return $pdf->stream($filename . '.pdf');
-        }
-        
-        if ($format === 'png') {
-            // Pass the complete HTML to Browsershot. It will load the CSS like a real browser.
-            $image = Browsershot::html($fullHtml)
-                ->fullPage()
-                ->setScreenshotType('png')
-                ->screenshot();
-            
-            return response($image)
-                ->header('Content-Type', 'image/png')
-                ->header('Content-Disposition', 'attachment; filename="' . $filename . '.png"');
-        }
-        
-        return back()->with('error', 'That download format is not yet supported.');
-    }
-    public function showPublic(Resume $resume)
+public function processDownload(Request $request, Resume $resume, ResumeRenderingService $renderer)
 {
-    // 1. SECURITY CHECK: Allow if public or if the user is the owner.
-    if ($resume->status !== 'public' && (auth()->guest() || auth()->id() !== $resume->user_id)) {
-        abort(404, 'Resume not found.');
+    if ($resume->status !== 'public' && (Auth::guest() || Auth::id() !== $resume->user_id)) {
+        abort(403, 'You do not have permission to download this resume.');
     }
 
-    // 2. Track view count if the viewer is not the owner
-    if (auth()->guest() || auth()->id() !== $resume->user_id) {
-        $resume->increment('views'); // Assuming you have a 'views' column on your resumes table
+    $request->validate(['format' => 'required|in:pdf,png']);
+    $format = $request->input('format');
+
+    try {
+        $renderedTemplateHtml = $renderer->render($resume);
+    } catch (\Exception $e) {
+        return back()->with('error', 'Could not generate resume: ' . $e->getMessage());
     }
 
-    // 3. Prepare the HTML for display (this logic should already exist from your preview function)
-    $resume->load(['template', 'user', 'contactInfo', 'experiences', 'educations', 'skills']);
-    $templateHtml = $resume->template->template_html;
+    // --- THIS IS THE CRITICAL SECTION FOR STYLING ---
 
-    if ($resume->contactInfo) {
-        foreach ($resume->contactInfo->toArray() as $key => $value) {
-            $templateHtml = str_replace("{{ contact.{$key} }}", e($value ?? ''), $templateHtml);
-        }
+    // 1. Get the absolute URL to your BUILT CSS file.
+    //    This only works correctly after you run `npm run build`.
+    $cssUrl = Vite::asset('resources/css/app.css');
+
+    // 2. Assemble the full HTML document, including the <link> tag to your CSS.
+    $fullHtml = <<<HTML
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Resume - {$resume->name}</title>
+        <link rel="stylesheet" href="{$cssUrl}">
+        <style>
+            /* This helps ensure colors and backgrounds are printed correctly in some PDF viewers */
+            body { -webkit-print-color-adjust: exact; }
+        </style>
+    </head>
+    <body>
+        {$renderedTemplateHtml}
+    </body>
+    </html>
+    HTML;
+
+    // --- END OF CRITICAL SECTION ---
+
+    $filename = Str::slug($resume->name);
+
+    if ($format === 'pdf') {
+        // 3. The option 'isRemoteEnabled' is VITAL. It gives dompdf permission
+        //    to download the CSS file from the URL we provided in the <link> tag.
+        $pdf = Pdf::loadHTML($fullHtml)->setOption(['isRemoteEnabled' => true]);
+        return $pdf->stream($filename . '.pdf');
     }
-    $templateHtml = $this->processLoop($templateHtml, 'experience', $resume->experiences);
-    $templateHtml = $this->processLoop($templateHtml, 'education', $resume->educations);
-    $templateHtml = $this->processLoop($templateHtml, 'skill', $resume->skills);
     
-    // 4. Return the public view with all the necessary data
-    return view('resumes.public_view', [
-        'resume' => $resume,
-        'previewHtml' => $templateHtml,
-    ]);
+    if ($format === 'png') {
+        $image = Browsershot::html($fullHtml)->fullPage()->screenshot();
+        return response($image)->header('Content-Type', 'image/png')->header('Content-Disposition', 'attachment; filename="' . $filename . '.png"');
+    }
+    
+    return back()->with('error', 'That download format is not yet supported.');
 }
 
-    public function destroy(Resume $resume)
+    /**
+     * Redirects the user to the public view of a resume based on a shareable link.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+
+
+   public function redirectFromLink(Request $request)
     {
-        // Security check: Make sure the user owns the resume they are trying to delete.
-        if ($resume->user_id !== Auth::id()) {
-            abort(403);
-        }
-
-        $resume->delete();
-
-        // Redirect back to the dashboard with a success message.
-        return redirect()->route('dashboard')->with('status', 'Resume deleted successfully!');
-    }
-
-     public function redirectFromLink(Request $request)
-    {
-        // 1. Validate that the link was actually submitted
+        // 1. Validate that the user submitted a valid URL.
         $request->validate([
-            'share_link' => 'required|url',
+            'shareable_link' => 'required|url',
         ]);
 
-        // 2. Get the full URL from the form input
-        $fullUrl = $request->input('share_link');
+        // 2. Get the full URL from the form input.
+        $fullUrl = $request->input('shareable_link');
 
-        // 3. Extract the path from the URL (e.g., "/r/685bbc29bb37f")
-        $path = parse_url($fullUrl, PHP_URL_PATH);
+        // 3. Extract the last part of the URL, which is the share token.
+        // For example, from "http://.../resumes/public/xxx-yyy-zzz", it gets "xxx-yyy-zzz".
+        $shareToken = basename($fullUrl);
 
-        // 4. Use `basename()` to get just the last part of the path (the unique share_url)
-        $shareUrl = basename($path);
+        // 4. Find a resume that has this share_url and is active.
+        $resume = Resume::where('share_url', $shareToken)->first();
 
-        // 5. Find the resume with that share_url. If it doesn't exist,
-        //    the `findOrFail` will automatically throw a 404 Not Found error.
-        $resume = Resume::where('share_url', $shareUrl)->firstOrFail();
+        // 5. If a resume is found, redirect to the public view page.
+        if ($resume) {
+            return redirect()->route('resumes.public.show', ['shareUrl' => $shareToken]);
+        }
 
-        // 6. Redirect to the clean, public route for that resume.
-        return redirect()->route('resumes.public.show', ['resume' => $resume]);
+        // 6. If no resume is found, redirect back to the homepage with an error message.
+        return redirect()->route('home')
+                         ->with('error', 'The provided resume link is invalid or has been disabled.');
     }
 
 
