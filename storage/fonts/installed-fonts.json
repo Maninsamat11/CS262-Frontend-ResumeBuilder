@@ -10,5 +10,10 @@
         "300": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/roboto_300_67dc12b3f1f113305ec431e641e8a57d",
         "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/roboto_normal_a5fc1441144adab7ff7fd3a2b9c8ceea",
         "bold": "roboto_bold_33a1d3e1e3260160834fe00ba212e515"
+    },
+    "poppins": {
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/poppins_normal_c6711d47669d7317aa5bfeda9f1dded3",
+        "600": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/poppins_600_8766355d2de6e5a80a8dfebc31aeaedf",
+        "800": "poppins_800_4d213da9acc5f38b6643dc0986e0c1d6"
     }
 }

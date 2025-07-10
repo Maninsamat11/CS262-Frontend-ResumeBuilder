@@ -9,15 +9,18 @@ class ResumeRenderingService
 {
     /**
      * The main public method to render a resume.
+     *
+     * @param Resume $resume
+     * @param bool $forPdf  // <-- NEW: A flag to determine the output format
+     * @return string
      */
-    public function render(Resume $resume): string
+    public function render(Resume $resume, bool $forPdf = false): string
     {
         // Eager load all necessary relationships for efficiency.
-        $resume->load(['contactInfo', 'experiences', 'educations', 'skills']);
+        $resume->load(['contactInfo', 'experiences', 'educations', 'skills', 'template']);
 
         $template = $resume->template;
         if (!$template || !$template->template_html) {
-            // Throw an exception if the template is missing.
             throw new \Exception('The template content for this resume could not be found.');
         }
 
@@ -25,21 +28,21 @@ class ResumeRenderingService
         $resumeData = [
             'contact'     => $resume->contactInfo,
             'experiences' => $resume->experiences,
-            'education'   => $resume->educations, // Assuming relationship is named 'educations'
+            'education'   => $resume->educations,
             'skills'      => $resume->skills,
         ];
 
-        // Process the template with the data.
-        return $this->processTemplate($template->template_html, $resumeData);
+        // Process the template with the data, passing the format flag down.
+        return $this->processTemplate($template->template_html, $resumeData, $forPdf);
     }
 
     /**
      * Processes a custom template by replacing loops and placeholders.
      */
-    private function processTemplate(string $html, array $data): string
+    private function processTemplate(string $html, array $data, bool $forPdf): string
     {
         // Expand loops like {{--experience-loop-start--}}
-        $html = preg_replace_callback('/\{\{--(\w+)-loop-start--\}\}(.*?)\{\{--\1-loop-end--\}\}/s', function ($matches) use ($data) {
+        $html = preg_replace_callback('/\{\{--(\w+)-loop-start--\}\}(.*?)\{\{--\1-loop-end--\}\}/s', function ($matches) use ($data, $forPdf) {
             $singular = $matches[1]; // "experience"
             $content  = $matches[2];
             $plural   = Str::plural($singular); // "experiences"
@@ -49,28 +52,41 @@ class ResumeRenderingService
 
             $output = '';
             foreach ($items as $item) {
-                $output .= $this->processSimplePlaceholders($content, [$singular => $item]);
+                // Pass the format flag to the placeholder renderer inside the loop.
+                $output .= $this->processSimplePlaceholders($content, [$singular => $item], $forPdf);
             }
             return $output;
         }, $html);
 
         // Process any remaining top-level placeholders.
-        return $this->processSimplePlaceholders($html, $data);
+        return $this->processSimplePlaceholders($html, $data, $forPdf);
     }
 
     /**
      * Replaces dot-notation placeholders like {{ contact.phone }} in a block of HTML.
      */
-    private function processSimplePlaceholders(string $html, array $data): string
+    private function processSimplePlaceholders(string $html, array $data, bool $forPdf): string
     {
-        return preg_replace_callback('/\{\{\s*([\w.-]+)\s*\}\}/', function ($matches) use ($data) {
+        return preg_replace_callback('/\{\{\s*([\w.-]+)\s*\}\}/', function ($matches) use ($data, $forPdf) {
             $key = $matches[1];
             $value = data_get($data, $key);
 
-            // *** THIS IS THE FIX FOR THE PHOTO ***
-            // If the key is a photo path and a value exists, build the full public URL.
+            // *** THIS IS THE CRITICAL FIX FOR THE PHOTO IN PDFS ***
             if (Str::endsWith($key, '.photo_path') && $value) {
-                return asset('storage/' . $value);
+                if ($forPdf) {
+                    // --- For PDF Generation: Embed the image directly ---
+                    $imagePath = storage_path('app/public/' . $value);
+                    if (file_exists($imagePath)) {
+                        $imageData = file_get_contents($imagePath);
+                        $mimeType = mime_content_type($imagePath);
+                        // Return a Base64 encoded Data URI
+                        return 'data:' . $mimeType . ';base64,' . base64_encode($imageData);
+                    }
+                    return ''; // Return empty string if file not found
+                } else {
+                    // --- For Web View: Use the standard public URL ---
+                    return asset('storage/' . $value);
+                }
             }
 
             // For all other values, escape them for security.

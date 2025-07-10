@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-// You've already done this one, which is great!
-// I've just added the resume() relationship.
 class ContactInfo extends Model
 {
     use HasFactory;

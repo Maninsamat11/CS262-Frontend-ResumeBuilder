@@ -2,7 +2,7 @@
     <div x-data="resumeEditor()" x-init="initializeData()">
         
             <!-- Main Container -->
-            <div class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+        <div class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
                                            
                                             <!-- Header Section -->
                             <div class="bg-gradient-to-r from-red-600 to-red-700 shadow-lg">
@@ -65,344 +65,357 @@
                                 </div>
                             </div>
 
-            <!-- Main Content -->
-            <div class="max-w-6xl mx-auto px-4 py-8">
-                <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
-                    <div class="p-8">
-                        <!-- Resume Title Section -->
-                        <div class="mb-10">
-                            <div class="flex items-center mb-4">
-                                <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
-                                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                </div>
-                                <label for="resume_name" class="text-xl font-bold text-gray-900">Resume Title</label>
-                            </div>
-                            <input type="text" id="resume_name" x-model="resumeName" class="w-full p-4 border-2 border-gray-200 rounded-xl text-lg font-medium focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200" placeholder="Enter your resume title...">
-                        </div>
+                                <!-- Main Content -->
+                                <div class="max-w-6xl mx-auto px-4 py-8">
+                                    <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+                                        <div class="p-8">
+                                            <!-- Resume Title Section -->
+                                            <div class="mb-10">
+                                                <div class="flex items-center mb-4">
+                                                    <div class="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                                        <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                        </svg>
+                                                    </div>
+                                                    <label for="resume_name" class="text-xl font-bold text-gray-900">Resume Title</label>
+                                                </div>
+                                                <input type="text" id="resume_name" x-model="resumeName" class="w-full p-4 border-2 border-gray-200 rounded-xl text-lg font-medium focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200" placeholder="Enter your resume title...">
+                                            </div>
 
-                        <!-- Contact Information Section -->
-                      
-                            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                                <!-- NEW GRID FOR PHOTO + FIELDS -->
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    
-                                    <!-- NEW AJAX UPLOAD -->
-                                                <div class="md:col-span-1">
-                                                    <label class="block text-sm font-medium text-gray-700 mb-2">Profile Photo</label>
-                                                    <div class="mt-1">
-                                                        <!-- Image Preview -->
-                                                        <div class="w-40 h-40 rounded-full bg-gray-200 mb-4 flex items-center justify-center overflow-hidden relative group">
-                                                            <!-- Spinner Overlay for Uploading State -->
-                                                            <div x-show="isUploadingPhoto" class="absolute inset-0 bg-black/50 flex items-center justify-center z-10" style="display: none;">
-                                                                <svg class="w-10 h-10 text-white animate-spin" fill="none" viewBox="0 0 24 24">
-                                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                                </svg>
+                                            <!-- Contact Information Section -->
+                                        
+                                                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                                                    <!-- NEW GRID FOR PHOTO + FIELDS -->
+                                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                                        
+                                                        <!-- NEW AJAX UPLOAD -->
+                                                                    <div class="md:col-span-1">
+                                                                        <label class="block text-sm font-medium text-gray-700 mb-2">Profile Photo</label>
+                                                                        <div class="mt-1">
+                                                                            <!-- Image Preview -->
+                                                                            <div class="w-40 h-40 rounded-full bg-gray-200 mb-4 flex items-center justify-center overflow-hidden relative group">
+                                                                                <!-- Spinner Overlay for Uploading State -->
+                                                                                <div x-show="isUploadingPhoto" class="absolute inset-0 bg-black/50 flex items-center justify-center z-10" style="display: none;">
+                                                                                    <svg class="w-10 h-10 text-white animate-spin" fill="none" viewBox="0 0 24 24">
+                                                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                                                    </svg>
+                                                                                </div>
+                                                                                <!-- The Image -->
+                                                                                <img :src="contact.photo_path ? '/storage/' + contact.photo_path : '/default-avatar.png'"
+                                                                                        alt="Profile Photo"
+                                                                                        class="w-32 h-32 rounded-full object-cover">
+                                                                                <!-- Placeholder Icon -->
+                                                                                <svg x-show="!contact.photo_path && !isUploadingPhoto" class="w-20 h-20 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                                                                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                                                </svg>
+                                                                            </div>
+
+                                                                            <!-- Hidden file input that triggers our Alpine function -->
+                                                                            <input type="file" id="photo" class="hidden" @change="uploadPhoto($event)">
+                                                                            
+                                                                            <!-- The button the user actually clicks -->
+                                                                            <label for="photo" class="cursor-pointer bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 rounded-lg border border-gray-300 transition-all duration-200 text-sm">
+                                                                                Upload Image
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+
+                                                        <!-- Right Column: Existing Fields -->
+                                                        <div class="md:col-span-2 space-y-4">
+                                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                                <div>
+                                                                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                                                    <input type="text" x-model="contact.full_name" placeholder="Enter your full name" class="w-full p-3 border border-gray-300 rounded-lg ...">
+                                                                </div>
+                                                                <div>
+                                                                    <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                                                    <input type="text" x-model="contact.phone" placeholder="Enter your phone number" class="w-full p-3 border border-gray-300 rounded-lg ...">
+                                                                </div>
                                                             </div>
-                                                            <!-- The Image -->
-                                                            <img x-show="contact.photo_path" :src="`/storage/${contact.photo_path}`" alt="Profile Photo" class="w-full h-full object-cover">
-                                                            <!-- Placeholder Icon -->
-                                                            <svg x-show="!contact.photo_path && !isUploadingPhoto" class="w-20 h-20 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                                                        
+                                                            <div>
+                                                                <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                                                                <input type="text" id="address" x-model="contact.address" placeholder="your email address" 
+                                                                    class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 ...">
+                                                            </div>
+                                                            <div>
+                                                                <label class="block text-sm font-medium text-gray-700 mb-2">Professional Summary</label>
+                                                                <textarea x-model="contact.summary" placeholder="Write a brief professional summary..." rows="4" class="w-full p-3 border border-gray-300 rounded-lg ..."></textarea>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            <!-- Work Experience Section -->
+                                            <div class="mb-10">
+                                                <div class="flex justify-between items-center mb-6">
+                                                    <div class="flex items-center">
+                                                        <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
                                                             </svg>
                                                         </div>
-
-                                                        <!-- Hidden file input that triggers our Alpine function -->
-                                                        <input type="file" id="photo" class="hidden" @change="uploadPhoto($event)">
-                                                        
-                                                        <!-- The button the user actually clicks -->
-                                                        <label for="photo" class="cursor-pointer bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 rounded-lg border border-gray-300 transition-all duration-200 text-sm">
-                                                            Upload Image
-                                                        </label>
+                                                        <h2 class="text-xl font-bold text-gray-900">Work Experience</h2>
+                                                    </div>
+                                                    <button type="button" @click="addExperience()" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                        </svg>
+                                                        <span>Add Experience</span>
+                                                    </button>
+                                                </div>
+                                                <div class="space-y-6">
+                                                    <template x-for="(experience, index) in experiences" :key="index">
+                                                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-200">
+                                                            <div class="flex justify-between items-start mb-4">
+                                                                <div class="flex items-center">
+                                                                    <div class="w-6 h-6 bg-green-200 rounded-full flex items-center justify-center mr-3">
+                                                                        <span class="text-green-700 text-sm font-bold" x-text="index + 1"></span>
+                                                                    </div>
+                                                                    <h3 class="font-semibold text-gray-900">Experience #<span x-text="index + 1"></span></h3>
+                                                                </div>
+                                                                <button type="button" @click="removeExperience(index)" class="text-red-500 hover:text-red-700 text-sm font-medium hover:bg-red-50 px-2 py-1 rounded transition-all duration-200">Remove</button>
+                                                            </div>
+                                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                                                                <div>
+                                                                    <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                                                                    <input type="text" x-model="experience.company_name" placeholder="Company Name" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                                </div>
+                                                                <div>
+                                                                    <label class="block text-sm font-medium text-gray-700 mb-2">Job Title</label>
+                                                                    <input type="text" x-model="experience.job_title" placeholder="Job Title" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                                </div>
+                                                                <!-- In Work Experience section -->
+                                                            <div>
+                                                                <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                                                                <input type="date" x-model="experience.start_date" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                            </div>
+                                                            <div>
+                                                                <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+                                                                <input type="date" x-model="experience.end_date" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                            </div>
+                                                            </div>
+                                                            <div>
+                                                                <label class="block text-sm font-medium text-gray-700 mb-2">Job Description</label>
+                                                                <textarea x-model="experience.description" placeholder="Describe your responsibilities and achievements..." rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                    <div x-show="experiences.length === 0" class="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
+                                                        <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+                                                        </svg>
+                                                        <p class="text-gray-500 font-medium">No work experience added yet</p>
+                                                        <p class="text-gray-400 text-sm">Click "Add Experience" to get started</p>
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                    <!-- Right Column: Existing Fields -->
-                                    <div class="md:col-span-2 space-y-4">
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                            <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-                                                <input type="text" x-model="contact.full_name" placeholder="Enter your full name" class="w-full p-3 border border-gray-300 rounded-lg ...">
-                                            </div>
-                                            <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-                                                <input type="text" x-model="contact.phone" placeholder="Enter your phone number" class="w-full p-3 border border-gray-300 rounded-lg ...">
-                                            </div>
-                                        </div>
-                                    
-                                        <div>
-                                            <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Address</label>
-                                            <input type="text" id="address" x-model="contact.address" placeholder="your email address" 
-                                                class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 ...">
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-2">Professional Summary</label>
-                                            <textarea x-model="contact.summary" placeholder="Write a brief professional summary..." rows="4" class="w-full p-3 border border-gray-300 rounded-lg ..."></textarea>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        <!-- Work Experience Section -->
-                        <div class="mb-10">
-                            <div class="flex justify-between items-center mb-6">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
-                                        </svg>
-                                    </div>
-                                    <h2 class="text-xl font-bold text-gray-900">Work Experience</h2>
-                                </div>
-                                <button type="button" @click="addExperience()" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                    <span>Add Experience</span>
-                                </button>
-                            </div>
-                            <div class="space-y-6">
-                                <template x-for="(experience, index) in experiences" :key="index">
-                                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-200">
-                                        <div class="flex justify-between items-start mb-4">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 bg-green-200 rounded-full flex items-center justify-center mr-3">
-                                                    <span class="text-green-700 text-sm font-bold" x-text="index + 1"></span>
+                                            <!-- Skills Section -->
+                                            <div class="mb-10">
+                                                <div class="flex justify-between items-center mb-6">
+                                                    <div class="flex items-center">
+                                                        <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                                                            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                                            </svg>
+                                                        </div>
+                                                        <h2 class="text-xl font-bold text-gray-900">Skills</h2>
+                                                    </div>
+                                                    <button type="button" @click="addSkill()" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                        </svg>
+                                                        <span>Add Skill</span>
+                                                    </button>
                                                 </div>
-                                                <h3 class="font-semibold text-gray-900">Experience #<span x-text="index + 1"></span></h3>
+                                                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                                                    <div class="mb-4">
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">Add New Skill</label>
+                                                        <input type="text" x-model="newSkillName" @keydown.enter.prevent="addSkill()" placeholder="Type a skill and press Enter" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                    </div>
+                                                    <div class="flex flex-wrap gap-3">
+                                                        <template x-for="(skill, index) in skills" :key="index">
+                                                            <div class="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-full flex items-center shadow-sm hover:shadow-md transition-all duration-200">
+                                                                <span x-text="skill.skill_name" class="mr-2"></span>
+                                                                <button type="button" @click="removeSkill(index)" class="text-red-500 hover:text-red-700 font-bold text-lg leading-none">×</button>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                    <div x-show="skills.length === 0" class="text-center py-8">
+                                                        <svg class="w-10 h-10 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                                        </svg>
+                                                        <p class="text-gray-500 font-medium">No skills added yet</p>
+                                                        <p class="text-gray-400 text-sm">Add your skills to showcase your expertise</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <button type="button" @click="removeExperience(index)" class="text-red-500 hover:text-red-700 text-sm font-medium hover:bg-red-50 px-2 py-1 rounded transition-all duration-200">Remove</button>
-                                        </div>
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                                            <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
-                                                <input type="text" x-model="experience.company_name" placeholder="Company Name" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+
+                                            <!-- Education Section -->
+                                            <div class="mb-10">
+                                                <div class="flex justify-between items-center mb-6">
+                                                    <div class="flex items-center">
+                                                        <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
+                                                            <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                                                            </svg>
+                                                        </div>
+                                                        <h2 class="text-xl font-bold text-gray-900">Education</h2>
+                                                    </div>
+                                                    <button type="button" @click="addEducation()" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2">
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                        </svg>
+                                                        <span>Add Education</span>
+                                                    </button>
+                                                </div>
+                                                <div class="space-y-6">
+                                                    <template x-for="(edu, index) in education" :key="index">
+                                                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-200">
+                                                            <div class="flex justify-between items-start mb-4">
+                                                                <div class="flex items-center">
+                                                                    <div class="w-6 h-6 bg-yellow-200 rounded-full flex items-center justify-center mr-3">
+                                                                        <span class="text-yellow-700 text-sm font-bold" x-text="index + 1"></span>
+                                                                    </div>
+                                                                    <h3 class="font-semibold text-gray-900">Education #<span x-text="index + 1"></span></h3>
+                                                                </div>
+                                                                <button type="button" @click="removeEducation(index)" class="text-red-500 hover:text-red-700 text-sm font-medium hover:bg-red-50 px-2 py-1 rounded transition-all duration-200">Remove</button>
+                                                            </div>
+                                                            <div class="mb-4">
+                                                                <label class="block text-sm font-medium text-gray-700 mb-2">School/University Name</label>
+                                                                <input type="text" x-model="edu.school_name" placeholder="School/University Name" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                            </div>
+                                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                                                                <div>
+                                                                    <label class="block text-sm font-medium text-gray-700 mb-2">Degree</label>
+                                                                    <input type="text" x-model="edu.degree" placeholder="Degree (e.g., B.S.)" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                                </div>
+                                                                <div>
+                                                                    <label class="block text-sm font-medium text-gray-700 mb-2">Field of Study</label>
+                                                                    <input type="text" x-model="edu.field" placeholder="Field of Study (e.g., Computer Science)" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                                </div>
+                                                            <!-- CORRECTED CODE -->
+                                                                        <div>
+                                                                            <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                                                                            <input type="date" x-model="edu.start_date" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                                        </div>
+                                                                        <div>
+                                                                            <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+                                                                            <input type="date" x-model="edu.end_date" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
+                                                                        </div>
+                                                            </div>
+                                                            <div>
+                                                                <label class="block text-sm font-medium text-gray-700 mb-2">Additional Details</label>
+                                                                <textarea x-model="edu.description" placeholder="Description (e.g., GPA, Honors, Relevant Coursework)..." rows="2" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                    <div x-show="education.length === 0" class="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
+                                                        <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                                                        </svg>
+                                                        <p class="text-gray-500 font-medium">No education added yet</p>
+                                                        <p class="text-gray-400 text-sm">Click "Add Education" to include your academic background</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">Job Title</label>
-                                                <input type="text" x-model="experience.job_title" placeholder="Job Title" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
-                                            </div>
-                                            <!-- In Work Experience section -->
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
-                                            <input type="date" x-model="experience.start_date" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
-                                            <input type="date" x-model="experience.end_date" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
-                                        </div>
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-2">Job Description</label>
-                                            <textarea x-model="experience.description" placeholder="Describe your responsibilities and achievements..." rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200"></textarea>
-                                        </div>
-                                    </div>
-                                </template>
-                                <div x-show="experiences.length === 0" class="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
-                                    <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
-                                    </svg>
-                                    <p class="text-gray-500 font-medium">No work experience added yet</p>
-                                    <p class="text-gray-400 text-sm">Click "Add Experience" to get started</p>
+
+                                                <!-- Action Buttons -->
+                                 <div class="border-t border-gray-200 pt-8">
+                                    <div class="flex flex-col sm:flex-row justify-end items-center space-y-3 sm:space-y-0 sm:space-x-4">
+
+                                                <!-- ============================================= -->
+                                                <!-- DOWNLOAD BUTTON (AS A FORM)                   -->
+                                                <!-- ============================================= -->
+                                                <form action="{{ route('resumes.processDownload', $resume) }}" method="POST" target="_blank">
+                                                    @csrf
+                                                    {{-- This hidden input sends the required 'format' data --}}
+                                                    <input type="hidden" name="format" value="pdf">
+                                                    
+                                                    {{-- This button is styled to look exactly like your old link --}}
+                                                    <button type="submit" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-lg text-center transition-all duration-200 flex items-center justify-center space-x-2">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                                        </svg>
+                                                        <span>Download</span>
+                                                    </button>
+                                                </form>
+
+                                                <!-- SHARE BUTTON  -->
+                                                <a href="{{ route('resumes.share', $resume) }}" target="_blank" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg text-center transition-all duration-200 flex items-center justify-center space-x-2">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                                                    </svg>
+                                                    <span>Share</span>
+                                                </a>
+
+                                                <!-- SAVE BUTTON -->
+                                                <button @click="saveResume()" type="button" class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2" :disabled="isSaving">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!isSaving">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"></path>
+                                                    </svg>
+                                                    <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24" x-show="isSaving" style="display: none;">
+                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                    </svg>
+                                                    <span x-text="isSaving ? 'Saving...' : 'Save Changes'"></span>
+                                                </button>
+
+                                                <div x-show="openTemplateModal" @click.away="openTemplateModal = false" x-cloak
+                                                    class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4"
+                                                    style="display: none;">
+
+                                                        <!-- ================================== -->
+                                                        <!--  "CHANGE TEMPLATE" MODAL      -->
+                                                        <!-- ================================== -->
+                                                        <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-4xl transform transition-all"
+                                                            x-show="openTemplateModal"
+                                                            x-transition:enter="ease-out duration-300"
+                                                            x-transition:enter-start="opacity-0 scale-95"
+                                                            x-transition:enter-end="opacity-100 scale-100">
+
+                                                            <!-- Modal Header -->
+                                                            <div class="flex items-center justify-between mb-6">
+                                                                <h3 class="text-2xl font-bold text-gray-900">Select a New Template</h3>
+                                                                <button @click="openTemplateModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
+                                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                                </button>
+                                                            </div>
+
+                                                            <!-- The rest of your modal content (form, grid, etc.) is correct and goes here -->
+                                                            <form action="{{ route('resumes.template.change', $resume) }}" method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+
+                                                                <!-- Grid to display template previews -->
+                                                                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto p-1 pr-2">
+                                                                    @foreach($allTemplates as $template)
+                                                                        <label class="cursor-pointer group">
+                                                                            <input type="radio" name="template_id" value="{{ $template->template_id }}" class="sr-only"
+                                                                                onchange="this.form.submit()">
+
+                                                                            <div class="border-2 rounded-lg p-2 group-hover:border-red-500 transition-all"
+                                                                                :class="{ 'border-red-500 bg-red-50 ring-2 ring-red-200': {{ $resume->template_id }} == {{ $template->template_id }} }">
+
+                                                                                <img src="{{ asset($template->thumbnail_path) }}" alt="{{ $template->name }}" class="w-full h-auto rounded-md mb-2 shadow-sm object-cover">
+                                                                                <p class="text-center font-semibold text-sm text-gray-800">{{ $template->name }}</p>
+                                                                            </div>
+                                                                        </label>
+                                                                    @endforeach
+                                                                </div>
+                                                            </form>
+
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Skills Section -->
-                        <div class="mb-10">
-                            <div class="flex justify-between items-center mb-6">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                                        </svg>
-                                    </div>
-                                    <h2 class="text-xl font-bold text-gray-900">Skills</h2>
-                                </div>
-                                <button type="button" @click="addSkill()" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                    <span>Add Skill</span>
-                                </button>
-                            </div>
-                            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Add New Skill</label>
-                                    <input type="text" x-model="newSkillName" @keydown.enter.prevent="addSkill()" placeholder="Type a skill and press Enter" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
-                                </div>
-                                <div class="flex flex-wrap gap-3">
-                                    <template x-for="(skill, index) in skills" :key="index">
-                                        <div class="bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded-full flex items-center shadow-sm hover:shadow-md transition-all duration-200">
-                                            <span x-text="skill.skill_name" class="mr-2"></span>
-                                            <button type="button" @click="removeSkill(index)" class="text-red-500 hover:text-red-700 font-bold text-lg leading-none">×</button>
-                                        </div>
-                                    </template>
-                                </div>
-                                <div x-show="skills.length === 0" class="text-center py-8">
-                                    <svg class="w-10 h-10 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                                    </svg>
-                                    <p class="text-gray-500 font-medium">No skills added yet</p>
-                                    <p class="text-gray-400 text-sm">Add your skills to showcase your expertise</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Education Section -->
-                        <div class="mb-10">
-                            <div class="flex justify-between items-center mb-6">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center mr-3">
-                                        <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                                        </svg>
-                                    </div>
-                                    <h2 class="text-xl font-bold text-gray-900">Education</h2>
-                                </div>
-                                <button type="button" @click="addEducation()" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg text-sm transition-all duration-200 flex items-center space-x-2">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                    <span>Add Education</span>
-                                </button>
-                            </div>
-                            <div class="space-y-6">
-                                <template x-for="(edu, index) in education" :key="index">
-                                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:shadow-md transition-all duration-200">
-                                        <div class="flex justify-between items-start mb-4">
-                                            <div class="flex items-center">
-                                                <div class="w-6 h-6 bg-yellow-200 rounded-full flex items-center justify-center mr-3">
-                                                    <span class="text-yellow-700 text-sm font-bold" x-text="index + 1"></span>
-                                                </div>
-                                                <h3 class="font-semibold text-gray-900">Education #<span x-text="index + 1"></span></h3>
-                                            </div>
-                                            <button type="button" @click="removeEducation(index)" class="text-red-500 hover:text-red-700 text-sm font-medium hover:bg-red-50 px-2 py-1 rounded transition-all duration-200">Remove</button>
-                                        </div>
-                                        <div class="mb-4">
-                                            <label class="block text-sm font-medium text-gray-700 mb-2">School/University Name</label>
-                                            <input type="text" x-model="edu.school_name" placeholder="School/University Name" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
-                                        </div>
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-                                            <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">Degree</label>
-                                                <input type="text" x-model="edu.degree" placeholder="Degree (e.g., B.S.)" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
-                                            </div>
-                                            <div>
-                                                <label class="block text-sm font-medium text-gray-700 mb-2">Field of Study</label>
-                                                <input type="text" x-model="edu.field" placeholder="Field of Study (e.g., Computer Science)" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
-                                            </div>
-                                           <!-- CORRECTED CODE -->
-                                                    <div>
-                                                        <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
-                                                        <input type="date" x-model="edu.start_date" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
-                                                    </div>
-                                                    <div>
-                                                        <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
-                                                        <input type="date" x-model="edu.end_date" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200">
-                                                    </div>
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm font-medium text-gray-700 mb-2">Additional Details</label>
-                                            <textarea x-model="edu.description" placeholder="Description (e.g., GPA, Honors, Relevant Coursework)..." rows="2" class="w-full p-3 border border-gray-300 rounded-lg focus:border-red-500 focus:ring-2 focus:ring-red-200 transition-all duration-200"></textarea>
-                                        </div>
-                                    </div>
-                                </template>
-                                <div x-show="education.length === 0" class="text-center py-12 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300">
-                                    <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                                    </svg>
-                                    <p class="text-gray-500 font-medium">No education added yet</p>
-                                    <p class="text-gray-400 text-sm">Click "Add Education" to include your academic background</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="border-t border-gray-200 pt-8">
-     <div class="flex flex-col sm:flex-row justify-end items-center space-y-3 sm:space-y-0 sm:space-x-4">
-        
-        <!-- ============================================= -->
-        <!-- DOWNLOAD BUTTON (AS A FORM)                   -->
-        <!-- ============================================= -->
-        <form action="{{ route('resumes.processDownload', $resume) }}" method="POST" target="_blank">
-            @csrf
-            {{-- This hidden input sends the required 'format' data --}}
-            <input type="hidden" name="format" value="pdf">
-            
-            {{-- This button is styled to look exactly like your old link --}}
-            <button type="submit" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-lg text-center transition-all duration-200 flex items-center justify-center space-x-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                <span>Download</span>
-            </button>
-        </form>
-
-        <!-- SHARE BUTTON (This link is correct) -->
-        <a href="{{ route('resumes.share', $resume) }}" target="_blank" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg text-center transition-all duration-200 flex items-center justify-center space-x-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
-            </svg>
-            <span>Share</span>
-        </a>
-
-        <!-- SAVE BUTTON (This button is correct) -->
-        <button @click="saveResume()" type="button" class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2" :disabled="isSaving">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!isSaving">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"></path>
-            </svg>
-            <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24" x-show="isSaving" style="display: none;">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <span x-text="isSaving ? 'Saving...' : 'Save Changes'"></span>
-        </button>
-
-        <!-- Template Selection Modal -->
-<div x-show="openTemplateModal" @click.away="openTemplateModal = false" x-cloak class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4" style="display: none;">
-    <div
-        class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-4xl transform transition-all"
-        x-show="openTemplateModal"
-        x-transition:enter="ease-out duration-300"
-        x-transition:enter-start="opacity-0 scale-95"
-        x-transition:enter-end="opacity-100 scale-100"
-    >
-        <!-- Modal Header -->
-        <div class="flex justify-between items-center mb-6">
-            <h3 class="text-2xl font-bold text-gray-900">Select a New Template</h3>
-            <button @click="openTemplateModal = false" class="text-gray-400 hover:text-gray-600">×</button>
-        </div>
-
-        <!-- Templates Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-h-[70vh] overflow-y-auto p-2">
-            <template x-for="template in templates" :key="template.id">
-                <div @click="selectTemplate(template.id)"
-                    class="cursor-pointer border-4 rounded-lg overflow-hidden transition-all duration-200"
-                    :class="template.id === contact.template_id ? 'border-red-500' : 'border-transparent hover:border-red-300'">
-                    <img :src="template.preview_image_url" :alt="template.name" class="w-full h-auto object-cover">
-                    <div class="p-3 bg-gray-50 text-center">
-                        <p class="font-semibold text-gray-800" x-text="template.name"></p>
                     </div>
-                </div>
-            </template>
-        </div>
-    </div>
-</div>
 
-    </div>
-</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Import Modal -->
+                    <!-- Import Modal -->
         <div x-show="openImportModal" @click.away="openImportModal = false" x-cloak class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" style="display: none;">
             <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg text-black transform transition-all duration-300" x-show="openImportModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
                 <div class="flex items-center mb-6">
@@ -483,131 +496,78 @@
 <!-- JavaScript -->
 <script>
 
-// Our standard placeholder data for taking screenshots.
-// const dummyData = {
-//     name: 'Classic Professional Template',
-//     contact: {
-//         full_name: 'Alexandria Doe',
-//         phone: '(555) 123-4567',
-//         address: '123 Innovation Drive, Tech City, 12345',
-//         summary: 'A highly motivated and detail-oriented Full-Stack Developer with over 5 years of experience in building and maintaining scalable web applications. Proficient in modern frameworks and passionate about creating clean code and exceptional user experiences.'
-//         // No email here, as it's pulled from the user account.
-//         // No photo_path, as we don't need one for template previews.
-//     },
-//     experiences: [
-//         {
-//             company_name: 'Innovatech Solutions',
-//             job_title: 'Senior Software Engineer',
-//             start_date: '2020-01-01',
-//             end_date: '2024-01-01',
-//             description: '• Led the development of new features for a flagship SaaS product.\n• Mentored junior developers and conducted code reviews.\n• Optimized application performance, reducing page load times by 30%.'
-//         },
-//         {
-//             company_name: 'Digital Creations Agency',
-//             job_title: 'Web Developer',
-//             start_date: '2018-06-01',
-//             end_date: '2019-12-31',
-//             description: '• Developed custom WordPress themes and plugins for various clients.\n• Translated Figma mockups into responsive, functional websites.'
-//         }
-//     ],
-//     education: [
-//         {
-//             school_name: 'State University',
-//             degree: 'B.S. in Computer Science',
-//             field: 'Software Engineering',
-//             start_date: '2014-08-01',
-//             end_date: '2018-05-01',
-//             description: '• Graduated Magna Cum Laude (3.9 GPA)\n• President of the University Coding Club'
-//         }
-//     ],
-//     skills: [
-//         { skill_name: 'PHP & Laravel' },
-//         { skill_name: 'JavaScript & Vue.js' },
-//         { skill_name: 'MySQL & PostgreSQL' },
-//         { skill_name: 'Docker & CI/CD' },
-//         { skill_name: 'API Design (RESTful)' },
-//         { skill_name: 'Agile Methodologies' }
-//     ]
-// };
 
+function resumeEditor() {
+                return {
+                    // STEP 1: All state variables are initialized as empty/default first.
+                    resumeName: '',
+                    contact: { full_name: '', phone: '', address: '', summary: '' },
+                    experiences: [],
+                    education: [],
+                    skills: [],
+                    newSkillName: '',
+                    isSaving: false,
+                    isUploadingPhoto: false,
+                    openImportModal: false,
+                    selectedResumeId: '',
+                    sectionsToImport: { contact: true, experiences: true, education: true, skills: true },
+                    // NEW: This variable controls the template selection modal
+                    openTemplateModal: false, // <<-- THIS LINE IS ESSENTIAL. Make sure it's here.
+                    templates: [], 
 
-    function resumeEditor() {
-        return {
-            // STEP 1: All state variables are initialized as empty/default first.
-            resumeName: '',
-            contact: { full_name: '', phone: '', address: '', summary: '' },
-            experiences: [],
-            education: [],
-            skills: [],
-            newSkillName: '',
-            isSaving: false,
-            isUploadingPhoto: false,
-            openImportModal: false,
-            selectedResumeId: '',
-            sectionsToImport: { contact: true, experiences: true, education: true, skills: true },
-            // NEW: This variable controls the template selection modal
-            openTemplateModal: false, // <<-- THIS LINE IS ESSENTIAL. Make sure it's here.
-            templates: [], 
+                    // STEP 2: This function runs on page load because of `x-init="initializeData()"`.
+                    // It populates the empty variables above with data from your Laravel controller.
+                    initializeData() {
+                        this.resumeName = '{{ addslashes($resume->name) }}';
+                        this.contact = {!! json_encode($contactInfo) !!} || { full_name: '', phone: '', address: '', summary: '' };
+                        this.experiences = {!! json_encode($experiences) !!} || [];
+                        this.education = {!! json_encode($educations) !!} || [];
+                        this.skills = {!! json_encode($skills) !!} || [];
+                    },
 
-            // STEP 2: This function runs on page load because of `x-init="initializeData()"`.
-            // It populates the empty variables above with data from your Laravel controller.
-            initializeData() {
-                this.resumeName = '{{ addslashes($resume->name) }}';
-                this.contact = {!! json_encode($contactInfo) !!} || { full_name: '', phone: '', address: '', summary: '' };
-                this.experiences = {!! json_encode($experiences) !!} || [];
-                this.education = {!! json_encode($education) !!} || [];
-                this.skills = {!! json_encode($skills) !!} || [];
-                    // this.resumeName    = dummyData.name;
-                    // this.contact       = dummyData.contact;
-                    // this.experiences   = dummyData.experiences;
-                    // this.education     = dummyData.education;
-                    // this.skills        = dummyData.skills;
+ async uploadPhoto(event) {  
+
+                const file = event.target.files[0];
+                if (!file) return;
+
+                this.isUploadingPhoto = true;
+
+                // FormData is the standard way to send files
+                const formData = new FormData();
+                formData.append('photo', file);
+
+                try {
+                    // Use the correct route and simplified FormData
+                    const response = await fetch('{{ route("resumes.photo.update", $resume) }}', {
+                        method: 'POST', // Use POST directly
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}' // CSRF token is crucial
+                        },
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        // This is the key part: update the 'contact' object in Alpine's state.
+                        // This will automatically update the <img> src attribute.
+                        this.contact.photo_path = result.photo_path; 
+                        this.showSuccessMessage('Photo uploaded successfully!');
+                    } else {
+                        // If the server returns an error, we can try to show it.
+                        const errorResult = await response.json();
+                        alert('Upload failed: ' + (errorResult.message || 'Unknown error'));
+                    }
+                } catch (error) {
+                    alert('An error occurred while uploading the photo.');
+                    console.error('Upload error:', error);
+                } finally {
+                    this.isUploadingPhoto = false;
+                    event.target.value = null; // Clear the file input
+                }
             },
-              // --- ADD THIS ENTIRE NEW METHOD ---
 
-    async uploadPhoto(event) {  
-
-    const file = event.target.files[0];
-    if (!file) return;
-
-    this.isUploadingPhoto = true;
-
-    // FormData is the standard way to send files
-    const formData = new FormData();
-    formData.append('photo', file);
-
-    try {
-        // Use the correct route and simplified FormData
-        const response = await fetch('{{ route("resumes.photo.update", $resume) }}', {
-            method: 'POST', // Use POST directly
-            headers: {
-                'Accept': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}' // CSRF token is crucial
-            },
-            body: formData
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            // This is the key part: update the 'contact' object in Alpine's state.
-            // This will automatically update the <img> src attribute.
-            this.contact.photo_path = result.photo_path; 
-            this.showSuccessMessage('Photo uploaded successfully!');
-        } else {
-            // If the server returns an error, we can try to show it.
-            const errorResult = await response.json();
-            alert('Upload failed: ' + (errorResult.message || 'Unknown error'));
-        }
-    } catch (error) {
-        alert('An error occurred while uploading the photo.');
-        console.error('Upload error:', error);
-    } finally {
-        this.isUploadingPhoto = false;
-        event.target.value = null; // Clear the file input
-    }
-},
-
-            // --- All your feature methods remain unchanged ---
+            
 
             // Methods for adding/removing items dynamically
             addExperience() {
@@ -632,8 +592,8 @@
                 this.skills.splice(index, 1);
             },
 
-            // Method to save all data to the backend
-            async saveResume() {
+ // Method to save all data to the backend
+ async saveResume() {
                 this.isSaving = true;
 
                 const payload = {
@@ -676,18 +636,15 @@
                 }
             },
 
-            // Method to import data from another resume
-          
-
-                async importData() {
+// Method to import data from another resume
+async importData() {
                     if (!this.selectedResumeId) {
                         alert('Please select a resume to import from.');
                         return;
                     }
 
                     try {
-                        // CORRECTED: Use the new route name to build the URL
-                        const response = await fetch(`/resumes/${this.selectedResumeId}/data`); // Corrected URL
+                       const response = await fetch(`/resumes/${this.selectedResumeId}/import-data`);
 
                         if (!response.ok) {
                             throw new Error('Failed to fetch resume data. Please try again.');
