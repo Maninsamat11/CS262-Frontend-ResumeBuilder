@@ -1,19 +1,55 @@
 {
     "bangers": {
-        "normal": "bangers_normal_f3489b60d5b12e5cee88362951d18caa"
+        "normal": "bangers_normal_dbdcdda6e9335ccd5fbb38803a030156"
     },
     "lato": {
-        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/lato_normal_51116b245f08d5e5cdb537d25637e400",
-        "bold": "lato_bold_39c477866ca5e9b58b0b56a69b4bac5a"
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/lato_normal_ed3f4ee6166e4a8d875402747e6fb7a0",
+        "bold": "lato_bold_67cbea2936080f3d5601566280ed0b77"
     },
     "roboto": {
-        "300": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/roboto_300_67dc12b3f1f113305ec431e641e8a57d",
-        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/roboto_normal_a5fc1441144adab7ff7fd3a2b9c8ceea",
-        "bold": "roboto_bold_33a1d3e1e3260160834fe00ba212e515"
+        "300": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/roboto_300_2adc38dee1e6978b909890c30d64ea6f",
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/roboto_normal_826b21c6e9e390acde75d9452fa9e59f",
+        "bold": "roboto_bold_1a8c4a1acbd70e6f5947d46ac9a3bfc6"
     },
     "poppins": {
-        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/poppins_normal_c6711d47669d7317aa5bfeda9f1dded3",
-        "600": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/poppins_600_8766355d2de6e5a80a8dfebc31aeaedf",
-        "800": "poppins_800_4d213da9acc5f38b6643dc0986e0c1d6"
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/poppins_normal_41eae6f88194706e4cb26de3ac737d8a",
+        "600": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/poppins_600_154dcc58b1e77916e556017f33cbcd2e",
+        "800": "poppins_800_9f149437ca2ffb987bc0596e97cba3b4"
+    },
+    "montserrat": {
+        "500": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/montserrat_500_d3ec4375b56833ef071b8749f8988a95",
+        "900": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/montserrat_900_b77943a6e98c5cc431fc2167488f3b0b",
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/montserrat_normal_95c77d2830d640f06faa8261ded6db33",
+        "bold": "montserrat_bold_251805f22f376c685d401bff71e8e1d4"
+    },
+    "cormorant garamond": {
+        "600": "cormorant_garamond_600_2a7acbaee9ca69c6f7a654ef09a63a6b"
+    },
+    "inter": {
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/inter_normal_5a66f8ceb794f00a7f54c797a21283b3",
+        "bold": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/inter_bold_02384cdf43e3d24b76c57c66dfd114bf",
+        "900": "inter_900_5e896423ef3d43fa02b13f3a20da7b92"
+    },
+    "merriweather": {
+        "bold": "merriweather_bold_63d1962cbdd7dc93b79a7bb1084bd81d"
+    },
+    "open sans": {
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/open_sans_normal_fb8cbc3fa85ff7c317acbf9e1e9dedf3",
+        "600": "open_sans_600_ec324eb3d6349b67548441ed0c3449eb"
+    },
+    "playfair display": {
+        "bold": "playfair_display_bold_1e531eb7e3e1e9744697b9dd01c254b4"
+    },
+    "press start 2p": {
+        "normal": "press_start_2p_normal_465bb339728ab619ceaf9d4994bb8fd9"
+    },
+    "raleway": {
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/raleway_normal_ebd88fef4ec167144869826d5b5bee06",
+        "500": "raleway_500_c99c78e180b36296be899e0fb7d9fd7d"
+    },
+    "source sans pro": {
+        "normal": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/source_sans_pro_normal_f4f66b692aab82921fd836cb86924c9c",
+        "600": "C:\\wamp64\\www\\CS262-Frontend-ResumeBuilder\\storage\\fonts\/source_sans_pro_600_a3a64de6946b6f04d0470de507381a6a",
+        "bold": "source_sans_pro_bold_eac6fbc133fc75e347ad5474362514a5"
     }
 }

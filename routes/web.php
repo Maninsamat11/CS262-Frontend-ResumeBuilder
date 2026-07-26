@@ -50,7 +50,8 @@
 
         // Downloading Route (The POST action is what matters)
         Route::post('/resumes/{resume}/download', [ResumeController::class, 'processDownload'])->name('resumes.processDownload');
-         Route::get('/resumes/{resume}/import-data', [ResumeController::class, 'getDataForImport'])->name('resumes.import.data');
+        Route::get('/resumes/{resume}/import-data', [ResumeController::class, 'getDataForImport'])->name('resumes.import.data');
+        
 
         // This route will handle the form submission from your "Change Template" modal.
         Route::put('/resumes/{resume}/change-template', [ResumeController::class, 'changeTemplate'])->name('resumes.template.change');

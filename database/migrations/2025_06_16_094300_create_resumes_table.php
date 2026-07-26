@@ -28,7 +28,7 @@ return new class extends Migration
         $table->unsignedInteger('views')->default(0);
         $table->text('image_url')->nullable();
         $table->text('code')->nullable();
-        $table->string('share_url', 255)->nullable()->unique();
+        $table->string('share_url', 191)->nullable()->unique();
         $table->timestamps();
     });
 }

@@ -159,9 +159,9 @@
     </div>
 
     <!-- Preview Modal (Optional Enhancement) -->
-    <div id="previewModal" class="fixed inset-0 bg-black bg-opacity-75 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
-            <div class="flex items-center justify-between p-6 border-b border-gray-200">
+    <div id="previewModal" class="fixed inset-0 bg-black/80 hidden z-50 p-0 sm:p-4">
+        <div class="bg-white w-full h-full sm:w-[95vw] sm:h-[95vh] sm:mx-auto sm:rounded-2xl flex flex-col overflow-hidden">
+            <div class="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
                 <h3 id="previewTitle" class="text-xl font-bold text-gray-900">Template Preview</h3>
                 <button onclick="closePreview()" class="text-gray-400 hover:text-gray-600 transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -169,8 +169,8 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-6 overflow-auto max-h-[calc(90vh-120px)]">
-                <img id="previewImage" src="" alt="" class="w-full h-auto rounded-lg shadow-lg">
+            <div class="flex-1 flex items-center justify-center bg-gray-50 p-2 sm:p-6 overflow-hidden">
+                <img id="previewImage" src="" alt="" class="max-w-full max-h-full object-contain rounded-lg shadow-lg">
             </div>
         </div>
     </div>

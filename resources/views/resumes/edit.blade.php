@@ -102,7 +102,7 @@
                                                                                     </svg>
                                                                                 </div>
                                                                                 <!-- The Image -->
-                                                                                <img :src="contact.photo_path ? '/storage/' + contact.photo_path : '/default-avatar.png'"
+                                                                                <img :src="getPhotoUrl(contact.photo_path)"
                                                                                         alt="Profile Photo"
                                                                                         class="w-32 h-32 rounded-full object-cover">
                                                                                 <!-- Placeholder Icon -->
@@ -116,7 +116,7 @@
                                                                             
                                                                             <!-- The button the user actually clicks -->
                                                                             <label for="photo" class="cursor-pointer bg-white hover:bg-gray-100 text-gray-700 font-semibold py-2 px-4 rounded-lg border border-gray-300 transition-all duration-200 text-sm">
-                                                                                Upload Image
+                                                                                Upload File or Image
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -326,94 +326,126 @@
                                             </div>
 
                                                 <!-- Action Buttons -->
-                                 <div class="border-t border-gray-200 pt-8">
-                                    <div class="flex flex-col sm:flex-row justify-end items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                                        <div class="border-t border-gray-200 pt-8">
+                                                    <div class="flex flex-col sm:flex-row justify-end items-center space-y-3 sm:space-y-0 sm:space-x-4">
+  
+                                                           
 
-                                                <!-- ============================================= -->
-                                                <!-- DOWNLOAD BUTTON (AS A FORM)                   -->
-                                                <!-- ============================================= -->
-                                                <form action="{{ route('resumes.processDownload', $resume) }}" method="POST" target="_blank">
-                                                    @csrf
-                                                    {{-- This hidden input sends the required 'format' data --}}
-                                                    <input type="hidden" name="format" value="pdf">
-                                                    
-                                                    {{-- This button is styled to look exactly like your old link --}}
-                                                    <button type="submit" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-8 rounded-lg text-center transition-all duration-200 flex items-center justify-center space-x-2">
-                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                                        </svg>
-                                                        <span>Download</span>
-                                                    </button>
-                                                </form>
+<!-- ============================================= -->
+<!-- NEW AND IMPROVED DOWNLOAD BUTTON              -->
+<!-- ============================================= -->
+<div x-data="{ open: false, format: 'pdf' }" class="relative inline-block text-left">
+    
+    <!-- The main Download button and the format selector arrow -->
+    <div class="flex rounded-lg shadow-sm">
+        <form :action="'{{ route('resumes.processDownload', $resume) }}'" method="POST" target="_blank" class="flex">
+            @csrf
+            <input type="hidden" name="payload" :value="JSON.stringify({ name: resumeName, contact: contact, experiences: experiences, education: education, skills: skills, photo_path: contact.photo_path })">
+            <input type="hidden" name="format" x-model="format">
 
-                                                <!-- SHARE BUTTON  -->
-                                                <a href="{{ route('resumes.share', $resume) }}" target="_blank" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg text-center transition-all duration-200 flex items-center justify-center space-x-2">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
-                                                    </svg>
-                                                    <span>Share</span>
-                                                </a>
+            <button type="submit" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-l-lg text-center transition-all duration-200 flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span>Download</span>
+            </button>
+        </form>
+        <button @click="open = !open" type="button" class="bg-pink-700 hover:bg-pink-800 text-white p-3 rounded-r-lg border-l border-pink-500">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+        </button>
+    </div>
 
-                                                <!-- SAVE BUTTON -->
-                                                <button @click="saveResume()" type="button" class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2" :disabled="isSaving">
-                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!isSaving">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"></path>
-                                                    </svg>
-                                                    <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24" x-show="isSaving" style="display: none;">
-                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                                    </svg>
-                                                    <span x-text="isSaving ? 'Saving...' : 'Save Changes'"></span>
-                                                </button>
+    <!-- The Dropdown Menu -->
+    <div x-show="open" @click.away="open = false"
+         x-transition:enter="transition ease-out duration-100"
+         x-transition:enter-start="transform opacity-0 scale-95"
+         x-transition:enter-end="transform opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-75"
+         x-transition:leave-start="transform opacity-100 scale-100"
+         x-transition:leave-end="transform opacity-0 scale-95"
+         class="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10"
+         style="display: none;">
+        <div class="py-1" role="menu" aria-orientation="vertical">
+            <a @click="format = 'pdf'; open = false" href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">PDF</a>
+            <a @click="format = 'png'; open = false" href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">PNG</a>
+        </div>
+    </div>
+</div>
+                                                            <!-- SHARE BUTTON  -->
+                                                            <a href="{{ route('resumes.share', $resume) }}" target="_blank" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg text-center transition-all duration-200 flex items-center justify-center space-x-2">
+                                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                                                                </svg>
+                                                                <span>Share</span>
+                                                            </a>
 
-                                                <div x-show="openTemplateModal" @click.away="openTemplateModal = false" x-cloak
-                                                    class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4"
-                                                    style="display: none;">
+                                                            <!-- SAVE BUTTON -->
+                                                            <button @click="saveResume()" type="button" class="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2" :disabled="isSaving">
+                                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-show="!isSaving">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12"></path>
+                                                                </svg>
+                                                                <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24" x-show="isSaving" style="display: none;">
+                                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                                </svg>
+                                                                <span x-text="isSaving ? 'Saving...' : 'Save Changes'"></span>
+                                                            </button>
 
-                                                        <!-- ================================== -->
-                                                        <!--  "CHANGE TEMPLATE" MODAL      -->
-                                                        <!-- ================================== -->
-                                                        <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-4xl transform transition-all"
-                                                            x-show="openTemplateModal"
-                                                            x-transition:enter="ease-out duration-300"
-                                                            x-transition:enter-start="opacity-0 scale-95"
-                                                            x-transition:enter-end="opacity-100 scale-100">
+                                                            <div x-show="openTemplateModal" @click.away="openTemplateModal = false" x-cloak
+                                                                class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4"
+                                                                style="display: none;">
 
-                                                            <!-- Modal Header -->
-                                                            <div class="flex items-center justify-between mb-6">
-                                                                <h3 class="text-2xl font-bold text-gray-900">Select a New Template</h3>
-                                                                <button @click="openTemplateModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
-                                                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                                                </button>
-                                                            </div>
+                                                                    <!-- ================================== -->
+                                                                    <!--  "CHANGE TEMPLATE" MODAL      -->
+                                                                    <!-- ================================== -->
+                                                                    <div class="bg-white rounded-2xl shadow-2xl p-6 md:p-8 w-full max-w-4xl transform transition-all"
+                                                                        x-show="openTemplateModal"
+                                                                        x-transition:enter="ease-out duration-300"
+                                                                        x-transition:enter-start="opacity-0 scale-95"
+                                                                        x-transition:enter-end="opacity-100 scale-100">
 
-                                                            <!-- The rest of your modal content (form, grid, etc.) is correct and goes here -->
-                                                            <form action="{{ route('resumes.template.change', $resume) }}" method="POST">
-                                                                @csrf
-                                                                @method('PUT')
+                                                                        <!-- Modal Header -->
+                                                                        <div class="flex items-center justify-between mb-6">
+                                                                            <h3 class="text-2xl font-bold text-gray-900">Select a New Template</h3>
+                                                                            <button @click="openTemplateModal = false" class="text-gray-400 hover:text-gray-600 transition-colors">
+                                                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                                            </button>
+                                                                        </div>
 
-                                                                <!-- Grid to display template previews -->
-                                                                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto p-1 pr-2">
-                                                                    @foreach($allTemplates as $template)
-                                                                        <label class="cursor-pointer group">
-                                                                            <input type="radio" name="template_id" value="{{ $template->template_id }}" class="sr-only"
-                                                                                onchange="this.form.submit()">
+                                                                        <!-- The rest of your modal content (form, grid, etc.) is correct and goes here -->
+                                                                        <form action="{{ route('resumes.template.change', $resume) }}" method="POST">
+                                                                            @csrf
+                                                                            @method('PUT')
 
-                                                                            <div class="border-2 rounded-lg p-2 group-hover:border-red-500 transition-all"
-                                                                                :class="{ 'border-red-500 bg-red-50 ring-2 ring-red-200': {{ $resume->template_id }} == {{ $template->template_id }} }">
+                                                                            
+                                                                            <input type="hidden" name="payload" :value="JSON.stringify({
+                                                                                name: resumeName,
+                                                                                contact: contact,
+                                                                                experiences: experiences,
+                                                                                education: education,
+                                                                                skills: skills
+                                                                            })">
 
-                                                                                <img src="{{ asset($template->thumbnail_path) }}" alt="{{ $template->name }}" class="w-full h-auto rounded-md mb-2 shadow-sm object-cover">
-                                                                                <p class="text-center font-semibold text-sm text-gray-800">{{ $template->name }}</p>
+                                                                            <!-- The rest of your form is already correct! -->
+                                                                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[60vh] overflow-y-auto p-1 pr-2">
+                                                                                @foreach($allTemplates as $template)
+                                                                                    <label class="cursor-pointer group">
+                                                                                        <input type="radio" name="template_id" value="{{ $template->template_id }}" class="sr-only"
+                                                                                            onchange="this.form.submit()">
+
+                                                                                        <div class="border-2 rounded-lg p-2 group-hover:border-red-500 transition-all"
+                                                                                            :class="{ 'border-red-500 bg-red-50 ring-2 ring-red-200': {{ $resume->template_id }} == {{ $template->template_id }} }">
+
+                                                                                            <img src="{{ asset($template->template_url) }}" alt="{{ $template->name }}" class="w-full h-auto rounded-md mb-2 shadow-sm object-cover">
+                                                                                            <p class="text-center font-semibold text-sm text-gray-800">{{ $template->name }}</p>
+                                                                                        </div>
+                                                                                    </label>
+                                                                                @endforeach
                                                                             </div>
-                                                                        </label>
-                                                                    @endforeach
-                                                                </div>
-                                                            </form>
+                                                                        </form>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                                            </div> 
+                                                 </div>
+                                    </div>
+                                 </div>
 
                     <!-- Import Modal -->
         <div x-show="openImportModal" @click.away="openImportModal = false" x-cloak class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4" style="display: none;">
@@ -501,7 +533,7 @@ function resumeEditor() {
                 return {
                     // STEP 1: All state variables are initialized as empty/default first.
                     resumeName: '',
-                    contact: { full_name: '', phone: '', address: '', summary: '' },
+                    contact: { full_name: '', phone: '', address: '', summary: '', photo_path: '' },
                     experiences: [],
                     education: [],
                     skills: [],
@@ -519,18 +551,43 @@ function resumeEditor() {
                     // It populates the empty variables above with data from your Laravel controller.
                     initializeData() {
                         this.resumeName = '{{ addslashes($resume->name) }}';
-                        this.contact = {!! json_encode($contactInfo) !!} || { full_name: '', phone: '', address: '', summary: '' };
+                        const initialContact = {!! json_encode($contactInfo) !!} || {};
+                        this.contact = {
+                            full_name: '',
+                            phone: '',
+                            address: '',
+                            summary: '',
+                            photo_path: '',
+                            ...initialContact
+                        };
                         this.experiences = {!! json_encode($experiences) !!} || [];
                         this.education = {!! json_encode($educations) !!} || [];
                         this.skills = {!! json_encode($skills) !!} || [];
                     },
 
- async uploadPhoto(event) {  
+            getPhotoUrl(path) {
+                if (!path) return '/default-avatar.png';
+                if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) {
+                    return path;
+                }
+                if (path.startsWith('blob:')) {
+                    return path;
+                }
+                return '/storage/' + path;
+            },
+
+            async uploadPhoto(event) {  
 
                 const file = event.target.files[0];
                 if (!file) return;
 
                 this.isUploadingPhoto = true;
+
+                if (file.type.startsWith('image/')) {
+                    this.contact.photo_path = URL.createObjectURL(file);
+                } else {
+                    this.contact.photo_path = '';
+                }
 
                 // FormData is the standard way to send files
                 const formData = new FormData();
@@ -551,12 +608,13 @@ function resumeEditor() {
                         const result = await response.json();
                         // This is the key part: update the 'contact' object in Alpine's state.
                         // This will automatically update the <img> src attribute.
-                        this.contact.photo_path = result.photo_path; 
+                        this.contact.photo_path = result.photo_path || '';
                         this.showSuccessMessage('Photo uploaded successfully!');
                     } else {
                         // If the server returns an error, we can try to show it.
-                        const errorResult = await response.json();
-                        alert('Upload failed: ' + (errorResult.message || 'Unknown error'));
+                        const errorResult = await response.json().catch(() => ({}));
+                        const message = errorResult.message || errorResult.errors?.photo?.[0] || 'Unknown error';
+                        alert('Upload failed: ' + message);
                     }
                 } catch (error) {
                     alert('An error occurred while uploading the photo.');
@@ -638,56 +696,59 @@ function resumeEditor() {
 
 // Method to import data from another resume
 async importData() {
-                    if (!this.selectedResumeId) {
-                        alert('Please select a resume to import from.');
-                        return;
+                if (!this.selectedResumeId) {
+                    alert('Please select a resume to import from.');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/resumes/${this.selectedResumeId}/import-data`);
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch resume data. Please try again.');
                     }
 
-                    try {
-                       const response = await fetch(`/resumes/${this.selectedResumeId}/import-data`);
+                    const sourceData = await response.json();
 
-                        if (!response.ok) {
-                            throw new Error('Failed to fetch resume data. Please try again.');
-                        }
+                    const cleanItems = (items) => {
+                        if (!Array.isArray(items)) return [];
+                        return items.map(item => {
+                            const { id, user_id, resume_id, created_at, updated_at, ...rest } = item;
+                            const { exp_id, edu_id, skill_id, ...finalRest } = rest;
+                            return finalRest;
+                        });
+                    };
 
-                        const sourceData = await response.json();
+                    // --- THIS IS THE CORRECTED SECTION ---
+                    if (this.sectionsToImport.contact && sourceData.contactInfo) {
+                        // Destructure to EXCLUDE only the unwanted keys from Laravel.
+                        // All other keys, including `photo_path`, will be in the 'importedContact' object.
+                        const { id, resume_id, created_at, updated_at, ...importedContact } = sourceData.contactInfo;
 
-                        // Helper function to strip out Laravel's timestamps and IDs
-                        const cleanItems = (items) => {
-                            if (!Array.isArray(items)) return [];
-                            return items.map(item => {
-                                const { id, user_id, resume_id, created_at, updated_at, ...rest } = item;
-                                // For skills and experiences, you might have different IDs
-                                const { exp_id, edu_id, skill_id, ...finalRest } = rest;
-                                return finalRest;
-                            });
-                        };
-
-                        // Now, update the current form's state based on user's checkbox selections
-                        if (this.sectionsToImport.contact && sourceData.contactInfo) {
-                            // We only update the fields, we don't want to overwrite the photo path logic
-                            const { photo_path, ...contactDetails } = sourceData.contactInfo;
-                            this.contact = { ...this.contact, ...contactDetails };
-                        }
-                        if (this.sectionsToImport.experiences && sourceData.experiences) {
-                            this.experiences = cleanItems(sourceData.experiences);
-                        }
-                        if (this.sectionsToImport.education && sourceData.educations) {
-                            this.education = cleanItems(sourceData.educations);
-                        }
-                        if (this.sectionsToImport.skills && sourceData.skills) {
-                            this.skills = cleanItems(sourceData.skills);
-                        }
-
-                        // Close the modal and show a success message
-                        this.openImportModal = false;
-                        this.showSuccessMessage('Data imported successfully!');
-
-                    } catch (error) {
-                        console.error('Import Error:', error);
-                        alert(error.message);
+                        // Now, merge the existing contact data with the newly imported data.
+                        // This will correctly update the full_name, phone, AND the photo_path.
+                        this.contact = { ...this.contact, ...importedContact };
                     }
-                },
+                    // --- END OF CORRECTION ---
+
+                    if (this.sectionsToImport.experiences && sourceData.experiences) {
+                        this.experiences = cleanItems(sourceData.experiences);
+                    }
+                    if (this.sectionsToImport.education && sourceData.educations) {
+                        this.education = cleanItems(sourceData.educations);
+                    }
+                    if (this.sectionsToImport.skills && sourceData.skills) {
+                        this.skills = cleanItems(sourceData.skills);
+                    }
+
+                    this.openImportModal = false;
+                    this.showSuccessMessage('Data imported successfully!');
+
+                } catch (error) {
+                    console.error('Import Error:', error);
+                    alert(error.message);
+                }
+},
                             // Helper method for showing a success notification
             showSuccessMessage(message) {
                 const successDiv = document.createElement('div');

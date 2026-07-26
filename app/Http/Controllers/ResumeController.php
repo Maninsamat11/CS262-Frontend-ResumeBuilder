@@ -1,7 +1,11 @@
 <?php
 
 
+
+
 namespace App\Http\Controllers;
+
+
 
 
 use App\Models\Resume;
@@ -19,6 +23,9 @@ use App\Services\ResumeRenderingService;
 
 
 
+
+
+
 class ResumeController extends Controller
 {
    
@@ -29,14 +36,20 @@ public function store(Request $request)
                 ]);
 
 
+
+
                 $resume = Auth::user()->resumes()->create([
                     'template_id' => $request->template_id,
                     'name' => 'Untitled Resume'
                 ]);
 
 
+
+
                 return redirect()->route('resumes.edit', ['resume' => $resume, 'fresh' => true]);
             }
+
+
 
 
 public function edit(Resume $resume)
@@ -45,10 +58,13 @@ public function edit(Resume $resume)
                     abort(403, 'Unauthorized Action');
                 }
 
+
                 $resume->load(['contactInfo', 'experiences', 'educations', 'skills']);
+
 
                 // --- ADD THIS LINE ---
                 $allTemplates = Template::all(); // Fetch all templates from the database.
+
 
                 return view('resumes.edit', [
                     'resume'        => $resume,
@@ -61,11 +77,15 @@ public function edit(Resume $resume)
             }
 
 
+
+
 public function update(Request $request, Resume $resume)
             {
                 if ($resume->user_id !== Auth::id()) {
                     abort(403, 'Unauthorized Action');
                 }
+
+
 
 
                 $validated = $request->validate([
@@ -77,12 +97,16 @@ public function update(Request $request, Resume $resume)
                 ]);
 
 
+
+
                 DB::transaction(function () use ($resume, $validated) {
                     $resume->update(['name' => $validated['name']]);
-                
+               
                     if (isset($validated['contact'])) {
                         $resume->contactInfo()->updateOrCreate([], $validated['contact']);
                     }
+
+
 
 
                     // CORRECTED: Use the plural relationship methods
@@ -95,6 +119,8 @@ public function update(Request $request, Resume $resume)
                     }
 
 
+
+
                     $resume->educations()->delete();
                     if (!empty($validated['education'])) {
                         $validEducation = array_filter($validated['education'], fn($edu) => !empty($edu['school_name']));
@@ -102,6 +128,8 @@ public function update(Request $request, Resume $resume)
                             $resume->educations()->createMany($validEducation);
                         }
                     }
+
+
 
 
                     $resume->skills()->delete();
@@ -112,9 +140,21 @@ public function update(Request $request, Resume $resume)
                         }
                     }
                 });
-            
+           
                 return response()->json(['message' => 'Resume updated successfully!']);
             }
+
+public function destroy(Resume $resume)
+    {
+        if ($resume->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $resume->delete();
+
+        return redirect()->route('dashboard')->with('status', 'Resume deleted successfully!');
+    }
+
 
 
  public function preview(Request $request, Resume $resume)
@@ -125,10 +165,12 @@ public function update(Request $request, Resume $resume)
                 }
 
 
+
+
                 // 2. Load the base HTML from the selected template.
                 $resume->load('template');
                 $html = $resume->template->template_html;
-            
+           
                 // 3. Determine the data source: real-time 'payload' or saved database data.
                 if ($request->has('payload')) {
                     // Data is coming from the live editor form.
@@ -147,20 +189,27 @@ public function update(Request $request, Resume $resume)
                 }
 
 
+
+
                 // 4. Replace simple, non-looping placeholders.
+                $photoPath = $this->normalizePhotoPath($contact->photo_path ?? '');
+                $photoUrl = $photoPath ? asset('storage/' . ltrim($photoPath, '/')) : '';
+
                 $replacements = [
                     '{{ contact.full_name }}' => e($contact->full_name ?? ''),
                     '{{ contact.phone }}'     => e($contact->phone ?? ''),
                     '{{ contact.address }}'   => e($contact->address ?? ''),
                     '{{ contact.summary }}'   => nl2br(e($contact->summary ?? '')), // nl2br converts newlines to <br> tags
-                    '{{ contact.photo_path }}'=> (isset($contact->photo_path) && $contact->photo_path) ? e(asset('storage/' . $contact->photo_path)) : '',
+                    '{{ contact.photo_path }}'=> e($photoUrl),
                 ];
                 $html = str_replace(array_keys($replacements), array_values($replacements), $html);
-            
+           
                 // 5. Process repeating sections (loops) using the helper function.
                 $html = $this->processLoop($html, 'experience', $experiences);
                 $html = $this->processLoop($html, 'education', $education);
                 $html = $this->processLoop($html, 'skill', $skills);
+
+
 
 
                 // 6. Return the Blade view for the A4 layout, passing the final HTML as 'content'.
@@ -170,19 +219,43 @@ public function update(Request $request, Resume $resume)
             }
 
 
+
+
+private function normalizePhotoPath(?string $value): string
+{
+    if (!$value) {
+        return '';
+    }
+
+    if (Str::startsWith($value, ['http://', 'https://'])) {
+        $parsed = parse_url($value, PHP_URL_PATH);
+        return ltrim(str_replace('/storage/', '', $parsed ?? ''), '/');
+    }
+
+    if (Str::startsWith($value, '/storage/')) {
+        return ltrim(str_replace('/storage/', '', $value), '/');
+    }
+
+    return ltrim($value, '/');
+}
+
 private function processLoop($html, $loopName, $items)
             {
                 $startTag = "{{--{$loopName}-loop-start--}}";
                 $endTag = "{{--{$loopName}-loop-end--}}";
 
 
+
+
                 // Find the HTML block for a single loop item
                 if (!preg_match("/".preg_quote($startTag, '/')."(.*?)".preg_quote($endTag, '/')."/s", $html, $matches)) {
                     return $html; // If no loop block is found, do nothing.
                 }
-            
+           
                 $loopBlockTemplate = $matches[1];
                 $allBlocksHtml = '';
+
+
 
 
                 // Loop through the data (experiences, skills, etc.)
@@ -191,6 +264,8 @@ private function processLoop($html, $loopName, $items)
                         $currentBlock = $loopBlockTemplate;
                         // The item can be an object from the DB or an array from the form, so we handle both.
                         $itemData = is_object($item) ? $item->toArray() : $item;
+
+
 
 
                         // Replace all placeholders inside the loop item (e.g., {{ experience.job_title }})
@@ -202,10 +277,12 @@ private function processLoop($html, $loopName, $items)
                 }
 
 
+
+
                 // Replace the entire loop placeholder with the generated HTML
                 return preg_replace("/".preg_quote($startTag, '/')."(.*?)".preg_quote($endTag, '/')."/s", $allBlocksHtml, $html);
             }
-            
+           
 public function toggleStatus(Resume $resume)
             {
                 // 1. Security Check: Ensure the user owns this resume.
@@ -213,14 +290,17 @@ public function toggleStatus(Resume $resume)
                     abort(403, 'Unauthorized Action');
                 }
 
+
                 // 2. The Logic: Determine the new status.
                 if ($resume->status === 'public') {
                     // --- ACTION: Making it PRIVATE ---
                     $resume->status = 'private';
 
+
                     // THIS IS THE CRITICAL SECURITY FIX:
                     // Automatically destroy the share link so it can no longer be used.
                     $resume->share_url = null;
+
 
                 } else {
                     // --- ACTION: Making it PUBLIC ---
@@ -229,12 +309,16 @@ public function toggleStatus(Resume $resume)
                     // That is handled separately on the "Share & Download" page.
                 }
 
+
                 // 3. Save the changes to the database.
                 $resume->save();
+
 
                 // 4. Redirect back with a success message.
                 return back()->with('status', 'Resume visibility updated!');
             }
+
+
 
 
  public function getDataForImport(Resume $resume)
@@ -245,8 +329,12 @@ public function toggleStatus(Resume $resume)
                 }
 
 
+
+
                 // 2. Eager load all the relationships to get all the data in one query.
                 $resume->load(['contactInfo', 'experiences', 'educations', 'skills']);
+
+
 
 
                 // 3. Return the data in a structured JSON format.
@@ -255,8 +343,10 @@ public function toggleStatus(Resume $resume)
                     'experiences' => $resume->experiences,
                     'educations'  => $resume->educations,
                     'skills'      => $resume->skills,
+                    
                 ]);
             }
+
 
  public function changeTemplate(Request $request, Resume $resume)
             {
@@ -265,18 +355,22 @@ public function toggleStatus(Resume $resume)
                     abort(403, 'Unauthorized Action');
                 }
 
+
                 // 2. Validation: Make sure a valid template_id was submitted.
                 $request->validate([
                     'template_id' => 'required|exists:templates,template_id',
                 ]);
 
+
                 // 3. Update the resume's template_id.
                 $resume->template_id = $request->input('template_id');
                 $resume->save();
 
+
                 // 4. Redirect back to the editor page with a success message.
                 return redirect()->route('resumes.edit', $resume)->with('status', 'Template changed successfully!');
             }
+
 
 public function showSharePage(Resume $resume)
             {
@@ -286,8 +380,12 @@ public function showSharePage(Resume $resume)
                 }
 
 
+
+
                 return view('resumes.share', compact('resume'));
             }
+
+
 
 
             /**
@@ -301,8 +399,12 @@ public function showSharePage(Resume $resume)
                 }
 
 
+
+
                 $action = $request->input('action');
                 $message = 'No changes were made.';
+
+
 
 
                 if ($action === 'enable') {
@@ -312,6 +414,8 @@ public function showSharePage(Resume $resume)
                     $message = 'Share link has been generated and is now active!';
 
 
+
+
                 } elseif ($action === 'disable') {
                     // Clear the sharing information to disable the link
                     $resume->share_url = null;
@@ -319,86 +423,100 @@ public function showSharePage(Resume $resume)
                 }
 
 
+
+
                 $resume->save();
 
 
-        // Redirect back to the share page with a success message
-        return back()->with('status', $message);
-    }
-    public function showDownloadPage(Resume $resume)
-    {
-        // Security check
-        if ($resume->user_id !== Auth::id()) {
-            abort(403);
-        }
-        return view('resumes.download', ['resume' => $resume]);
-    } 
 
+
+                // Redirect back to the share page with a success message
+                return back()->with('status', $message);
+            }
 
 
 public function processDownload(Request $request, Resume $resume, ResumeRenderingService $renderer)
-{
-    if ($resume->status !== 'public' && (Auth::guest() || Auth::id() !== $resume->user_id)) {
-        abort(403, 'You do not have permission to download this resume.');
-    }
+            {
+                if ($resume->user_id !== Auth::id()) { abort(403); }
 
-    $request->validate(['format' => 'required|in:pdf,png']);
-    $format = $request->input('format');
+                $request->validate(['format' => 'required|in:pdf,png']);
+                $format = $request->input('format');
 
-    try {
-        // THIS IS THE FIX: Pass `true` to enable PDF-specific rendering.
-        $renderedTemplateHtml = $renderer->render($resume, true);
-    } catch (\Exception $e) {
-        return back()->with('error', 'Could not generate resume: ' . $e->getMessage());
-    }
+                $payload = $request->input('payload');
+                $payloadData = is_string($payload) ? json_decode($payload, true) : $payload;
+                $payloadData = is_array($payloadData) ? $payloadData : [];
 
-    // --- THIS IS THE CRITICAL SECTION FOR STYLING ---
+                $resume->load(['contactInfo', 'experiences', 'educations', 'skills']);
 
-    // 1. Get the absolute URL to your BUILT CSS file.
-    //    This only works correctly after you run `npm run build`.
-    $cssUrl = Vite::asset('resources/css/app.css');
+                $liveContactInfo = new \App\Models\ContactInfo();
+                $liveContactInfo->fill($resume->contactInfo ? $resume->contactInfo->toArray() : []);
 
-    // 2. Assemble the full HTML document, including the <link> tag to your CSS.
-    $fullHtml = <<<HTML
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Resume - {$resume->name}</title>
-        <style>
-            {$cssContent}
-        </style>
-    </head>
-    <body>
-        {$renderedTemplateHtml}
-    </body>
-    </html>
-    HTML;
+                if (!empty($payloadData['contact'])) {
+                    $liveContactInfo->fill($payloadData['contact']);
+                }
 
-    // --- END OF CRITICAL SECTION ---
+                if (!empty($payloadData['photo_path'])) {
+                    $liveContactInfo->photo_path = $this->normalizePhotoPath($payloadData['photo_path']);
+                }
 
-    $filename = Str::slug($resume->name);
+                $resume->name = $payloadData['name'] ?? $resume->name;
+                $resume->setRelation('contactInfo', $liveContactInfo);
+                $resume->setRelation('experiences', \App\Models\Experience::hydrate($payloadData['experiences'] ?? $resume->experiences->toArray()));
+                $resume->setRelation('educations', \App\Models\Education::hydrate($payloadData['education'] ?? $resume->educations->toArray()));
+                $resume->setRelation('skills', \App\Models\Skill::hydrate($payloadData['skills'] ?? $resume->skills->toArray()));
+                
+                // The rest of the method remains the same
+                try {
+                    $renderedTemplateHtml = $renderer->render($resume, true);
+                } catch (\Exception $e) {
+                    return back()->with('error', 'Could not render resume: ' . $e->getMessage());
+                }
 
-    if ($format === 'pdf') {
-        // 3. The option 'isRemoteEnabled' is VITAL. It gives dompdf permission
-        //    to download the CSS file from the URL we provided in the <link> tag.
-        $pdf = Pdf::loadHTML($fullHtml)->setOption(['isRemoteEnabled' => true]);
-        return $pdf->stream($filename . '.pdf');
-    }
+                $previewView = view('resumes.preview_layout', ['content' => $renderedTemplateHtml])->render();
 
-    if ($format === 'png') {
-        $image = Browsershot::html($fullHtml)->fullPage()->screenshot();
-        return response($image)->header('Content-Type', 'image/png')->header('Content-Disposition', 'attachment; filename="' . $filename . '.png"');
-    }
+                $fullHtml = <<<HTML
+                {$previewView}
+                HTML;
+                
+                $filename = Str::slug($resume->name) . '.' . $format;
+                
+                try {
+                    $browsershot = Browsershot::html($fullHtml)
+                        ->setOption('args', ['--no-sandbox', '--disable-setuid-sandbox'])
+                        ->setOption('viewport', ['width' => 1280, 'height' => 1600]);
 
-    return back()->with('error', 'That download format is not yet supported.');
-}
+                    if ($format === 'pdf') {
+                        $fileContent = $browsershot->format('A4')->pdf();
+                    } else {
+                        $fileContent = $browsershot->fullPage()->screenshot();
+                    }
+
+                    return response($fileContent)
+                        ->header('Content-Type', $format === 'pdf' ? 'application/pdf' : 'image/png')
+                        ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+                } catch (\Exception $e) {
+                    \Log::warning('Browsershot failed, falling back to DOMPDF: ' . $e->getMessage());
+
+                    if ($format === 'pdf') {
+                        $pdf = Pdf::loadHTML($fullHtml)
+                            ->setPaper('A4')
+                            ->setOption('isRemoteEnabled', true);
+
+                        return response($pdf->output())
+                            ->header('Content-Type', 'application/pdf')
+                            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+                    }
+
+                    return redirect()->back()->with('error', 'PNG generation is unavailable in this environment.');
+                }
+            }
     /**
      * Redirects the user to the public view of a resume based on a shareable link.
      *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
+
 
 public function redirectFromLink(Request $request)
             {
@@ -408,8 +526,12 @@ public function redirectFromLink(Request $request)
                 ]);
 
 
+
+
                 // 2. Get the full URL from the form input.
                 $fullUrl = $request->input('shareable_link');
+
+
 
 
                 // 3. Extract the last part of the URL, which is the share token.
@@ -417,8 +539,12 @@ public function redirectFromLink(Request $request)
                 $shareToken = basename($fullUrl);
 
 
+
+
                 // 4. Find a resume that has this share_url and is active.
                 $resume = Resume::where('share_url', $shareToken)->first();
+
+
 
 
                 // 5. If a resume is found, redirect to the public view page.
@@ -427,10 +553,14 @@ public function redirectFromLink(Request $request)
                 }
 
 
+
+
                 // 6. If no resume is found, redirect back to the homepage with an error message.
                 return redirect()->route('home')
                                 ->with('error', 'The provided resume link is invalid or has been disabled.');
             }
+
+
 
 
 public function updatePhoto(Request $request, Resume $resume): JsonResponse
@@ -441,11 +571,29 @@ public function updatePhoto(Request $request, Resume $resume): JsonResponse
                 }
 
 
+
+
                 // 2. Validate the uploaded file.
                 $request->validate([
-                    'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                    'photo' => 'required|file|max:2048',
                 ]);
 
+                $uploadedFile = $request->file('photo');
+
+                if (!$uploadedFile || !$uploadedFile->isValid()) {
+                    return response()->json([
+                        'message' => 'The uploaded file is invalid.',
+                    ], 422);
+                }
+
+                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'doc', 'docx', 'txt', 'ppt', 'pptx', 'xls', 'xlsx'];
+                $extension = strtolower($uploadedFile->getClientOriginalExtension());
+
+                if (!in_array($extension, $allowedExtensions, true)) {
+                    return response()->json([
+                        'message' => 'Unsupported file type.',
+                    ], 422);
+                }
 
                 // 3. Ensure the resume has a contactInfo record.
                 $contactInfo = $resume->contactInfo()->firstOrCreate(
@@ -461,18 +609,26 @@ public function updatePhoto(Request $request, Resume $resume): JsonResponse
                 );
 
 
+
+
                 // 4. If an old photo exists, delete it.
                 if ($contactInfo->photo_path) {
                     Storage::disk('public')->delete($contactInfo->photo_path);
                 }
 
 
+
+
                 // 5. Store the new photo.
-                $path = $request->file('photo')->store('photos', 'public');
+                $path = $uploadedFile->storeAs('photos', uniqid() . '.' . $extension, 'public');
+
+
 
 
                 // 6. Save the new path to the 'photo_path' column.
                 $contactInfo->update(['photo_path' => $path]);
+
+
 
 
                 // 7. Return a success response.
@@ -483,7 +639,15 @@ public function updatePhoto(Request $request, Resume $resume): JsonResponse
                 ]);
             }
 
+
 }
+
+
+
+
+
+
+
 
 
 
