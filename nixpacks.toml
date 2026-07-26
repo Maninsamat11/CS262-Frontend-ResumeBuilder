@@ -1,0 +1,9 @@
+# nixpacks.toml
+
+[phases.setup]
+# Installs Chromium and Node alongside PHP
+nixPkgs = ["...", "nodejs", "chromium"]
+
+[phases.build]
+# Runs composer, npm install, and compiles your CSS/JS assets (Vite)
+cmds = ["composer install --no-dev --optimize-autoloader", "npm install", "npm run build"]
