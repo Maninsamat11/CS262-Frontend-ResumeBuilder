@@ -3,9 +3,9 @@
         <div class="flex justify-between h-16">
             <div class="flex items-center gap-6">
                 <a href="{{ route('home') }}" class="flex items-center gap-3">
-                    <div class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-500 text-white shadow-sm overflow-hidden">
+                    <div class="inline-flex h-10 w-10 items-center justify-center overflow-hidden">
                         <!-- Insert your logo here -->
-                        <img src="{{ asset('images/logo.png') }}" alt="ResuLink logo" class="h-full w-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg class=\'h-5 w-5\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M12 4v16m8-8H4\' /></svg>';">
+                        <img src="{{ asset('images/logo.png') }}" alt="ResuLink logo" class="h-full w-full object-cover" onerror="this.style.display='none'; this.parentElement.innerHTML='<svg class=\'h-5 w-5 text-slate-500\' fill=\'none\' stroke=\'currentColor\' viewBox=\'0 0 24 24\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M12 4v16m8-8H4\' /></svg>';">
                     </div>
                     <span class="font-semibold text-slate-900">{{ config('app.name', 'ResuLink') }}</span>
                 </a>

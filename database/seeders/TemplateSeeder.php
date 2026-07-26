@@ -15,22 +15,15 @@ class TemplateSeeder extends Seeder
   
 
         // --- Template 1: Professional Blue ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Professional Blue'], [
                     'name' => 'Professional Blue',
                     'status' => true,
                     'template_url' => '/images/template/professional-blue.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style>
+                                    <style>
                         body { font-family: 'Georgia', 'Times New Roman', serif; }
                     </style>
-                </head>
-                <body class="bg-white text-gray-800">
+                <div class="bg-white text-gray-800">
                     <div class="max-w-4xl mx-auto">
                         <!-- Header -->
                         <div class="bg-blue-900 text-white p-8">
@@ -104,30 +97,21 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
 
                         // --- Template 2: Sunny Gradient ---.
-                        Template::create([
+                        Template::updateOrCreate(['name' => 'Sunny Gradient'], [
                             'name' => 'Sunny Gradient',
                             'status' => true,
                             'template_url' => '/images/template/Sunny-Gradient.png',
                             'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-                    <style>
+                                    <style>
                         body { font-family: 'Poppins', sans-serif; }
                     </style>
-                </head>
-                <body class="bg-gray-100">
+                <div class="bg-gray-100">
                     <div class="max-w-4xl mx-auto my-8 shadow-2xl rounded-2xl overflow-hidden">
                         <!-- Header -->
                         <div class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white p-10 text-center">
@@ -187,28 +171,19 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                         ]);
 
                         // --- Template 3: Minty Fresh ---
                     
-                        Template::create([
+                        Template::updateOrCreate(['name' => 'Minty Fresh'], [
                             'name' => 'Minty Fresh',
                             'status' => true,
                             'template_url' => '/images/template/Minty-Fresh.png',
                             'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-                    <style> body { font-family: 'Roboto', sans-serif; } </style>
-                </head>
-                <body class="bg-white">
+                                    <style> body { font-family: 'Roboto', sans-serif; } </style>
+                <div class="bg-white">
                     <div class="max-w-4xl mx-auto grid grid-cols-12">
                         <!-- Left Sidebar -->
                         <div class="col-span-4 bg-teal-500 text-white p-8">
@@ -269,31 +244,22 @@ class TemplateSeeder extends Seeder
                             </section>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                         ]);
 
                         // --- Template 4: Comic Book Blast ---
                         // A high-energy, pop-art style template using bold colors and angled elements.
-                        Template::create([
+                        Template::updateOrCreate(['name' => 'Comic Book Blast'], [
                             'name' => 'Comic Book Blast',
                             'status' => true,
                             'template_url' => '/images/template/Comic-Book-Blast.png',
                             'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-                    <style>
+                                    <style>
                         body { font-family: 'Lato', sans-serif; }
                         .comic-font { font-family: 'Bangers', cursive; letter-spacing: 2px; }
                     </style>
-                </head>
-                <body class="bg-yellow-300 p-4">
+                <div class="bg-yellow-300 p-4">
                     <div class="max-w-4xl mx-auto bg-white border-8 border-black p-6">
                         <!-- Header -->
                         <div class="flex items-center gap-6 mb-6">
@@ -350,31 +316,22 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                         ]);
 
                         // --- Template 5: Midnight Bloom ---
                         // A sophisticated, dark-mode theme with floral accents and elegant typography.
-                        Template::create([
+                        Template::updateOrCreate(['name' => 'Midnight Bloom'], [
                             'name' => 'Midnight Bloom',
                             'status' => true,
                             'template_url' => '/images/template/Midnight-Bloom.png',
                             'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500&display=swap" rel="stylesheet">
-                    <style>
+                                    <style>
                         body { font-family: 'Raleway', sans-serif; background-color: #1a202c; }
                         .title-font { font-family: 'Playfair Display', serif; }
                     </style>
-                </head>
-                <body class="text-gray-300">
+                <div class="text-gray-300">
                     <div class="max-w-4xl mx-auto my-8 p-10 bg-gray-800 shadow-xl relative">
                         <!-- Decorative corner element -->
                         <div class="absolute top-0 right-0 w-32 h-32 bg-contain bg-no-repeat" style="background-image: url('https://i.imgur.com/rO9yY4F.png');"></div>
@@ -432,8 +389,7 @@ class TemplateSeeder extends Seeder
                             </div>
                         </main>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                         ]);
 
@@ -441,24 +397,16 @@ class TemplateSeeder extends Seeder
 
                 // --- Template 6: Emerald Executive ---
 
-                Template::create([
+                Template::updateOrCreate(['name' => 'Emerald Executive'], [
                     'name' => 'Emerald Executive',
                     'status' => true,
                     'template_url' => '/images/template/Emerald-Executive.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-                    <style>
+                                    <style>
                         body { font-family: 'Lato', sans-serif; }
                         .serif-title { font-family: 'Merriweather', serif; }
                     </style>
-                </head>
-                <body class="bg-gray-100">
+                <div class="bg-gray-100">
                     <div class="max-w-4xl mx-auto my-8 bg-white shadow-lg grid grid-cols-12">
                         <!-- Left Column (Sidebar) -->
                         <div class="col-span-4 bg-emerald-800 text-white p-8">
@@ -521,27 +469,18 @@ class TemplateSeeder extends Seeder
                             </section>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 7: Indigo Infographic ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Indigo Infographic'], [
                     'name' => 'Indigo Infographic',
                     'status' => true,
                     'template_url' => '/images/template/Indigo-Infographic.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-                    <style> body { font-family: 'Inter', sans-serif; } </style>
-                </head>
-                <body class="bg-gray-200">
+                                    <style> body { font-family: 'Inter', sans-serif; } </style>
+                <div class="bg-gray-200">
                     <div class="max-w-4xl mx-auto my-8 bg-white p-10 shadow-lg">
                         <!-- Header -->
                             <div class="flex items-center space-x-8 mb-10">
@@ -619,27 +558,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 8: Crimson Creative ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Crimson Creative'], [
                     'name' => 'Crimson Creative',
                     'status' => true,
                     'template_url' => '/images/template/Crimson-Creative.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;900&display=swap" rel="stylesheet">
-                    <style> body { font-family: 'Montserrat', sans-serif; } </style>
-                </head>
-                <body class="bg-gray-800 text-gray-800">
+                                    <style> body { font-family: 'Montserrat', sans-serif; } </style>
+                <div class="bg-gray-800 text-gray-800">
                     <div class="max-w-4xl mx-auto my-8 bg-white p-0 flow-root">
                         <!-- Header -->
                         <div class="p-12 bg-red-700 text-white flex items-center justify-between">
@@ -698,27 +628,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 9: Slate & Sky ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Slate & Sky'], [
                     'name' => 'Slate & Sky',
                     'status' => true,
                     'template_url' => '/images/template/Slate-Sky.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
-                    <style> body { font-family: 'Source Sans Pro', sans-serif; color: #2d3748; } </style>
-                </head>
-                <body class="bg-gray-200">
+                                    <style> body { font-family: 'Source Sans Pro', sans-serif; color: #2d3748; } </style>
+                <div class="bg-gray-200">
                     <div class="max-w-4xl mx-auto my-8 bg-white grid grid-cols-12 gap-0">
                         <!-- Main Content -->
                         <div class="col-span-8 p-10">
@@ -775,30 +696,21 @@ class TemplateSeeder extends Seeder
                             </section>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 10: Golden Touch ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Golden Touch'], [
                     'name' => 'Golden Touch',
                     'status' => true,
                     'template_url' => '/images/template/Golden-Touch.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-                    <style> 
+                                    <style> 
                         body { font-family: 'Open Sans', sans-serif; background-color: #f7fafc; } 
                         .serif-display { font-family: 'Cormorant Garamond', serif; }
                     </style>
-                </head>
-                <body>
+                <div>
                     <div class="max-w-4xl mx-auto my-8 bg-gray-800 text-white shadow-xl">
                         <div class="p-12 text-center border-b-4 border-amber-400">
                             <!-- Photo Holder: Centered Circle -->
@@ -857,30 +769,22 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
                     
                 
 
                 // --- Template 11: Executive Black ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Executive Black'], [
                     'name' => 'Executive Black',
                     'status' => true,
                     'template_url' => '/images/template/executive-black.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style>
+                                    <style>
                         body { font-family: 'Arial', 'Helvetica', sans-serif; }
                     </style>
-                </head>
-                <body class="bg-black text-white">
+                <div class="bg-black text-white">
                     <div class="max-w-4xl mx-auto">
                         <div class="grid grid-cols-12">
                             <!-- Left Sidebar -->
@@ -968,30 +872,22 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                
 
                 // --- Template 12: Clean Orange ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Clean Orange'], [
                     'name' => 'Clean Orange',
                     'status' => true,
                     'template_url' => '/images/template/clean-orange.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style>
+                                    <style>
                         body { font-family: 'Open Sans', 'Arial', sans-serif; }
                     </style>
-                </head>
-                <body class="bg-orange-50 text-gray-800">
+                <div class="bg-orange-50 text-gray-800">
                     <div class="max-w-4xl mx-auto p-8">
                         <div class="bg-white shadow-lg">
                             <!-- Top Header Bar -->
@@ -1104,26 +1000,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
                     
                 // --- Template 13: Tech Slate ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Tech Slate'], [
                     'name' => 'Tech Slate',
                     'status' => true,
                     'template_url' => '/images/template/tech-slate.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Fira Code', 'Courier New', monospace; } </style>
-                </head>
-                <body class="bg-gray-900 text-gray-300">
+                                    <style> body { font-family: 'Fira Code', 'Courier New', monospace; } </style>
+                <div class="bg-gray-900 text-gray-300">
                     <div class="max-w-4xl mx-auto my-10 p-10 bg-gray-800 border border-teal-500 shadow-lg rounded-lg">
                         <header class="flex items-center space-x-8 mb-8">
                             <div class="w-28 h-28 rounded-full bg-gray-700 bg-cover bg-center border-2 border-teal-400" 
@@ -1182,29 +1070,21 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 14: Elegant Ink ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Elegant Ink'], [
                     'name' => 'Elegant Ink',
                     'status' => true,
                     'template_url' => '/images/template/elegant-ink.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> 
+                                    <style> 
                         body { font-family: 'Garamond', 'Georgia', serif; } 
                         @media print { body { -webkit-print-color-adjust: exact; } }
                     </style>
-                </head>
-                <body class="bg-white text-black">
+                <div class="bg-white text-black">
                     <div class="max-w-4xl mx-auto p-12">
                         <div class="text-center mb-10">
                             <h1 class="text-5xl font-bold tracking-wider uppercase">{{ contact.full_name }}</h1>
@@ -1255,26 +1135,18 @@ class TemplateSeeder extends Seeder
                             </p>
                         </section>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 15: Corporate Blue ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Corporate Blue'], [
                     'name' => 'Corporate Blue',
                     'status' => true,
                     'template_url' => '/images/template/corporate-blue.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Calibri', 'Segoe UI', sans-serif; } </style>
-                </head>
-                <body class="bg-gray-200">
+                                    <style> body { font-family: 'Calibri', 'Segoe UI', sans-serif; } </style>
+                <div class="bg-gray-200">
                     <div class="max-w-4xl mx-auto my-10 bg-white shadow-lg">
                         <header class="bg-blue-800 text-white p-8 flex items-center justify-between">
                             <div>
@@ -1329,26 +1201,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </main>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 16: Creative Spotlight ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Creative Spotlight'], [
                     'name' => 'Creative Spotlight',
                     'status' => true,
                     'template_url' => '/images/template/creative-spotlight.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Poppins', 'Helvetica', sans-serif; } </style>
-                </head>
-                <body class="bg-white">
+                                    <style> body { font-family: 'Poppins', 'Helvetica', sans-serif; } </style>
+                <div class="bg-white">
                     <div class="max-w-4xl mx-auto my-10 p-5 relative">
                         <!-- Background decorative elements -->
                         <div class="absolute top-0 right-0 -mt-10 -mr-10 w-32 h-32 bg-yellow-300 rounded-full opacity-50"></div>
@@ -1424,26 +1288,18 @@ class TemplateSeeder extends Seeder
                             </main>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 17: Academic CV ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Academic CV'], [
                     'name' => 'Academic CV',
                     'status' => true,
                     'template_url' => '/images/template/academic-cv.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Cambria', 'Georgia', serif; } </style>
-                </head>
-                <body class="bg-white text-gray-900">
+                                    <style> body { font-family: 'Cambria', 'Georgia', serif; } </style>
+                <div class="bg-white text-gray-900">
                     <div class="max-w-4xl mx-auto p-10">
                         <header class="text-center mb-8">
                             <h1 class="text-3xl font-semibold">{{ contact.full_name }}</h1>
@@ -1488,8 +1344,7 @@ class TemplateSeeder extends Seeder
                             </p>
                         </section>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
@@ -1497,25 +1352,17 @@ class TemplateSeeder extends Seeder
 
                         // --- Template 18: Retro Pop ---
                         // A fun, 80s-inspired theme with neon colors and a circular photo.
-                        Template::create([
+                        Template::updateOrCreate(['name' => 'Retro Pop'], [
                             'name' => 'Retro Pop',
                             'status' => true,
                             'template_url' =>'/images/template/Retro-Pop.png', 
                             'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-                    <style>
+                                    <style>
                         body { font-family: 'Montserrat', sans-serif; }
                         .pixel-font { font-family: 'Press Start 2P', cursive; }
                         .text-shadow { text-shadow: 2px 2px #ec4899; }
                     </style>
-                </head>
-                <body class="bg-gray-900 text-white">
+                <div class="bg-gray-900 text-white">
                     <div class="max-w-4xl mx-auto p-4">
                         <div class="border-4 border-cyan-400 p-6 bg-gray-800 relative">
                             <!-- Header with Photo -->
@@ -1575,26 +1422,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                         ]);
 
                 // --- Template 19: Simple Sidebar ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Simple Sidebar'], [
                     'name' => 'Simple Sidebar',
                     'status' => true,
                     'template_url' => '/images/template/simple-sidebar.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Lato', 'Arial', sans-serif; } </style>
-                </head>
-                <body class="bg-gray-100">
+                                    <style> body { font-family: 'Lato', 'Arial', sans-serif; } </style>
+                <div class="bg-gray-100">
                     <div class="max-w-4xl mx-auto my-10 grid grid-cols-12 bg-white shadow-lg">
                         <!-- Left Sidebar -->
                         <div class="col-span-4 bg-gray-50 p-8">
@@ -1653,26 +1492,18 @@ class TemplateSeeder extends Seeder
                             </section>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 20: Bold Headlines ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Bold Headlines'], [
                     'name' => 'Bold Headlines',
                     'status' => true,
                     'template_url' => '/images/template/bold-headlines.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Helvetica Neue', 'Arial', sans-serif; } </style>
-                </head>
-                <body class="bg-white text-gray-800">
+                                    <style> body { font-family: 'Helvetica Neue', 'Arial', sans-serif; } </style>
+                <div class="bg-white text-gray-800">
                     <div class="max-w-4xl mx-auto p-10">
                         <header class="mb-12">
                             <h1 class="text-6xl font-extrabold tracking-tighter">{{ contact.full_name }}</h1>
@@ -1716,26 +1547,18 @@ class TemplateSeeder extends Seeder
                             </section>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 21: The Minimalist Grid ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'The Minimalist Grid'], [
                     'name' => 'The Minimalist Grid',
                     'status' => true,
                     'template_url' => '/images/template/minimalist-grid.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Inter', 'system-ui', sans-serif; } </style>
-                </head>
-                <body class="bg-white text-gray-800">
+                                    <style> body { font-family: 'Inter', 'system-ui', sans-serif; } </style>
+                <div class="bg-white text-gray-800">
                     <div class="max-w-4xl mx-auto p-12">
                         <header class="grid grid-cols-12 gap-8 mb-12">
                             <div class="col-span-8">
@@ -1795,26 +1618,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </main>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 22: The Timeline ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'The Timeline'], [
                     'name' => 'The Timeline',
                     'status' => true,
                     'template_url' => '/images/template/the-timeline.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Lato', 'Arial', sans-serif; } </style>
-                </head>
-                <body class="bg-gray-50">
+                                    <style> body { font-family: 'Lato', 'Arial', sans-serif; } </style>
+                <div class="bg-gray-50">
                     <div class="max-w-4xl mx-auto p-10 bg-white my-10 shadow-xl">
                         <header class="text-center mb-10">
                             <div class="w-24 h-24 rounded-full bg-gray-300 mx-auto mb-4 bg-cover bg-center" style="background-image: url('{{ contact.photo_path }}')"></div>
@@ -1862,26 +1677,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </main>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 23: The Journalist ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'The Journalist'], [
                     'name' => 'The Journalist',
                     'status' => true,
                     'template_url' => '/images/template/the-journalist.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Merriweather', 'Georgia', serif; } </style>
-                </head>
-                <body class="bg-white text-gray-800">
+                                    <style> body { font-family: 'Merriweather', 'Georgia', serif; } </style>
+                <div class="bg-white text-gray-800">
                     <div class="max-w-4xl mx-auto p-10">
                         <header class="text-center pb-6 border-b-4 border-double border-gray-800 mb-8">
                             <h1 class="text-4xl font-extrabold">{{ contact.full_name }}</h1>
@@ -1936,26 +1743,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </main>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 24: Gradient Splash ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'Gradient Splash'], [
                     'name' => 'Gradient Splash',
                     'status' => true,
                     'template_url' => '/images/template/gradient-splash.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Poppins', 'system-ui', sans-serif; } </style>
-                </head>
-                <body class="bg-gray-100">
+                                    <style> body { font-family: 'Poppins', 'system-ui', sans-serif; } </style>
+                <div class="bg-gray-100">
                     <div class="max-w-4xl mx-auto my-10 bg-white rounded-lg shadow-xl overflow-hidden">
                         <header class="bg-gradient-to-br from-cyan-500 to-blue-600 p-10 relative text-white">
                             <div class="relative z-10">
@@ -2015,26 +1814,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </main>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 25: The Centered Classic ---
-                Template::create([
+                Template::updateOrCreate(['name' => 'The Centered Classic'], [
                     'name' => 'The Centered Classic',
                     'status' => true,
                     'template_url' => '/images/template/centered-classic.png',
                     'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Cormorant Garamond', 'Times New Roman', serif; } </style>
-                </head>
-                <body class="bg-white text-gray-800">
+                                    <style> body { font-family: 'Cormorant Garamond', 'Times New Roman', serif; } </style>
+                <div class="bg-white text-gray-800">
                     <div class="max-w-4xl mx-auto p-16">
                         <header class="text-center mb-10">
                             <h1 class="text-5xl font-bold tracking-wider">{{ contact.full_name }}</h1>
@@ -2082,26 +1873,18 @@ class TemplateSeeder extends Seeder
                             </p>
                         </section>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                 ]);
 
                 // --- Template 26: Classic Professional ---
-                        Template::create([
+                        Template::updateOrCreate(['name' => 'Classic Professional'], [
                             'name' => 'Classic Professional',
                             'status' => true,
                             'template_url' => '/images/template/classic.png',
                             'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Times New Roman', serif; } </style>
-                </head>
-                <body class="bg-white text-gray-800">
+                                    <style> body { font-family: 'Times New Roman', serif; } </style>
+                <div class="bg-white text-gray-800">
                     <div class="max-w-4xl mx-auto p-8">
                         <header class="text-center border-b-2 border-gray-800 pb-4 mb-6">
                             <h1 class="text-4xl font-bold tracking-widest">{{ contact.full_name }}</h1>
@@ -2151,26 +1934,18 @@ class TemplateSeeder extends Seeder
                             </div>
                         </section>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                         ]);
 
                         // --- Template 27: Modern Minimalist ---
-                    Template::create([
+                    Template::updateOrCreate(['name' => 'Modern Minimalist'], [
                             'name' => 'Modern Minimalist',
                             'status' => true,
                             'template_url' => '/images/template/modern.png',
                             'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Helvetica', 'Arial', sans-serif; } </style>
-                </head>
-                <body class="bg-gray-50 text-gray-700">
+                                    <style> body { font-family: 'Helvetica', 'Arial', sans-serif; } </style>
+                <div class="bg-gray-50 text-gray-700">
                     <div class="max-w-4xl mx-auto p-10">
                         <div class="grid grid-cols-12 gap-10">
                             <div class="col-span-4 text-center">
@@ -2220,27 +1995,19 @@ class TemplateSeeder extends Seeder
                             </div>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                         ]);
 
                         // --- Template 28
                         // : Creative Column ---
-                        Template::create([
+                        Template::updateOrCreate(['name' => 'Creative Column'], [
                             'name' => 'Creative Column',
                             'status' => true,
                             'template_url' => '/images/template/creative.png',
                             'template_html' => <<<'HTML'
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <script src="https://cdn.tailwindcss.com"></script>
-                    <style> body { font-family: 'Montserrat', sans-serif; } </style>
-                </head>
-                <body class="bg-white">
+                                    <style> body { font-family: 'Montserrat', sans-serif; } </style>
+                <div class="bg-white">
                     <div class="flex min-h-screen">
                         <div class="w-1/3 bg-gray-800 text-white p-8">
                             <div class="text-center">
@@ -2288,8 +2055,7 @@ class TemplateSeeder extends Seeder
                             </section>
                         </div>
                     </div>
-                </body>
-                </html>
+                </div>
                 HTML
                         ]);
                     

@@ -480,35 +480,44 @@ public function processDownload(Request $request, Resume $resume, ResumeRenderin
                 
                 $filename = Str::slug($resume->name) . '.' . $format;
                 
-                try {
-                    $browsershot = Browsershot::html($fullHtml)
-                        ->setOption('args', ['--no-sandbox', '--disable-setuid-sandbox'])
-                        ->setOption('viewport', ['width' => 1280, 'height' => 1600]);
+try {
+        $browsershot = Browsershot::html($fullHtml)
+            ->setNodeBinary('C:\Program Files\nodejs\node.exe')
+            ->setNpmBinary('C:\Program Files\nodejs\npm.cmd')
+            ->setNodeModulePath(base_path('node_modules'))
+            ->setOption('args', ['--no-sandbox', '--disable-setuid-sandbox'])
+            ->windowSize(1280, 1810)
+            ->emulateMedia('screen')
+            ->showBackground();
 
-                    if ($format === 'pdf') {
-                        $fileContent = $browsershot->format('A4')->pdf();
-                    } else {
-                        $fileContent = $browsershot->fullPage()->screenshot();
-                    }
+        if ($format === 'pdf') {
+            $fileContent = $browsershot
+                ->margins(0, 0, 0, 0)
+                ->format('A4')
+                ->pdf();
+        } else {
+            $fileContent = $browsershot->fullPage()->screenshot();
+        }
 
-                    return response($fileContent)
-                        ->header('Content-Type', $format === 'pdf' ? 'application/pdf' : 'image/png')
-                        ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                } catch (\Exception $e) {
-                    \Log::warning('Browsershot failed, falling back to DOMPDF: ' . $e->getMessage());
+        return response($fileContent)
+            ->header('Content-Type', $format === 'pdf' ? 'application/pdf' : 'image/png')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
 
-                    if ($format === 'pdf') {
-                        $pdf = Pdf::loadHTML($fullHtml)
-                            ->setPaper('A4')
-                            ->setOption('isRemoteEnabled', true);
+    } catch (\Exception $e) {
+        \Log::warning('Browsershot failed, falling back to DOMPDF: ' . $e->getMessage());
 
-                        return response($pdf->output())
-                            ->header('Content-Type', 'application/pdf')
-                            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
-                    }
+        if ($format === 'pdf') {
+            $pdf = Pdf::loadHTML($fullHtml)
+                ->setPaper('A4')
+                ->setOption('isRemoteEnabled', true);
 
-                    return redirect()->back()->with('error', 'PNG generation is unavailable in this environment.');
-                }
+            return response($pdf->output())
+                ->header('Content-Type', 'application/pdf')
+                ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+        }
+
+        return redirect()->back()->with('error', 'PNG generation is unavailable in this environment.');
+    }
             }
     /**
      * Redirects the user to the public view of a resume based on a shareable link.
@@ -534,9 +543,15 @@ public function redirectFromLink(Request $request)
 
 
 
-                // 3. Extract the last part of the URL, which is the share token.
+                // 3. Extract the last part of the URL's path, which is the share token.
                 // For example, from "http://.../resumes/public/xxx-yyy-zzz", it gets "xxx-yyy-zzz".
-                $shareToken = basename($fullUrl);
+                // We parse out just the path first (rather than calling basename()
+                // directly on the raw URL) so that links with a trailing slash or a
+                // query string / tracking params (e.g. "...xxx-yyy-zzz?utm_source=x",
+                // common when a link gets shared on social media) still resolve
+                // correctly instead of failing to match any resume.
+                $urlPath = parse_url($fullUrl, PHP_URL_PATH) ?? '';
+                $shareToken = basename(rtrim($urlPath, '/'));
 
 
 
